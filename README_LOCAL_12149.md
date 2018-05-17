@@ -1,4 +1,4 @@
-
+chachacha
 Baby don't hurt me
 Krabas
 # StackDocsJava
@@ -12,13 +12,4 @@ prideta 11 eilute
 JOU KAIP EINAS CHEBRYTE?
 dra
 
-<<<<<<< HEAD
 aaaaaaa kaip turi buti?
-Tu tikrai nesi paskutinis - The Zero Hero
-=======
-GAL PABAIGA??
->>>>>>> origin/feature_LM_02
-=======
-aaaaaaa kaip turi buti? Ka zinau..
-MEDIC!!!
->>>>>>> b139a1f9290c81a22a7d73595a93b74cbe4efb78
