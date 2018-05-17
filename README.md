@@ -12,4 +12,4 @@ prideta 11 eilute
 JOU KAIP EINAS CHEBRYTE?
 dra
 
-aaaaaaa kaip turi buti?
+GAL PABAIGA??
