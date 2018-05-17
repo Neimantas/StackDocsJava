@@ -6,8 +6,9 @@ new line
 =======
 # Pakeista eilute by KV
 
-Prideta paskutine by KV antra karta :)
-Jau nebe paskutine
+Prideta paskutine by KV antra karta :
+
+darrrrrr
 Tu tikrai nesi paskutinis - The Zero Hero
 GAL PABAIGA??
 
