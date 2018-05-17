@@ -11,3 +11,5 @@ Jau nebe paskutine
 prideta 11 eilute
 JOU KAIP EINAS CHEBRYTE?
 dra
+
+Tu tikrai nesi paskutinis - The Zero Hero
