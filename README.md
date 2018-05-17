@@ -1,5 +1,4 @@
 Pirmoji eilute buvo kita! O____O
-chachacha
 Baby don't hurt me
 Krabas
 # StackDocsJava
@@ -9,13 +8,7 @@ new line
 
 Prideta paskutine by KV antra karta :)
 Jau nebe paskutine
-prideta 11 eilute
-JOU KAIP EINAS CHEBRYTE?
-dra
-
-<<<<<<< HEAD
 Tu tikrai nesi paskutinis - The Zero Hero
-=======
 GAL PABAIGA??
 
 Bandomasis merge
