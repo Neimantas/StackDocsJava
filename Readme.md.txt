@@ -24,4 +24,5 @@ antras comitas
 o tai tau stai ir trecias pokytis O_O
 =======
 Kaip sekasi?
->>>>>>> master
+
+Labai didelis pakeitimas
