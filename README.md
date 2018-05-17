@@ -12,4 +12,5 @@ prideta 11 eilute
 JOU KAIP EINAS CHEBRYTE?
 dra
 
-aaaaaaa kaip turi buti? Ka zinai..
+aaaaaaa kaip turi buti? Ka zinau..
+MEDIC!!!
