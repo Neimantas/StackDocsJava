@@ -1,3 +1,4 @@
+Pirmoji eilute buvo kita! O____O
 chachacha
 Baby don't hurt me
 Krabas
@@ -16,4 +17,5 @@ dra
 Tu tikrai nesi paskutinis - The Zero Hero
 =======
 GAL PABAIGA??
->>>>>>> origin/feature_LM_02
+
+Bandomasis merge
