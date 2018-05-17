@@ -17,3 +17,5 @@ abc
 >>>>>>> d8d990eaa75f93fa6d7e9b7537a966d85b9b7a69
 
 Keiciams
+
+Kaip sekasi?
