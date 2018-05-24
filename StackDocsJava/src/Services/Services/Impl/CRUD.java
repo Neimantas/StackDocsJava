@@ -1,4 +1,6 @@
 package Services.Impl;
+
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -10,6 +12,7 @@ import java.util.List;
 import Models.DAL.LanguageTagDAL;
 import Services.ICrud;
 import Services.IDataBase;
+
 
 public class CRUD implements ICrud {
 	private Statement statements;
