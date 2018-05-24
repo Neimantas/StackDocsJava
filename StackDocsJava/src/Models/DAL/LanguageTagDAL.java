@@ -1,4 +1,4 @@
-package dB_CRUD;
+package Models.DAL;
 
 public class LanguageTagDAL {
 	public int languageId;
