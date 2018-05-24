@@ -1,5 +1,4 @@
-package dB_CRUD;
-
+package Services.Impl;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -8,11 +7,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CRUD implements ICrud{
+import DAL.LanguageTagDAL;
+import Services.ICrud;
+
+public class CRUD implements ICrud {
 	private Statement statements;
 	private ResultSet readResultSet;
-	public CRUD() {
-		
+	public CRUD() 
+	{
 		Connection conn = null;
         try {
             // db parameters
@@ -74,6 +76,11 @@ public class CRUD implements ICrud{
 		
 	}
 	public void deleteDB() {
+		
+	}
+
+	public void Return1() {
+		// TODO Auto-generated method stub
 		
 	}
 

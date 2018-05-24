@@ -1,4 +1,4 @@
-package dB_CRUD;
+package DAL;
 
 public class ExamplesDAL {
 	private int exampleId;
