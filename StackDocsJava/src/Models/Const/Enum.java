@@ -1,4 +1,5 @@
-package Const;
+package Models.Const;
+
 
 public class Enum {
 

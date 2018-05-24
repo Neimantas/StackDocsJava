@@ -1,4 +1,5 @@
-package DTO;
+package Models.DTO;
+
 
 public class TestDTO {
 

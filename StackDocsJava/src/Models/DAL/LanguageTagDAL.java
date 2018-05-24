@@ -1,4 +1,4 @@
-package DAL;
+package Models.DAL;
 
 public class LanguageTagDAL {
 	public int languageId;
