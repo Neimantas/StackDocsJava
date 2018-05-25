@@ -3,7 +3,9 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import Services.IHigherService;
 import Services.Impl.CRUD;
+import Services.Impl.HigherServiceImpl;
 
 public class CRUD_Main {
 
@@ -12,7 +14,9 @@ public class CRUD_Main {
 		CRUD crud = new CRUD();
 			System.out.println(crud.read("LanguageTags"));
 
+		IHigherService serv = new HigherServiceImpl();
 		
+		System.out.println(serv.readLanguageTag("Bla").size());
 		
 		
 	}

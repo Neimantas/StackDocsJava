@@ -1,48 +1,71 @@
 package Services.Impl;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import Models.DAL.LanguageTagDAL;
+import Services.ICrud;
 import Services.IHigherService;
 
 public class HigherServiceImpl implements IHigherService {
 	
-	public List readLanguageDB() { //ideti i parametrus ir sukonfiginti kintamuosius: String language, String title
-		String readQuerry = "SELECT LanguageId, Tag, Title, HelloWorldTopicid FROM LanguageTags;";
-		List<LanguageTagDAL> languageList = new ArrayList();
+//	public List readLanguageDB() { //ideti i parametrus ir sukonfiginti kintamuosius: String language, String title
+//		String readQuerry = "SELECT LanguageId, Tag, Title, HelloWorldTopicid FROM LanguageTags;";
+//		List<LanguageTagDAL> languageList = new ArrayList();
+//		try {
+//			readResultSet = statements.executeQuery(readQuerry);
+//			
+//			while(readResultSet.next()) {
+//				//ideti i objekta ir sukrauti i Lista (irgi dar reikia sukurti)
+//				
+//		
+//			}
+//			
+//			
+//		} catch (SQLException e) {
+//
+//			// Sukurti tuscia objekta, siusti atgal
+//			e.printStackTrace();
+//		}
+//		
+//		return languageList;
+//	
+//	}
+//	public void readTitleDB(int titleID) {
+//		
+//	}
+	public List<Object> readLanguageTag(String languageId) {
+		
+		ICrud crud = new CRUD();
+		
+		ResultSet resultSet = crud.read("LanguageTags");
+		
+		List<Object> languageList = new ArrayList<Object>();
 		try {
-			readResultSet = statements.executeQuery(readQuerry);
 			
-			while(readResultSet.next()) {
-				//ideti i objekta ir sukrauti i Lista (irgi dar reikia sukurti)
+			while(resultSet.next()) {
 				LanguageTagDAL languageTag = new LanguageTagDAL();
-				languageTag.languageId = readResultSet.getInt("LanguageId");
-				languageTag.tag = readResultSet.getInt("Tag");
-				languageTag.title = readResultSet.getString("Title");
-				languageTag.helloWorldTopicId = readResultSet.getInt("HelloWorldTopicid");
+				languageTag.languageId = resultSet.getInt("LanguageId");
+				languageTag.tag = resultSet.getInt("Tag");
+				languageTag.title = resultSet.getString("Title");
+				languageTag.helloWorldTopicId = resultSet.getInt("HelloWorldTopicid");
 				
 				languageList.add(languageTag);
-		
 			}
 			
+			return languageList;
 			
 		} catch (SQLException e) {
-
-			// Sukurti tuscia objekta, siusti atgal
-			e.printStackTrace();
+			
+			String error = e.getMessage();
+			List<Object> retE = new ArrayList<Object>();
+			retE.add(error);
+			return retE;
+			
 		}
 		
-		return languageList;
-	
-	}
-	public void readTitleDB(int titleID) {
-		
-	}
-	public List<Object> readLanguageTag(String languageId) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	public List<Object> readTopics(String topicId) {
 		// TODO Auto-generated method stub
