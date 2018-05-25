@@ -1,6 +1,5 @@
 package Services.Impl;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -13,17 +12,16 @@ import Models.DAL.LanguageTagDAL;
 import Services.ICrud;
 import Services.IDataBase;
 
-
 public class CRUD implements ICrud {
 	private Statement statements;
 	private ResultSet readResultSet;
 	private Connection conn;
-	
+
 	public CRUD() {
-		
-		 IDataBase db = new DataBaseImpl();
-		 conn = db.connect();
-		 try {
+
+		IDataBase db = new DataBaseImpl();
+		conn = db.connect();
+		try {
 			statements = conn.createStatement();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -31,47 +29,53 @@ public class CRUD implements ICrud {
 		}
 	}
 
-	public void createDB(){
-		
-	}	
-	
-	//CRUD
-	//READ
-	
-	public ResultSet create(String tableName) {
-		
-		return readResultSet;
-	}
-	
-	public ResultSet read(String tableName) {
-		
-		
-		
-		//mano db. = "Select * from " + table name
-		//read while read lialiala
-		String readQuerry = "SELECT * FROM " + tableName +";";
+	public void create(String tableName) {
+		String readQuerry = "CREATE TABLE " + tableName + ";";
 
 		try {
 			readResultSet = statements.executeQuery(readQuerry);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
-		
-		// List<Object> dbList = new ArrayList<Object>();
+
+	}
+
+	public ResultSet read(String tableName) {
+
+		String readQuerry = "SELECT * FROM " + tableName + ";";
+
+		try {
+			readResultSet = statements.executeQuery(readQuerry);
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+
 		return readResultSet;
 	}
 
-	public ResultSet update(String tableName) {
-		// TODO Auto-generated method stub
-		return readResultSet;
+	public void update(String originalTableName, String renamedTableName) {
+//		String readQuerry = "ALTER TABLE " + originalTableName + " RENAME " + renamedTableName + ";";
+//
+//		try {
+//			readResultSet = statements.executeQuery(readQuerry);
+//		} catch (SQLException e) {
+//
+//			e.printStackTrace();
+//		}
 	}
 
-	public ResultSet delete(String tableName) {
-		// TODO Auto-generated method stub
-		return readResultSet;
+	public void delete(String tableName) {
+//		String readQuerry = "DROP TABLE " + tableName + ";";
+//
+//		try {
+//			statements.executeQuery(readQuerry);
+//		} catch (SQLException e) {
+//			
+//			e.printStackTrace();
+//		}
+
 	}
 
-
-	
 }

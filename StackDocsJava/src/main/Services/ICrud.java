@@ -5,9 +5,9 @@ import java.util.List;
 
 public interface ICrud {
 	
-	ResultSet create(String tableName);
+	void create(String tableName);
 	ResultSet read(String tableName);
-	ResultSet update(String tableName);
-	ResultSet delete(String tableName);
+	void update(String tableName, String renamedTableName);
+	void delete(String tableName);
 
 }
