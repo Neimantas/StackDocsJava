@@ -28,47 +28,31 @@ public class CRUD implements ICrud {
 	public void createDB(){
 		
 	}	
-	public List readLanguageDB() { //ideti i parametrus ir sukonfiginti kintamuosius: String language, String title
-		String readQuerry = "SELECT LanguageId, Tag, Title, HelloWorldTopicid FROM LanguageTags;";
-		List<LanguageTagDAL> languageList = new ArrayList();
-		try {
-			readResultSet = statements.executeQuery(readQuerry);
-			
-			while(readResultSet.next()) {
-				//ideti i objekta ir sukrauti i Lista (irgi dar reikia sukurti)
-				LanguageTagDAL languageTag = new LanguageTagDAL();
-				languageTag.languageId = readResultSet.getInt("LanguageId");
-				languageTag.tag = readResultSet.getInt("Tag");
-				languageTag.title = readResultSet.getString("Title");
-				languageTag.helloWorldTopicId = readResultSet.getInt("HelloWorldTopicid");
-				
-				languageList.add(languageTag);
-		
-			}
-			
-			
-		} catch (SQLException e) {
-
-			// Sukurti tuscia objekta, siusti atgal
-			e.printStackTrace();
-		}
-		
-		return languageList;
 	
-	}
-	public void readTitleDB(int titleID) {
+	//CRUD
+	//READ
+	
+	public List<Object> create(String tableName) {
 		
+		return new ArrayList<Object>();
 	}
-	public void updateDB() {
-		
-	}
-	public void deleteDB() {
-		
+	
+	public List<Object> read(String tableName) {
+		// TODO Auto-generated method stub
+		//mano db. = "Select * from " + table name
+		//read while read lialiala
+		List<Object> dbList = new ArrayList<Object>();
+		return dbList;
 	}
 
-	public void Return1() {
+	public List<Object> update(String tableName) {
 		// TODO Auto-generated method stub
-		
+		return null;
+	}
+
+	public List<Object> delete(String tableName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
