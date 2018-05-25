@@ -17,7 +17,7 @@ public class CRUD_Main {
 		IHigherService serv = new HigherServiceImpl();
 		
 		System.out.println(serv.readLanguageTag("Bla").size());
-		
+		System.out.println(serv.readTopics("").size());
 		
 	}
 

@@ -1,9 +1,9 @@
 package Models.DAL;
 
 public class ExamplesDAL {
-	private int exampleId;
-	private int topicId;
-	private String title;
-	private String bodyHtml;
+	public int exampleId;
+	public int topicId;
+	public String title;
+	public String bodyHtml;
 
 }

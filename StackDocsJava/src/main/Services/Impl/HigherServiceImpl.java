@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Models.DAL.LanguageTagDAL;
+import Models.DAL.TopicsDAL;
 import Services.ICrud;
 import Services.IHigherService;
 
@@ -50,7 +51,7 @@ public class HigherServiceImpl implements IHigherService {
 				languageTag.languageId = resultSet.getInt("LanguageId");
 				languageTag.tag = resultSet.getInt("Tag");
 				languageTag.title = resultSet.getString("Title");
-				languageTag.helloWorldTopicId = resultSet.getInt("HelloWorldTopicid");
+				languageTag.helloWorldTopicId = resultSet.getByte("HelloWorldTopicid");
 				
 				languageList.add(languageTag);
 			}
@@ -68,8 +69,40 @@ public class HigherServiceImpl implements IHigherService {
 		
 	}
 	public List<Object> readTopics(String topicId) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		ICrud crud = new CRUD();
+		
+		ResultSet resultSet = crud.read("Topics");
+		
+		List<Object> topics = new ArrayList<Object>();
+		
+		try {
+			while(resultSet.next()) {
+				
+				TopicsDAL topicsDal = new TopicsDAL();
+				
+				topicsDal.topicId = resultSet.getInt("TopicId");
+				topicsDal.languageId = resultSet.getInt("LanguageId");
+				topicsDal.title = resultSet.getString("Title");
+				topicsDal.isHelloWorldTopic = resultSet.getByte("IsHelloWorldTopic");
+				topicsDal.syntaxHtml = resultSet.getString("SyntaxHtml");
+				topicsDal.parametersHtml = resultSet.getString("ParametersHtml");
+				topicsDal.remarksHtml = resultSet.getString("RemarksHtml");
+				
+				topics.add(topicsDal);
+				
+			}
+			
+			return topics;
+		} catch (SQLException e) {
+			
+			String m = e.getMessage();
+			List<Object> ret = new ArrayList<Object>();
+			ret.add(m);
+			return ret;
+			
+		}
+		
 	}
 	public List<Object> readExamples(String exampleId) {
 		// TODO Auto-generated method stub
