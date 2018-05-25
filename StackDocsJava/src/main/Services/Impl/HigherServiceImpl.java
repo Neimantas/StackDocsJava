@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Models.DAL.ExamplesDAL;
 import Models.DAL.LanguageTagDAL;
 import Models.DAL.TopicsDAL;
 import Services.ICrud;
@@ -105,8 +106,35 @@ public class HigherServiceImpl implements IHigherService {
 		
 	}
 	public List<Object> readExamples(String exampleId) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		ICrud crud = new CRUD();
+		
+		ResultSet resultSet = crud.read("Examples");
+		
+		List<Object> examples = new ArrayList<Object>();
+		
+		try {
+			while(resultSet.next()) {
+				
+				ExamplesDAL example = new ExamplesDAL();
+				example.exampleId = resultSet.getInt("ExampleId");
+				example.topicId = resultSet.getInt("TopicId");
+				example.title = resultSet.getString("Title");
+				example.bodyHtml = resultSet.getString("BodyHtml");
+				
+				examples.add(example);
+			}
+			
+			return examples;
+		} catch (SQLException e) {
+			
+			
+			String m = e.getMessage();
+			System.out.println(m);
+			List<Object> ret = new ArrayList<Object>();
+			ret.add(m);
+			return ret;
+		}
 	}
 
 }

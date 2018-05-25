@@ -18,6 +18,7 @@ public class CRUD_Main {
 		
 		System.out.println(serv.readLanguageTag("Bla").size());
 		System.out.println(serv.readTopics("").size());
+		System.out.println(serv.readExamples("").size());
 		
 	}
 
