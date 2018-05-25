@@ -23,6 +23,12 @@ public class CRUD implements ICrud {
 		
 		 IDataBase db = new DataBaseImpl();
 		 conn = db.connect();
+		 try {
+			statements = conn.createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void createDB(){
@@ -32,27 +38,38 @@ public class CRUD implements ICrud {
 	//CRUD
 	//READ
 	
-	public List<Object> create(String tableName) {
+	public ResultSet create(String tableName) {
 		
-		return new ArrayList<Object>();
+		return readResultSet;
 	}
 	
-	public List<Object> read(String tableName) {
-		// TODO Auto-generated method stub
+	public ResultSet read(String tableName) {
+		
+		
+		
 		//mano db. = "Select * from " + table name
 		//read while read lialiala
-		List<Object> dbList = new ArrayList<Object>();
-		return dbList;
+		String readQuerry = "SELECT * FROM " + tableName +";";
+
+		try {
+			readResultSet = statements.executeQuery(readQuerry);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// List<Object> dbList = new ArrayList<Object>();
+		return readResultSet;
 	}
 
-	public List<Object> update(String tableName) {
+	public ResultSet update(String tableName) {
 		// TODO Auto-generated method stub
-		return null;
+		return readResultSet;
 	}
 
-	public List<Object> delete(String tableName) {
+	public ResultSet delete(String tableName) {
 		// TODO Auto-generated method stub
-		return null;
+		return readResultSet;
 	}
 
 

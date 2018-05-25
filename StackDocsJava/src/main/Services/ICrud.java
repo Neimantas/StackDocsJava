@@ -1,12 +1,13 @@
 package Services;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 public interface ICrud {
 	
-	List<Object> create(String tableName);
-	List<Object> read(String tableName);
-	List<Object> update(String tableName);
-	List<Object> delete(String tableName);
+	ResultSet create(String tableName);
+	ResultSet read(String tableName);
+	ResultSet update(String tableName);
+	ResultSet delete(String tableName);
 
 }
