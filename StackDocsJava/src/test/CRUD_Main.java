@@ -3,25 +3,22 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import Services.IHigherService;
 import Services.Impl.CRUD;
+import Services.Impl.HigherServiceImpl;
 
 public class CRUD_Main {
 
 	public static void main(String[] args) {
 		
 		CRUD crud = new CRUD();
-				
-//		List<LanguageTagDAL> listas = new ArrayList();
-//		
-//		//check if i getting List with info.
-//		listas = crud.readLanguageDB();
-//		LanguageTagDAL langObj = new LanguageTagDAL();
-//		for (int i = 0; i < listas.size(); i++) {
-//			System.out.println(
-//					langObj.languageId + "; " + langObj.tag + "; " + langObj.title + "; " + langObj.helloWorldTopicId);
-//		}
+			System.out.println(crud.read("LanguageTags"));
+
+		IHigherService serv = new HigherServiceImpl();
 		
-		
+		System.out.println(serv.readLanguageTag("Bla").size());
+		System.out.println(serv.readTopics("").size());
+		System.out.println(serv.readExamples("").size());
 		
 	}
 

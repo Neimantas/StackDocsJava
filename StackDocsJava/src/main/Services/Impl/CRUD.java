@@ -1,6 +1,5 @@
 package Services.Impl;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -13,64 +12,70 @@ import Models.DAL.LanguageTagDAL;
 import Services.ICrud;
 import Services.IDataBase;
 
-
 public class CRUD implements ICrud {
 	private Statement statements;
 	private ResultSet readResultSet;
 	private Connection conn;
-	
+
 	public CRUD() {
-		
-		 IDataBase db = new DataBaseImpl();
-		 conn = db.connect();
-	}
 
-	public void createDB(){
-		
-	}	
-	public List readLanguageDB() { //ideti i parametrus ir sukonfiginti kintamuosius: String language, String title
-		String readQuerry = "SELECT LanguageId, Tag, Title, HelloWorldTopicid FROM LanguageTags;";
-		List<LanguageTagDAL> languageList = new ArrayList();
+		IDataBase db = new DataBaseImpl();
+		conn = db.connect();
 		try {
-			readResultSet = statements.executeQuery(readQuerry);
-			
-			while(readResultSet.next()) {
-				//ideti i objekta ir sukrauti i Lista (irgi dar reikia sukurti)
-				LanguageTagDAL languageTag = new LanguageTagDAL();
-				languageTag.languageId = readResultSet.getInt("LanguageId");
-				languageTag.tag = readResultSet.getInt("Tag");
-				languageTag.title = readResultSet.getString("Title");
-				languageTag.helloWorldTopicId = readResultSet.getInt("HelloWorldTopicid");
-				
-				languageList.add(languageTag);
-		
-			}
-			
-			
+			statements = conn.createStatement();
 		} catch (SQLException e) {
-
-			// Sukurti tuscia objekta, siusti atgal
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		return languageList;
-	
-	}
-	public void readTitleDB(int titleID) {
-		
-	}
-	public void updateDB() {
-		
-	}
-	public void deleteDB() {
-		
 	}
 
-	public void Return1() {
-		// TODO Auto-generated method stub
-		
+	public void create(String tableName) {
+		String readQuerry = "CREATE TABLE " + tableName + ";";
+
+		try {
+			readResultSet = statements.executeQuery(readQuerry);
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+
 	}
 
+	public ResultSet read(String tableName) {
 
-	
+		String readQuerry = "SELECT * FROM " + tableName + ";";
+
+		try {
+			readResultSet = statements.executeQuery(readQuerry);
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+
+		return readResultSet;
+	}
+
+	public void update(String originalTableName, String renamedTableName) {
+//		String readQuerry = "ALTER TABLE " + originalTableName + " RENAME " + renamedTableName + ";";
+//
+//		try {
+//			readResultSet = statements.executeQuery(readQuerry);
+//		} catch (SQLException e) {
+//
+//			e.printStackTrace();
+//		}
+	}
+
+	public void delete(String tableName) {
+//		String readQuerry = "DROP TABLE " + tableName + ";";
+//
+//		try {
+//			statements.executeQuery(readQuerry);
+//		} catch (SQLException e) {
+//			
+//			e.printStackTrace();
+//		}
+
+	}
+
 }

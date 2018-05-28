@@ -1,13 +1,13 @@
 package Models.DAL;
 
 public class TopicsDAL {
-	private int topicId;
-	private int languageId;
-	private String title;
-	private byte isHelloWorldTopic;
-	private String introductionHtml;
-	private String syntaxHtml;
-	private String parametersHtml;
-	private String remarksHtml;
+	public int topicId;
+	public int languageId;
+	public String title;
+	public byte isHelloWorldTopic;
+	public String introductionHtml;
+	public String syntaxHtml;
+	public String parametersHtml;
+	public String remarksHtml;
 	
 }
