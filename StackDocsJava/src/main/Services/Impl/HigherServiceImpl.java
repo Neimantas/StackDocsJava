@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import Models.DAL.ExamplesDAL;
 import Models.DAL.LanguageTagDAL;
@@ -136,5 +137,29 @@ public class HigherServiceImpl implements IHigherService {
 			return ret;
 		}
 	}
+	public List<Object> getTopicsByLanguageId(int languageId) {
+		
+		List<Object> topics = readTopics("");
+		//check if readTopics method ended with errors
+		if(topics.size() == 1 && topics.get(0) instanceof String)
+			return topics;
+		
+		List<Object> ret = topics.stream().filter(e -> ((TopicsDAL)e).languageId == languageId).collect(Collectors.toList());
+		
+		return ret;
+	}
+	
+	@Override
+	public List<Object> getExamplesByTopicId(int topicId) {
+		
+		List<Object> examples = readExamples("");
+		//check if readTopics method ended with errors
+		if(examples.size() == 1 && examples.get(0) instanceof String)
+			return examples;
+		
+		List<Object> ret = examples.stream().filter(e -> ((ExamplesDAL)e).topicId == topicId).collect(Collectors.toList());
+		return ret;
+	}
+	
 
 }
