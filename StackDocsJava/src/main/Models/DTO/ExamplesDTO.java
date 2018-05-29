@@ -2,19 +2,20 @@ package Models.DTO;
 
 import java.util.List;
 
-import Models.DAL.TopicsDAL;
+import Models.DAL.ExamplesDAL;
 
-public class TopicsDTO {
+
+public class ExamplesDTO {
 	
 	private boolean _Success;
 	private String _Message;
-	private List<TopicsDAL> _Topics;
+	private List<ExamplesDAL> _Examples;
 	
-	public TopicsDTO() { }
+	public ExamplesDTO() { }
 	
-	public TopicsDTO(boolean success, List<TopicsDAL> dal, String message) {
+	public ExamplesDTO(boolean success, List<ExamplesDAL> dal, String message) {
 		_Success = success;
-		_Topics = dal;
+		_Examples = dal;
 		_Message = message;
 		
 	}
@@ -35,12 +36,12 @@ public class TopicsDTO {
 		_Message = message;
 	}
 
-	public List<TopicsDAL> getTopics() {
-		return _Topics;
+	public List<ExamplesDAL> getExamples() {
+		return _Examples;
 	}
 
-	public void setTopics(List<TopicsDAL> topics) {
-		_Topics = topics;
+	public void setExamples(List<ExamplesDAL> topics) {
+		_Examples = topics;
 	}
-	
+
 }
