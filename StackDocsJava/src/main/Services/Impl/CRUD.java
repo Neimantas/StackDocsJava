@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import Models.DTO.ReadTableDTO;
 import Services.ICrud;
 import Services.IDataBase;
 
@@ -32,7 +34,7 @@ public class CRUD implements ICrud {
 			fullValuesString.concat(",");
 		}
 
-		fullValuesString.equals(fullValuesString.substring(0, fullValuesString.length() - 1));
+		fullValuesString = fullValuesString.substring(0, fullValuesString.length() - 1);
 
 		String readQuerry = "INSERT INTO " + tableName + "(" + fullValuesString + ");";
 
@@ -45,18 +47,22 @@ public class CRUD implements ICrud {
 
 	}
 
-	public ResultSet read(String tableName) {
+	public ReadTableDTO read(String tableName) {
 
 		String readQuerry = "SELECT * FROM " + tableName + ";";
-
+			ReadTableDTO readTableDTO = new ReadTableDTO();
 		try {
-			readResultSet = statements.executeQuery(readQuerry);
+			
+			readTableDTO.setReadResultSet(statements.executeQuery(readQuerry));
+			readTableDTO.setSuccess(true);
 		} catch (SQLException e) {
 
-			e.printStackTrace();
+			readTableDTO.setSuccess(false);
+			readTableDTO.setMessage(e.getMessage());
+			return readTableDTO;
 		}
 
-		return readResultSet;
+		return readTableDTO;
 	}
 
 	public void update(String tableName, String changeValueOfColum, String changeValueTO, String conditionColumName,
