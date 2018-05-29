@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import Models.CrudUpdate;
 import Models.DTO.ReadTableDTO;
 import Services.ICrud;
 import Services.IDataBase;
@@ -65,12 +66,18 @@ public class CRUD implements ICrud {
 		return readTableDTO;
 	}
 
-	public void update(String tableName, String changeValueOfColum, String changeValueTO, String conditionColumName,
-			String conditionChangeWhereValueIsEqual) {
+	//public void update(String tableName, Dictiionry<key, value> params)
+	//foreach in dictionary
+	//column = key, o jo value = value
+	public void update(CrudUpdate params) {
+		String readQuerry = "UPDATE " + params.tableName + " SET " + params.changeValueOfColum + "='" 
+		+ params.changeValueTO;
 
-		String readQuerry = "UPDATE " + tableName + " SET " + changeValueOfColum + "='" + changeValueTO + "' WHERE"
-				+ conditionColumName + "='" + conditionChangeWhereValueIsEqual + "';";
-
+		if(params.whereUsed) {
+			readQuerry += "' WHERE"
+					+ params.conditionColumName + "='" + params.conditionChangeWhereValueIsEqual + "';";
+		}
+		
 		try {
 			readResultSet = statements.executeQuery(readQuerry);
 		} catch (SQLException e) {
