@@ -1,5 +1,8 @@
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +40,11 @@ public class IndexServlet extends HttpServlet {
 		} else {
 			
 		}
+		//  <Mock>
+		List<String> topicList = new ArrayList<String>() {{add("One"); add("Two"); add("Three");}} ;
+		//  </Mock>
+		
+		request.setAttribute("topicList", topicList);
 		request.getRequestDispatcher("index.jsp").forward(request, response);	
 
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
