@@ -3,15 +3,10 @@
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
 import Models.DAL.ExamplesDAL;
 import Models.DAL.TopicsDAL;
 import Models.DTO.ExamplesDTO;
 import Models.DTO.TopicsDTO;
-=======
-import Models.CrudUpdate;
-import Models.DTO.UpdateTableDTO;
->>>>>>> F2_2
 import Services.IHigherService;
 import Services.Impl.CRUD;
 import Services.Impl.HigherServiceImpl;
@@ -21,25 +16,10 @@ public class CRUD_Main {
 	public static void main(String[] args) {
 		
 		CRUD crud = new CRUD();
-//			System.out.println(crud.read("LanguageTags"));
-//
-//		IHigherService serv = new HigherServiceImpl();
-//		
-//		System.out.println(serv.readLanguageTag("Bla").size());
-//		System.out.println(serv.readTopics("").size());
-//		System.out.println(serv.readExamples("").size());
-		
-		
-		UpdateTableDTO updDTO = new UpdateTableDTO();
-		CrudUpdate params = new CrudUpdate();
+			System.out.println(crud.read("LanguageTags"));
 
-		params.conditionColumName = "a";
+		IHigherService serv = new HigherServiceImpl();
 		
-		updDTO = crud.update(params);
-		
-		
-		
-<<<<<<< HEAD
 //		System.out.println(serv.readLanguageTag("Bla").size());
 //		System.out.println(serv.readTopics("").size());
 //		System.out.println(serv.readExamples("").size());

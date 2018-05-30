@@ -59,6 +59,8 @@ public class CRUD_Main {
 //			ExamplesDAL t = (ExamplesDAL) serv.getExamplesByTopicId(1).get(i);
 //			System.out.println(t.title);
 //		}
+=======
+>>>>>>> F2_2
 		
 	}
 
