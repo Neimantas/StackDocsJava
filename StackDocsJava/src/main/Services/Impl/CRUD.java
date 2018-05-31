@@ -7,6 +7,7 @@ import java.sql.Statement;
 
 import Models.CrudUpdate;
 import Models.DTO.CreateTableDTO;
+import Models.DTO.DeleteTableDTO;
 import Models.DTO.ReadTableDTO;
 import Models.DTO.UpdateTableDTO;
 import Services.ICrud;
@@ -91,24 +92,32 @@ public class CRUD implements ICrud {
 		try {
 			readResultSet = statements.executeQuery(readQuerry);
 			updateTableDTO.setSuccess(true);
-			return updateTableDTO;
+			
 		} catch (SQLException e) {
 
 			updateTableDTO.setSuccess(false);
 			updateTableDTO.setMessage(e.getMessage());
 			return updateTableDTO;
 		}
+		return updateTableDTO;
 	}
 
-	public void delete(String tableName, String conditionColum, String conditionValue) {
+	public DeleteTableDTO delete(String tableName, String conditionColum, String conditionValue) {
+		
+		DeleteTableDTO deleteTableDTO = new DeleteTableDTO();
 		String readQuerry = "DELETE FROM " + tableName + " WHERE " + conditionColum + "='" + conditionValue + "';";
 
 		try {
 			statements.executeQuery(readQuerry);
+			deleteTableDTO.setSuccess(true);
+			
 		} catch (SQLException e) {
 
-			e.printStackTrace();
+			deleteTableDTO.setSuccess(false);
+			deleteTableDTO.setMessage(e.getMessage());
+			return deleteTableDTO;
 		}
+		return deleteTableDTO;
 
 	}
 

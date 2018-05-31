@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 
 import Models.CrudUpdate;
 import Models.DTO.CreateTableDTO;
+import Models.DTO.DeleteTableDTO;
 import Models.DTO.ReadTableDTO;
 import Models.DTO.UpdateTableDTO;
 
@@ -15,6 +16,6 @@ public interface ICrud {
 
 	UpdateTableDTO update(CrudUpdate params);
 
-	void delete(String tableName, String conditionColum, String conditionValue);
+	DeleteTableDTO delete(String tableName, String conditionColum, String conditionValue);
 
 }
