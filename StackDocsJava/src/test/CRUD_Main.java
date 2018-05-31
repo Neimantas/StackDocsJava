@@ -22,13 +22,15 @@ public class CRUD_Main {
 //		System.out.println(serv.readTopics("").size());
 //		System.out.println(serv.readExamples("").size());
 		
+//####################################################	
+//		UpdateTableDTO updDTO = new UpdateTableDTO();
+//		CrudUpdate params = new CrudUpdate();
+//
+//		params.conditionColumName = "a";
+//		
+//		updDTO = crud.update(params);
+//####################################################
 		
-		UpdateTableDTO updDTO = new UpdateTableDTO();
-		CrudUpdate params = new CrudUpdate();
-
-		params.conditionColumName = "a";
-		
-		updDTO = crud.update(params);
 		
 		
 		
