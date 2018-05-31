@@ -67,23 +67,18 @@ public class CRUD implements ICrud {
 		return readTableDTO;
 	}
 
-	//public void update(String tableName, Dictiionry<key, value> params)
-	//foreach in dictionary
-	//column = key, o jo value = value
+
 	public UpdateTableDTO update(CrudUpdate params) {
 		String readQuerry = "UPDATE " + params.tableName + " SET " + params.changeValueOfColum + "='" 
 		+ params.changeValueTO;
 
-System.out.print("ar whereused veikia: "); // Tik Testui skirta
-		params.setWhereUsed();
-		if(params.isWhereUsed()) {
-System.out.print(params.isWhereUsed()); // Tik testui skirta.
+
+		if(params.getIsWhereUsed()) {
+
 			readQuerry += "' WHERE"
 					+ params.conditionColumName + "='" + params.conditionChangeWhereValueIsEqual + "';";
 		}
-		else
-System.out.print(params.isWhereUsed()); // Tik testui skirta.
-		
+	
 		
 		UpdateTableDTO updateTableDTO = new UpdateTableDTO();
 		

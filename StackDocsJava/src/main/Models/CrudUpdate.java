@@ -8,10 +8,6 @@ public class CrudUpdate {
 	public String conditionChangeWhereValueIsEqual;
 	public boolean whereUsed;
 	
-//	public CrudUpdate(){
-//		setWhereUsed();
-//	}
-
 	public String getTableName() {
 		return tableName;
 	}
@@ -52,17 +48,19 @@ public class CrudUpdate {
 		this.conditionChangeWhereValueIsEqual = conditionChangeWhereValueIsEqual;
 	}
 
-	public boolean isWhereUsed() {
-		return whereUsed;
-	}
-
-	public void setWhereUsed() {
+	public boolean getIsWhereUsed() {
+		
 		 if(conditionColumName == null || conditionColumName.isEmpty()) {
-		 whereUsed = false;
+		 return false;
 		 }
 		 else {
-		 whereUsed = true;
+		 return true;
 		 }
+		
+	}
+
+	public void setWhereUsed(boolean whereUsed) {
+		this.whereUsed = whereUsed;
 	
 	}
 
