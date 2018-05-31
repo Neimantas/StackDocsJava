@@ -45,7 +45,8 @@ public class IndexServlet extends HttpServlet {
 		//  </Mock>
 		
 		request.setAttribute("topicList", topicList);
-		request.getRequestDispatcher("index.jsp").forward(request, response);	
+		request.getRequestDispatcher("index.jsp").forward(request, response);
+		
 
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 //		response.getWriter().append("Served at: ").append(request.getContextPath());

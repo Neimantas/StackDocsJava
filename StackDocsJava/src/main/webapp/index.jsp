@@ -15,6 +15,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
 	integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
 	crossorigin="anonymous">
+			<script type="text/javascript" src="resources/js/myScripts.jsp"></script>
 </head>
 
 <body>
@@ -38,7 +39,7 @@
 							aria-describedby="basic-addon2">
 						<div class="input-group-append">
 							<button class="btn btn-outline-secondary" type="submit"
-								onclick="searchTopic()">Submit</button>
+								onclick="searchTopic();">Submit</button>
 						</div>
 					</div>
 				</div>
@@ -49,11 +50,14 @@
 				<div class="row p-2">
 					<div class="col">
 						<select class="custom-select" size="10" id="title">
-						<%--
+							
 							<c:forEach items="${topicList}" var="topic">
 								<option value="1">${topic}</option>
 							</c:forEach>
-														<option value="1">Title #1</option>
+							<c:forEach var="i" begin="1" end="5">
+  							 <option value="${i}">${i}</option>
+							</c:forEach>
+						<%--														<option value="1">Title #1</option>
 							<option value="2">Title #2</option>
 							<option value="3">Title #3</option>
 							<option value="4">Title #4</option>
@@ -106,7 +110,7 @@
 		</div>
 	</div>
 
-	<script src="resources/js/myScripts.js"></script>
+
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous"></script>
