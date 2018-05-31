@@ -3,12 +3,13 @@ package Services;
 import java.sql.ResultSet;
 
 import Models.CrudUpdate;
+import Models.DTO.CreateTableDTO;
 import Models.DTO.ReadTableDTO;
 import Models.DTO.UpdateTableDTO;
 
 public interface ICrud {
 
-	void create(String tableName, String[] values);
+	CreateTableDTO create(String tableName, String[] values);
 
 	ReadTableDTO read(String tableName);
 

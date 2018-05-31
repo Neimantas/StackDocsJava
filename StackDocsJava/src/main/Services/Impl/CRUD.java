@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import Models.CrudUpdate;
+import Models.DTO.CreateTableDTO;
 import Models.DTO.ReadTableDTO;
 import Models.DTO.UpdateTableDTO;
 import Services.ICrud;
@@ -28,8 +29,8 @@ public class CRUD implements ICrud {
 		}
 	}
 
-	public void create(String tableName, String[] values) {
-
+	public CreateTableDTO create(String tableName, String[] values) {
+		CreateTableDTO createTableDTO = new CreateTableDTO();
 		String fullValuesString = "";
 		for (int i = 0; i < values.length; i++) {
 			fullValuesString.concat(values[i]);
@@ -42,10 +43,15 @@ public class CRUD implements ICrud {
 
 		try {
 			readResultSet = statements.executeQuery(readQuerry);
+			
+			createTableDTO.setSuccess(true);
 		} catch (SQLException e) {
-
-			e.printStackTrace();
+			
+			createTableDTO.setSuccess(false);
+			createTableDTO.setMessage(e.getMessage());
+			return createTableDTO;
 		}
+		return createTableDTO;
 
 	}
 
