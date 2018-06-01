@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry excluding="java/" kind="src" path="src/test"/>
-	<classpathentry excluding="java/|resources/" kind="src" path="src/main"/>
+	<classpathentry kind="src" path="src/main/webapp"/>
+	<classpathentry excluding="java/|resources/|webapp/" kind="src" path="src/main"/>
 	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
