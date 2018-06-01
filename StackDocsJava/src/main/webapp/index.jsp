@@ -1,6 +1,8 @@
+
 <%@page import="org.omg.CORBA.Request"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
@@ -13,41 +15,49 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
 	integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
 	crossorigin="anonymous">
+			<script type="text/javascript" src="resources/js/myScripts.jsp"></script>
 </head>
 
 <body>
 	<div class="container pt-5">
 		<div>
 
-				<div class="form-row p-2">
-					<div class="col">
-						<select class="custom-select mr-sm-2"
-							id="language">
-							<option selected value="0">Choose...</option>
-							<option value="1">Java</option>
-							<option value="2">Javascript</option>
-							<option value="3">C#</option>
-							<option value="4">.Net</option>
-						</select>
-					</div>
-					<div class="col-8">
-						<div class="input-group">
-							<input type="text" class="form-control" id="topic"
-								placeholder="Search topic..." aria-label="Recipient's username"
-								aria-describedby="basic-addon2">
-							<div class="input-group-append">
-								<button class="btn btn-outline-secondary" type="submit" onclick="searchTopic()">Submit</button>
-							</div>
+			<div class="form-row p-2">
+				<div class="col">
+					<select class="custom-select mr-sm-2" id="language">
+						<option selected value="0">Choose...</option>
+						<option value="3">.Net</option>
+						<option value="4">C#</option>
+						<option value="5">Java</option>
+						<option value="8">Javascript</option>
+					</select>
+				</div>
+				<div class="col-8">
+					<div class="input-group">
+						<input type="text" class="form-control" id="topic"
+							placeholder="Search topic..." aria-label="Recipient's username"
+							aria-describedby="basic-addon2">
+						<div class="input-group-append">
+							<button class="btn btn-outline-secondary" type="submit"
+								onclick="searchTopic();">Submit</button>
 						</div>
 					</div>
-
 				</div>
 
-				<form>
+			</div>
+
+			<form>
 				<div class="row p-2">
 					<div class="col">
 						<select class="custom-select" size="10" id="title">
-<%--							<option value="1">Title #1</option>
+							
+							<c:forEach items="${topicList}" var="topic">
+								<option value="1">${topic}</option>
+							</c:forEach>
+							<c:forEach var="i" begin="1" end="5">
+  							 <option value="${i}">${i}</option>
+							</c:forEach>
+						<%--														<option value="1">Title #1</option>
 							<option value="2">Title #2</option>
 							<option value="3">Title #3</option>
 							<option value="4">Title #4</option>
@@ -86,9 +96,9 @@
 										dolores consequatur modi, pariatur aliquam nulla! Tenetur,
 										voluptatum!</div>
 									<div class="modal-footer">
-									<button type="button" class="btn btn-outline-dark"
+										<button type="button" class="btn btn-outline-dark"
 											data-dismiss="modal">Previous page</button>
-									<button type="button" class="btn btn-outline-dark"
+										<button type="button" class="btn btn-outline-dark"
 											data-dismiss="modal">Next page</button>
 									</div>
 								</div>
@@ -100,7 +110,7 @@
 		</div>
 	</div>
 
-	<script src="js/myScripts.js"></script>
+
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous"></script>
