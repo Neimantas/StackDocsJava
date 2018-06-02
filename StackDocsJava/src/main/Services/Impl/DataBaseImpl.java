@@ -15,15 +15,15 @@ public class DataBaseImpl implements IDataBase {
 		
         try {
             // db parameters
-            String url = "jdbc:sqlite:src/main/resources/stack.db";
-            
+            String url = "jdbc:sqlite:resources/stack.db";
+            Class.forName("org.sqlite.JDBC").newInstance();
             // create a connection to the database
             conn = DriverManager.getConnection(url);
             
             System.out.println("Connection to SQLite has been established.");
             return conn;
             
-        } catch (SQLException e) {
+        } catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
             System.out.println(e.getMessage());
         } 
 		

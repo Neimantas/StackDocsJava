@@ -6,14 +6,6 @@
 
   <display-name>Archetype Created Web Application</display-name>
 
-  <servlet>
-  	<display-name>IndexServlet</display-name>
-  	<servlet-name>IndexServlet</servlet-name>
-  	<servlet-class>IndexServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>IndexServlet</servlet-name>
-    <url-pattern>/</url-pattern>
-  </servlet-mapping>
+  
  
 </web-app>

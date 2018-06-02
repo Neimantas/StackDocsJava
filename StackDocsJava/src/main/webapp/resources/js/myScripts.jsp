@@ -4,6 +4,6 @@ function searchTopic() {
 	if(topic == "") {
 		topic = "0";
 	}
-	url="IndexServlet?language=" + language + "&topic=" + topic;
+	url="main?language=" + language + "&topic=" + topic;
 	location.href=url;
 }
