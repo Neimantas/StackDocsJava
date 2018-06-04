@@ -1,4 +1,4 @@
-package Models;
+package Services.Impl;
 
 
 import java.io.IOException;
@@ -12,19 +12,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Models.Language;
-import Models.DAL.TopicsDAL;
-import Models.DTO.TopicsDTO;
 import Models.DTO.TopicsFrontDTO;
 import Services.IFrontService;
-import Services.Impl.FrontServiceImp;
-import Services.Impl.HigherServiceImpl;
+import Models.Topic;
 
 /**
  * Servlet implementation class IndexServlet
  */
 
-@WebServlet(urlPatterns = "/main")
+//@WebServlet(urlPatterns = "/main")
 public class IndexServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

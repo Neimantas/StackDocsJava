@@ -1,5 +1,6 @@
 package Services.Impl;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -15,7 +16,7 @@ public class DataBaseImpl implements IDataBase {
 		
         try {
             // db parameters
-            String url = "jdbc:sqlite:resources/stack.db";
+            String url = "jdbc:sqlite:stackDocsJava/StackDocsJava/src/main/resources/stack.db";
             Class.forName("org.sqlite.JDBC").newInstance();
             // create a connection to the database
             conn = DriverManager.getConnection(url);

@@ -6,6 +6,14 @@
 
   <display-name>Archetype Created Web Application</display-name>
 
-  
+  <servlet>
+  	<servlet-name>Index</servlet-name>
+    <servlet-class>Services.Impl.IndexServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+  	<servlet-name>Index</servlet-name>
+    <url-pattern>/main</url-pattern>
+  </servlet-mapping>
  
 </web-app>
