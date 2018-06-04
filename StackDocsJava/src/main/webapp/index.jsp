@@ -50,23 +50,11 @@
 				<div class="row p-2">
 					<div class="col">
 						<select class="custom-select" size="10" id="title">
-							
+
 							<c:forEach items="${topicList}" var="topic">
 								<option value="1">${topic}</option>
 							</c:forEach>
-							<c:forEach var="i" begin="1" end="5">
-  							 <option value="${i}">${i}</option>
-							</c:forEach>
-						<%--														<option value="1">Title #1</option>
-							<option value="2">Title #2</option>
-							<option value="3">Title #3</option>
-							<option value="4">Title #4</option>
-							<option value="5">Title #5</option>
-							<option value="6">Title #6</option>
-							<option value="7">Title #7</option>
-							<option value="8">Title #8</option>
-							<option value="9">Title #9</option>
-							<option value="10">Title #10</option> --%>
+
 						</select>
 					</div>
 				</div>
