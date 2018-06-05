@@ -6,4 +6,15 @@ function searchTopic() {
 	}
 	url="main?language=" + language + "&topic=" + topic;
 	location.href=url;
+	
+}
+function readTitle() {
+	
+	var topicDoc = document.getElementById("title");
+	var topic = topicDoc.options[topicDoc.selectedIndex];
+	
+	url="read?topic="+topic.value;
+	location.href=url;
+	
+	
 }

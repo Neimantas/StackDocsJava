@@ -50,60 +50,17 @@
 				<div class="row p-2">
 					<div class="col">
 						<select class="custom-select" size="10" id="title">
-							
-							<c:forEach items="${topicList}" var="topic">
-								<option value="1">${topic}</option>
+
+							<c:forEach items="${topicMap}" var="topic">
+								<option value="${topic.key}">${topic.value}</option>
 							</c:forEach>
-							<c:forEach var="i" begin="1" end="5">
-  							 <option value="${i}">${i}</option>
-							</c:forEach>
-						<%--														<option value="1">Title #1</option>
-							<option value="2">Title #2</option>
-							<option value="3">Title #3</option>
-							<option value="4">Title #4</option>
-							<option value="5">Title #5</option>
-							<option value="6">Title #6</option>
-							<option value="7">Title #7</option>
-							<option value="8">Title #8</option>
-							<option value="9">Title #9</option>
-							<option value="10">Title #10</option> --%>
 						</select>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row p-2">
 					<div class="col">
 						<button type="button" class="btn btn-outline-dark float-right"
-							data-toggle="modal" data-target="#exampleModalCenter"
-							onclick="changeTitle()">Open</button>
-						<div class="modal fade" id="exampleModalCenter" tabindex="-1"
-							role="dialog" aria-labelledby="exampleModalCenterTitle"
-							aria-hidden="true">
-							<div class="modal-dialog modal-dialog" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalCenterTitle">Title</h5>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-									<div class="modal-body">Lorem ipsum dolor sit amet,
-										consectetur adipisicing elit. Sapiente numquam explicabo
-										magnam quod inventore quia? Voluptates et facilis magni,
-										placeat dolor quisquam blanditiis repellat necessitatibus?
-										Corporis ducimus id quibusdam minus cum nemo labore earum
-										repellendus maxime fugit officiis, magni illo debitis minima
-										dolores consequatur modi, pariatur aliquam nulla! Tenetur,
-										voluptatum!</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-outline-dark"
-											data-dismiss="modal">Previous page</button>
-										<button type="button" class="btn btn-outline-dark"
-											data-dismiss="modal">Next page</button>
-									</div>
-								</div>
-							</div>
-						</div>
+							onClick="readTitle()")>Open</button>
 					</div>
 				</div>
 			</form>
