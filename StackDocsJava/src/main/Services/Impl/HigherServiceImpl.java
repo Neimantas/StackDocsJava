@@ -151,6 +151,40 @@ public class HigherServiceImpl implements IHigherService {
 //		List<Object> ret = examples.stream().filter(e -> ((ExamplesDAL)e).topicId == topicId).collect(Collectors.toList());
 		return new ExamplesDTO(false, null, examplesDTO.getMessage());
 	}
+	@Override
+	public LanguageTagDTO getAllLanguages() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public TopicsDTO getAllTopics() {
+		
+		return readTopics();
+	}
+	@Override
+	public TopicsDTO getTopicInfoByTopicId(int topicId) {
+		
+		TopicsDTO topicsDTO = readTopics();
+		
+		if(topicsDTO.isSuccess()) {
+			
+			List<TopicsDAL> ret = topicsDTO.getTopics().stream()
+					.filter(e -> e.topicId == topicId).collect(Collectors.toList());
+			
+			return new TopicsDTO(true, ret, "success");
+		}
+		
+//		List<Object> ret = topics.stream().filter(e -> ((TopicsDAL)e).languageId == languageId).collect(Collectors.toList());
+		
+		return new TopicsDTO(false, null, topicsDTO.getMessage());
+		
+		
+	}
+	@Override
+	public ExamplesDTO getExampleByExampleId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }
