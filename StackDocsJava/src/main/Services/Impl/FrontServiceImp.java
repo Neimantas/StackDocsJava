@@ -45,13 +45,13 @@ public class FrontServiceImp implements IFrontService {
 		HigherServiceImpl hService = new HigherServiceImpl();
 		TopicsDTO tDTO = hService.getTopicsByLanguageId(languageId);
 		String topicWord2 = topicWord.toLowerCase();
-
+//		System.out.println(tDTO.getTopics().size());
 		if (tDTO.isSuccess()) {
 			List<TopicsDAL> topicsListas = tDTO.getTopics();
 			if (topicsListas.size() == 0) {
 				return new TopicsFrontDTO(false, "Nerastas topic", null);
 			} else {
-				if (topicWord != "") {
+				if (topicWord2 != "") {
 					List<Topic> topicsFront = new ArrayList<Topic>();
 					for (TopicsDAL t : topicsListas) {
 						Topic topic = new Topic();
@@ -62,14 +62,16 @@ public class FrontServiceImp implements IFrontService {
 						if (textCheck.contains(topicWord2)) {
 							topicsFront.add(topic);
 						}
-						return new TopicsFrontDTO(true, "success", topicsFront);
+						
 					}
+					return new TopicsFrontDTO(true, "success", topicsFront);
 				} else {
 					List<Topic> topicsFront = new ArrayList<Topic>();
 					for (TopicsDAL t : topicsListas) {
 						Topic topic = new Topic();
 						topic.set_TopicId(t.topicId);
 						topic.set_LanguageId(t.languageId);
+						topic.set_TopicTitle(t.title);
 						topicsFront.add(topic);
 					}
 					return new TopicsFrontDTO(true, "success", topicsFront);
@@ -78,4 +80,4 @@ public class FrontServiceImp implements IFrontService {
 		}
 		return new TopicsFrontDTO(false, tDTO.getMessage(), null);
 	}
-
+}
