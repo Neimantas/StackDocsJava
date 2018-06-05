@@ -6,21 +6,22 @@ import Models.Topic;
 import Models.DAL.TopicsDAL;
 import Models.DTO.TopicsDTO;
 import Models.DTO.TopicsFrontDTO;
+import Models.DTO.TopicsInfoFrontDTO;
 import Services.IFrontService;
 
 public class FrontServiceImp implements IFrontService {
 
 	@Override
-	public TopicsFrontDTO getTopicsByLanguageId(int languageId) {
+	public TopicsInfoFrontDTO getTopicInfoByTopicId(int topicId) {
 		HigherServiceImpl hService = new HigherServiceImpl();
-		TopicsDTO tDTO = hService.getTopicsByLanguageId(languageId);
+		TopicsDTO tInfoDTO = hService.getTopicInfoByTopicId(topicId);
 
-		if (tDTO.isSuccess()) {
-			List<TopicsDAL> topicsListas = tDTO.getTopics();
+		if (tInfoDTO.isSuccess()) {
+			List<TopicsDAL> topicsListas = tInfoDTO.getTopics();
 			if (topicsListas.size() == 0) {
-				return new TopicsFrontDTO(false, "Nerastas topic", null);
+				return new TopicsInfoFrontDTO(false, "Tuscias topic", null);
 			} else {
-				List<Topic> topicsFront = new ArrayList<Topic>();
+				List<Topic> topicsInfoFront = new ArrayList<Topic>();
 				for (TopicsDAL t : topicsListas) {
 					Topic topic = new Topic();
 					topic.set_TopicId(t.topicId);
@@ -31,12 +32,50 @@ public class FrontServiceImp implements IFrontService {
 					topic.set_ParametersHtml(t.parametersHtml);
 					topic.set_RemarksHtml(t.remarksHtml);
 
-					topicsFront.add(topic);
+					topicsInfoFront.add(topic);
 				}
-				return new TopicsFrontDTO(true, "success", topicsFront);
+				return new TopicsInfoFrontDTO(true, "success", topicsInfoFront);
+			}
+		}
+		return new TopicsInfoFrontDTO(false, tInfoDTO.getMessage(), null);
+	}
+
+	@Override
+	public TopicsFrontDTO getTopicsByLanguageId(int languageId, String topicWord) {
+		HigherServiceImpl hService = new HigherServiceImpl();
+		TopicsDTO tDTO = hService.getTopicsByLanguageId(languageId);
+		String topicWord2 = topicWord.toLowerCase();
+
+		if (tDTO.isSuccess()) {
+			List<TopicsDAL> topicsListas = tDTO.getTopics();
+			if (topicsListas.size() == 0) {
+				return new TopicsFrontDTO(false, "Nerastas topic", null);
+			} else {
+				if (topicWord != "") {
+					List<Topic> topicsFront = new ArrayList<Topic>();
+					for (TopicsDAL t : topicsListas) {
+						Topic topic = new Topic();
+						topic.set_TopicId(t.topicId);
+						topic.set_LanguageId(t.languageId);
+						topic.set_TopicTitle(t.title);
+						String textCheck = t.title.toLowerCase();
+						if (textCheck.contains(topicWord2)) {
+							topicsFront.add(topic);
+						}
+						return new TopicsFrontDTO(true, "success", topicsFront);
+					}
+				} else {
+					List<Topic> topicsFront = new ArrayList<Topic>();
+					for (TopicsDAL t : topicsListas) {
+						Topic topic = new Topic();
+						topic.set_TopicId(t.topicId);
+						topic.set_LanguageId(t.languageId);
+						topicsFront.add(topic);
+					}
+					return new TopicsFrontDTO(true, "success", topicsFront);
+				}
 			}
 		}
 		return new TopicsFrontDTO(false, tDTO.getMessage(), null);
 	}
 
-}
