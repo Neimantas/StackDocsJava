@@ -16,4 +16,14 @@
     <url-pattern>/main</url-pattern>
   </servlet-mapping>
  
+ <servlet>
+  	<servlet-name>Read</servlet-name>
+    <servlet-class>Services.Impl.ReadServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+  	<servlet-name>Read</servlet-name>
+    <url-pattern>/read</url-pattern>
+  </servlet-mapping>
+ 
 </web-app>
