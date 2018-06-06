@@ -27,9 +27,9 @@
 							<h2>${topics}</h2>
 						</li>
 						<li class="list-group-item">
-							<p><%=request.getAttribute("contents")%></p>
-							<p><%=request.getAttribute("contents")%></p>
-							<p><%=request.getAttribute("contents")%></p>
+							<c:forEach items="${contents}" var="topic">
+								${topic}
+							</c:forEach>
 						</li>
 					</ul>
 				</div>
