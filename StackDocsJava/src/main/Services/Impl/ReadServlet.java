@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Models.Topic;
-import Models.DTO.TopicsFrontDTO;
+import Models.DTO.TopicsInfoFrontDTO;
 import Services.IFrontService;
 
 //@WebServlet(urlPatterns = "/ReadServlet")
@@ -26,10 +26,32 @@ public class ReadServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String str = "lorem lorem lorem lorem lorem lorem lorem lorem";
 		String topic = request.getParameter("topic");
-		request.setAttribute("contents", str);
-		request.setAttribute("topics", topic);
+		String str = null;
+
+		IFrontService fs = new FrontServiceImp();
+		TopicsInfoFrontDTO dto = fs.getTopicInfoByTopicId(Integer.parseInt(topic));
+
+		List<String> content = new ArrayList<String>();
+
+		if (dto.is_Succcess()) {
+
+			List<Topic> topics = dto.get_Topics();
+			for (Topic t : topics) {
+				
+				str = t.get_TopicTitle();
+				content.add(t.get_IntroductionHtml());
+				content.add(t.get_SyntaxHtml());
+				content.add(t.get_ParametersHtml());
+				content.add(t.get_RemarksHtml());
+			}
+
+		} else {
+			content.add(dto.get_Message());
+		}
+		
+		request.setAttribute("topics", str);
+		request.setAttribute("contents", content);
 
 		request.getRequestDispatcher("read.jsp").forward(request, response);
 	}
