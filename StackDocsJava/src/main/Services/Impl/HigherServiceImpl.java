@@ -153,8 +153,8 @@ public class HigherServiceImpl implements IHigherService {
 	}
 	@Override
 	public LanguageTagDTO getAllLanguages() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return readLanguageTag();
 	}
 	@Override
 	public TopicsDTO getAllTopics() {
@@ -181,9 +181,18 @@ public class HigherServiceImpl implements IHigherService {
 		
 	}
 	@Override
-	public ExamplesDTO getExampleByExampleId() {
-		// TODO Auto-generated method stub
-		return null;
+	public ExamplesDTO getExampleByExampleId(int exampleId) {
+		
+		ExamplesDTO examplesDTO = readExamples();
+		if(examplesDTO.isSuccess()) {
+			List<ExamplesDAL> ret = examplesDTO.getExamples().stream()
+					.filter(e -> e.exampleId == exampleId).collect(Collectors.toList());
+			return new ExamplesDTO(true, ret, "success");
+		}
+			
+		
+		return new ExamplesDTO(false, null, examplesDTO.getMessage());
+		
 	}
 	
 

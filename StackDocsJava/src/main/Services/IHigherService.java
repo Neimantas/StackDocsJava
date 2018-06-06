@@ -15,6 +15,6 @@ public interface IHigherService {
 	TopicsDTO getAllTopics();
 	TopicsDTO getTopicsByLanguageId(int languageId);
 	TopicsDTO getTopicInfoByTopicId(int topicId);
-	ExamplesDTO getExampleByExampleId();
+	ExamplesDTO getExampleByExampleId(int exampleId);
 	ExamplesDTO getExamplesByTopicId(int topicId);
 }
