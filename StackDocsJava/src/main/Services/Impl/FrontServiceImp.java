@@ -27,11 +27,30 @@ public class FrontServiceImp implements IFrontService {
 					topic.set_TopicId(t.topicId);
 					topic.set_LanguageId(t.languageId);
 					topic.set_TopicTitle(t.title);
-					topic.set_IntroductionHtml(t.introductionHtml);
-					topic.set_SyntaxHtml(t.syntaxHtml);
-					topic.set_ParametersHtml(t.parametersHtml);
-					topic.set_RemarksHtml(t.remarksHtml);
-
+					if (!t.introductionHtml.equals("") || !t.introductionHtml.equals(null)) {
+						topic.set_IntroductionHtml(t.introductionHtml);
+					}
+					if (t.introductionHtml.equals("") || t.introductionHtml.equals(null)) {
+						topic.set_IntroductionHtml("<p>No Introduction info</p>");
+					}
+					if (!t.syntaxHtml.equals("")|| !t.syntaxHtml.equals(null)) {
+						topic.set_SyntaxHtml(t.syntaxHtml);
+					}
+					if (t.syntaxHtml.equals("") || t.syntaxHtml.equals(null)) {
+						topic.set_SyntaxHtml("<p>No Syntax info</p>");
+					}
+					if (!t.parametersHtml.equals("") || !t.parametersHtml.equals(null)) {
+						topic.set_ParametersHtml(t.parametersHtml);
+					}
+					if (t.parametersHtml.equals("") || t.parametersHtml.equals(null)) {
+						topic.set_ParametersHtml("<p>No Parameters info</p>");
+					}
+					if (!t.remarksHtml.equals("") || !t.remarksHtml.equals(null)) {
+						topic.set_RemarksHtml(t.remarksHtml);
+					}
+					if (t.remarksHtml.equals("") || t.remarksHtml.equals(null)) {
+						topic.set_RemarksHtml("<p>No Remarks info</p>");
+					}
 					topicsInfoFront.add(topic);
 				}
 				return new TopicsInfoFrontDTO(true, "success", topicsInfoFront);
@@ -43,16 +62,13 @@ public class FrontServiceImp implements IFrontService {
 	@Override
 	public TopicsFrontDTO getTopicsByLanguageId(int languageId, String topicWord) {
 		HigherServiceImpl hService = new HigherServiceImpl();
-		TopicsDTO tDTO = hService.getTopicsByLanguageId(languageId);
-		String topicWord2 = topicWord.toLowerCase();
-//		System.out.println(tDTO.getTopics().size());
-		if (tDTO.isSuccess()) {
-			List<TopicsDAL> topicsListas = tDTO.getTopics();
-			if (topicsListas.size() == 0) {
-				return new TopicsFrontDTO(false, "Nerastas topic", null);
-			} else {
+		if (languageId == 0) {
+			TopicsDTO allTitleDTO = hService.getAllTopics();
+			String topicWord2 = topicWord.toLowerCase();
+			if (allTitleDTO.isSuccess()) {
 				if (topicWord2 != "") {
 					List<Topic> topicsFront = new ArrayList<Topic>();
+					List<TopicsDAL> topicsListas = allTitleDTO.getTopics();
 					for (TopicsDAL t : topicsListas) {
 						Topic topic = new Topic();
 						topic.set_TopicId(t.topicId);
@@ -62,11 +78,12 @@ public class FrontServiceImp implements IFrontService {
 						if (textCheck.contains(topicWord2)) {
 							topicsFront.add(topic);
 						}
-						
+
 					}
 					return new TopicsFrontDTO(true, "success", topicsFront);
 				} else {
 					List<Topic> topicsFront = new ArrayList<Topic>();
+					List<TopicsDAL> topicsListas = allTitleDTO.getTopics();
 					for (TopicsDAL t : topicsListas) {
 						Topic topic = new Topic();
 						topic.set_TopicId(t.topicId);
@@ -76,8 +93,48 @@ public class FrontServiceImp implements IFrontService {
 					}
 					return new TopicsFrontDTO(true, "success", topicsFront);
 				}
+
 			}
 		}
-		return new TopicsFrontDTO(false, tDTO.getMessage(), null);
+
+		else {
+			TopicsDTO tDTO = hService.getTopicsByLanguageId(languageId);
+			String topicWord2 = topicWord.toLowerCase();
+			if (tDTO.isSuccess()) {
+				List<TopicsDAL> topicsListas = tDTO.getTopics();
+				if (topicsListas.size() == 0) {
+					return new TopicsFrontDTO(false, "Nerastas topic", null);
+				} else {
+					if (topicWord2 != "") {
+						List<Topic> topicsFront = new ArrayList<Topic>();
+						for (TopicsDAL t : topicsListas) {
+							Topic topic = new Topic();
+							topic.set_TopicId(t.topicId);
+							topic.set_LanguageId(t.languageId);
+							topic.set_TopicTitle(t.title);
+							String textCheck = t.title.toLowerCase();
+							if (textCheck.contains(topicWord2)) {
+								topicsFront.add(topic);
+							}
+
+						}
+						return new TopicsFrontDTO(true, "success", topicsFront);
+					} else {
+						List<Topic> topicsFront = new ArrayList<Topic>();
+						for (TopicsDAL t : topicsListas) {
+							Topic topic = new Topic();
+							topic.set_TopicId(t.topicId);
+							topic.set_LanguageId(t.languageId);
+							topic.set_TopicTitle(t.title);
+							topicsFront.add(topic);
+						}
+						return new TopicsFrontDTO(true, "success", topicsFront);
+					}
+				}
+			}
+			return new TopicsFrontDTO(false, tDTO.getMessage(), null);
+		}
+		return new TopicsFrontDTO(false, "Stringo FrontService", null);
+
 	}
 }
