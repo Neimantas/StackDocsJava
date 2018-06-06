@@ -4,7 +4,7 @@ function searchTopic() {
 	if(topic == "") {
 		topic = "0";
 	}
-	url="main?language=" + language + "&topic=" + topic;
+	url="main?language=" + language + "&topic=" + topic + "&search=true";
 	location.href=url;
 	
 }

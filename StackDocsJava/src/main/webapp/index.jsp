@@ -15,7 +15,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
 	integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
 	crossorigin="anonymous">
-			<script type="text/javascript" src="resources/js/myScripts.jsp"></script>
+<script type="text/javascript" src="resources/js/myScripts.jsp"></script>
 </head>
 
 <body>
@@ -55,10 +55,48 @@
 								<option value="${topic.key}">${topic.value}</option>
 							</c:forEach>
 						</select>
+
 					</div>
 				</div>
 				<div class="row p-2">
 					<div class="col">
+						<ul class="pagination">
+							<c:if test="${pageNumber>3}">
+								<li class="page-item disabled"><a
+									class="page-link text-dark" href="#" tabindex="-1">First</a></li>
+							</c:if>
+							<c:if test="${pageNumber>2}">
+								<li class="page-item"><a class="page-link text-dark"
+									href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+										<span class="sr-only">Previous</span>
+								</a></li>
+							</c:if>
+							<c:if test="${numberOfPages>2}">
+								<li class="page-item"><a class="page-link text-dark"
+									href="#">${pageNumber==1?pageNumber:(pageNumber==numberOfPages?pageNumber-2:pageNumber-1)}</a></li>
+							</c:if>
+							<c:if test="${numberOfPages>1}">
+								<li class="page-item"><a class="page-link text-dark"
+									href="#">${pageNumber==1?pageNumber+1:(pageNumber==numberOfPages?pageNumber-1:pageNumber)}</a></li>
+							</c:if>
+							<c:if test="${numberOfPages>1}">
+								<li class="page-item"><a class="page-link text-dark"
+									href="#">${pageNumber==1?pageNumber+2:(pageNumber==numberOfPages?pageNumber:pageNumber+1)}</a></li>
+							</c:if>
+							<c:if test="${(numberOfPages>4) && (pageNumber<numberOfPages-2)}">
+								<li class="page-item"><a class="page-link text-dark"
+									href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+										<span class="sr-only text-dark">Next</span>
+								</a></li>
+							</c:if>
+							<c:if test="${(numberOfPages>4) && (pageNumber<numberOfPages-1)}">
+								<li class="page-item"><a class="page-link text-dark"
+									href="#">Last (${numberOfPages})</a></li>
+							</c:if>
+						</ul>
+					</div>
+					<div class="col">
+
 						<button type="button" class="btn btn-outline-dark float-right"
 							onClick="readTitle()")>Open</button>
 					</div>
