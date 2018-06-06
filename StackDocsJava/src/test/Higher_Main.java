@@ -1,3 +1,6 @@
+import Models.DAL.TopicsDAL;
+import Models.DTO.ReadTableDTO;
+import Services.Impl.CRUD;
 import Services.Impl.HigherServiceImpl;
 
 public class Higher_Main {
@@ -10,6 +13,12 @@ public class Higher_Main {
 		System.out.println(hs.getAllTopics().getTopics().size());
 		System.out.println(hs.getExampleByExampleId(5).getExamples().get(0).title);
 		System.out.println(hs.getAllLanguages().getLanguageTag().size());
+		for(TopicsDAL t: hs.getTopicsByLanguageId(5).getTopics()) {
+			System.out.println(t.introductionHtml);
+		}
+//		CRUD cd = new CRUD();
+//		ReadTableDTO rdto = cd.read("Topics WHERE LanguageId = 5 ");
+//		System.out.println(rdto.getReadResultSet());
 	}
 
 }

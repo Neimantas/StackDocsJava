@@ -69,6 +69,7 @@ public class HigherServiceImpl implements IHigherService {
 					topicsDal.languageId = resultSet.getInt("LanguageId");
 					topicsDal.title = resultSet.getString("Title");
 					topicsDal.isHelloWorldTopic = resultSet.getByte("IsHelloWorldTopic");
+					topicsDal.introductionHtml = resultSet.getString("IntroductionHtml");
 					topicsDal.syntaxHtml = resultSet.getString("SyntaxHtml");
 					topicsDal.parametersHtml = resultSet.getString("ParametersHtml");
 					topicsDal.remarksHtml = resultSet.getString("RemarksHtml");
