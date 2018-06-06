@@ -4,10 +4,10 @@ function searchTopic() {
 	if(topic == "") {
 		topic = "0";
 	}
-	url="main?language=" + language + "&topic=" + topic + "&search=true";
+	url="main?search=true&language=" + language + "&topic=" + topic;
 	location.href=url;
-	
 }
+
 function readTitle() {
 	
 	var topicDoc = document.getElementById("title");
@@ -16,5 +16,12 @@ function readTitle() {
 	url="read?topic="+topic.value;
 	location.href=url;
 	
-	
+}
+
+function setPage(page) {
+	if(page != "0") {
+		url="main?change=true&page=" + page;
+		location.href=url;
+	}
+
 }
