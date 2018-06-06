@@ -1,0 +1,5 @@
+.pagination>li.active>a {
+  border-color: black !important;
+  background: #343a40!important;
+  color: white !important;
+}

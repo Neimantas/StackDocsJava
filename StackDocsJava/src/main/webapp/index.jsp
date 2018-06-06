@@ -11,11 +11,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Stack Dock Java</title>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-	integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
-	crossorigin="anonymous">
-			<script type="text/javascript" src="resources/js/myScripts.jsp"></script>
+
+<link rel="stylesheet" href="resources/css/bootstrap-4.1.1.min.css">
+<link rel="stylesheet" href="resources/css/myStyles.css">
+<script type="text/javascript" src="resources/js/myScripts.js"></script>
 </head>
 
 <body>
@@ -25,11 +24,11 @@
 			<div class="form-row p-2">
 				<div class="col">
 					<select class="custom-select mr-sm-2" id="language">
-						<option selected value="0">Choose...</option>
-						<option value="3">.Net</option>
-						<option value="4">C#</option>
-						<option value="5">Java</option>
-						<option value="8">Javascript</option>
+						<option value="0" ${languageId==0?'selected':''}>Choose...</option>
+						<option value="3" ${languageId==3?'selected':''}>.Net</option>
+						<option value="4" ${languageId==4?'selected':''}>C#</option>
+						<option value="5" ${languageId==5?'selected':''}>Java</option>
+						<option value="8" ${languageId==8?'selected':''}>Javascript</option>
 					</select>
 				</div>
 				<div class="col-8">
@@ -55,10 +54,61 @@
 								<option value="${topic.key}">${topic.value}</option>
 							</c:forEach>
 						</select>
+
 					</div>
 				</div>
 				<div class="row p-2">
 					<div class="col">
+						<ul class="pagination">
+							<c:if test="${pageNumber>2}">
+								<li onclick="setPage(1);" class="page-item disabled"><a
+									class="page-link text-dark" href="#" tabindex="-1">1</a></li>
+							</c:if>
+							<c:if test="${pageNumber>3}">
+								<li
+									onclick="setPage(${pageNumber!=numberOfPages?(pageNumber-3>1?pageNumber-3:1):pageNumber-4});"
+									class="page-item"><a class="page-link text-dark" href="#"
+									aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+										<span class="sr-only">Previous</span>
+								</a></li>
+							</c:if>
+							<c:if test="${numberOfPages>2}">
+								<c:set var="pageBtn1"
+									value="${pageNumber==1?pageNumber:(pageNumber==numberOfPages?pageNumber-2:pageNumber-1)}" />
+								<li onclick="setPage(${pageBtn1==pageNumber?0:pageBtn1});"
+									class="page-item ${pageBtn1==pageNumber?'active disabled':''}"><a
+									class="page-link text-dark" href="#">${pageBtn1}</a></li>
+							</c:if>
+							<c:if test="${numberOfPages>1}">
+								<c:set var="pageBtn2"
+									value="${pageNumber==1?pageNumber+1:(pageNumber==numberOfPages?pageNumber-1:pageNumber)}" />
+								<li onclick="setPage(${pageBtn2==pageNumber?0:pageBtn2});"
+									class="page-item ${pageBtn2==pageNumber?'active disabled':''}"><a
+									class="page-link text-dark" href="#">${pageBtn2}</a></li>
+							</c:if>
+							<c:if test="${numberOfPages>1}">
+								<c:set var="pageBtn3"
+									value="${pageNumber==1?pageNumber+2:(pageNumber==numberOfPages?pageNumber:pageNumber+1)}" />
+								<li onclick="setPage(${pageBtn3==pageNumber?0:pageBtn3});"
+									class="page-item ${pageBtn3==pageNumber?'active disabled':''}"><a
+									class="page-link text-dark" href="#">${pageBtn3}</a></li>
+							</c:if>
+							<c:if test="${(numberOfPages>4) && (pageNumber<numberOfPages-2)}">
+								<li
+									onclick="setPage(${pageNumber!=1?(pageNumber+3<numberOfPages?pageNumber+3:numberOfPages):pageNumber+4});"
+									class="page-item"><a class="page-link text-dark" href="#"
+									aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+										<span class="sr-only text-dark">Next</span>
+								</a></li>
+							</c:if>
+							<c:if test="${(numberOfPages>4) && (pageNumber<numberOfPages-1)}">
+								<li onclick="setPage(${numberOfPages});" class="page-item"><a
+									class="page-link text-dark" href="#">${numberOfPages}</a></li>
+							</c:if>
+						</ul>
+					</div>
+					<div class="col">
+
 						<button type="button" class="btn btn-outline-dark float-right"
 							onClick="readTitle()")>Open</button>
 					</div>
@@ -67,18 +117,11 @@
 		</div>
 	</div>
 
-
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
-		integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
-		crossorigin="anonymous"></script>
+	<script type="text/javascript"
+		src="resources/js/jquery-3.3.1.slim.min.js"></script>
+	<script type="text/javascript" src="resources/js/popper.min.js"></script>
+	<script type="text/javascript"
+		src="resources/js/bootstrap-4.1.1.min.js"></script>
 </body>
 
 </html>
