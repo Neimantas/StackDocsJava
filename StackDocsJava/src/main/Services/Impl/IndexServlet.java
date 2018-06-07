@@ -28,6 +28,7 @@ public class IndexServlet extends HttpServlet {
 	 */
 	private IFrontService fs;
 	private TopicsFrontDTO dto;
+	private String topic;
 	private int currentLanguageId;
 	private int pageNumber;
 
@@ -48,14 +49,14 @@ public class IndexServlet extends HttpServlet {
 
 		if (getParamSearch != null) { // jei atliekame paieska
 			String getParamLang = request.getParameter("language");
-			String getParamTopic = request.getParameter("topic");
+			topic = request.getParameter("topic");
 			currentLanguageId = Integer.parseInt(getParamLang);
 
-			if (getParamTopic.equals("0")) {
-				getParamTopic = "";
+			if (topic.equals("0")) {
+				topic = "";
 			}
 			pageNumber = 1;
-			dto = fs.getTopicsByLanguageId(currentLanguageId, getParamTopic);
+			dto = fs.getTopicsByLanguageId(currentLanguageId, topic);
 		}
 
 		if (getParamChange != null) { // jei keiciame puslapi
@@ -80,6 +81,7 @@ public class IndexServlet extends HttpServlet {
 
 			}
 		}
+		request.setAttribute("topic", topic);
 		request.setAttribute("languageId", currentLanguageId);
 		request.setAttribute("pageNumber", pageNumber);
 		request.setAttribute("numberOfPages", countNumberOfPages());
