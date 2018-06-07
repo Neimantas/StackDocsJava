@@ -1,5 +1,6 @@
 package Services.Impl;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,7 +8,11 @@ import Services.ICache;
 
 public class CacheImpl<T> implements ICache<T> {
 	
-	private Map<String, T> objects = new HashMap<>();
+	private Map<String, T> objects = Collections.synchronizedMap(new HashMap<>());
+	private Map<String, Long> expire = Collections.synchronizedMap(new HashMap<>());
+	private long expireTimeDefault = 100; //100 seconds;
+	
+	
 	private static CacheImpl instance = null;
 	
 	//Cannot instantiate Cache usual way. Use getInstance method instead
@@ -17,11 +22,28 @@ public class CacheImpl<T> implements ICache<T> {
 	public void put(String key, T data) {
 		
 		objects.put(key, data);
+		expire.put(key, System.currentTimeMillis() + expireTimeDefault * 1000);
+		
+	}
+	
+	public void put(String key, T data, long timeExpires) {
+		
+		objects.put(key, data);
+		expire.put(key, System.currentTimeMillis() + timeExpires * 1000);
+		
 	}
 
 	@Override
 	public T get(String key) {
 		
+		if(!objects.containsKey(key))
+			return null;
+		
+		if (System.currentTimeMillis() > expire.get(key)) {
+			objects.remove(key);
+			expire.remove(key);
+			return null;
+		}
 		return objects.get(key);
 	}
 

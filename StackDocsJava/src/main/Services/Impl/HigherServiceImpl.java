@@ -13,12 +13,18 @@ import Models.DTO.ExamplesDTO;
 import Models.DTO.LanguageTagDTO;
 import Models.DTO.ReadTableDTO;
 import Models.DTO.TopicsDTO;
+import Services.ICache;
 import Services.ICrud;
 import Services.IHigherService;
 
 public class HigherServiceImpl implements IHigherService {
 	
 	private LanguageTagDTO readLanguageTag() {
+		
+		ICache cache = CacheImpl.getInstance();
+		if (cache.get("LanguageTag") != null) {
+			return (LanguageTagDTO)cache.get("LanguageTag");
+		}
 		
 		ICrud crud = new CRUD();
 		
@@ -37,8 +43,9 @@ public class HigherServiceImpl implements IHigherService {
 					
 					languageList.add(languageTag);
 				}
-				
-				return new LanguageTagDTO(true, languageList, "success");
+				LanguageTagDTO ret = new LanguageTagDTO(true, languageList, "success");
+				cache.put("LanguageTag", ret);
+				return ret;
 				
 				
 			} catch (SQLException e) {
@@ -52,6 +59,11 @@ public class HigherServiceImpl implements IHigherService {
 		
 	}
 	private TopicsDTO readTopics() {
+		
+		ICache cache = CacheImpl.getInstance();
+		if (cache.get("Topics") != null) {
+			return (TopicsDTO)cache.get("Topics");
+		}
 		
 		ICrud crud = new CRUD();
 		
@@ -77,8 +89,9 @@ public class HigherServiceImpl implements IHigherService {
 					topics.add(topicsDal);
 					
 				}
-				
-				return new TopicsDTO(true, topics, "success");
+				TopicsDTO ret = new TopicsDTO(true, topics, "success");
+				cache.put("Topics", ret);
+				return ret;
 				
 			} catch (SQLException e) {
 				
@@ -121,14 +134,14 @@ public class HigherServiceImpl implements IHigherService {
 		return new ExamplesDTO(false, null, readTableDTO.getMessage());
 	}
 	public TopicsDTO getTopicsByLanguageId(int languageId) {
-		
+
 		TopicsDTO topicsDTO = readTopics();
+		
 		//check if readTopics method ended with errors
 		if(topicsDTO.isSuccess()) {
-			
 			List<TopicsDAL> ret = topicsDTO.getTopics().stream()
 					.filter(e -> e.languageId == languageId).collect(Collectors.toList());
-			
+			//add to cache before return
 			return new TopicsDTO(true, ret, "success");
 		}
 		
@@ -159,9 +172,10 @@ public class HigherServiceImpl implements IHigherService {
 	}
 	@Override
 	public TopicsDTO getAllTopics() {
-		
+
 		return readTopics();
 	}
+	
 	@Override
 	public TopicsDTO getTopicInfoByTopicId(int topicId) {
 		
