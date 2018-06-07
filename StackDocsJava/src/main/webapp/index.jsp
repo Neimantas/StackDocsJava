@@ -60,11 +60,11 @@
 				<div class="row p-2">
 					<div class="col">
 						<ul class="pagination">
-							<c:if test="${pageNumber>2}">
+							<c:if test="${numberOfPages>3 && pageNumber>2}">
 								<li onclick="setPage(1);" class="page-item disabled"><a
 									class="page-link text-dark" href="#" tabindex="-1">1</a></li>
 							</c:if>
-							<c:if test="${pageNumber>3}">
+							<c:if test="${pageNumber>3 && numberOfPages!=4}">
 								<li
 									onclick="setPage(${pageNumber!=numberOfPages?(pageNumber-3>1?pageNumber-3:1):pageNumber-4});"
 									class="page-item"><a class="page-link text-dark" href="#"
@@ -72,21 +72,21 @@
 										<span class="sr-only">Previous</span>
 								</a></li>
 							</c:if>
-							<c:if test="${numberOfPages>2}">
+							<c:if test="${numberOfPages>1}">
 								<c:set var="pageBtn1"
-									value="${pageNumber==1?pageNumber:(pageNumber==numberOfPages?pageNumber-2:pageNumber-1)}" />
+									value="${pageNumber==1?pageNumber:(pageNumber==numberOfPages&&numberOfPages!=2?pageNumber-2:pageNumber-1)}" />
 								<li onclick="setPage(${pageBtn1==pageNumber?0:pageBtn1});"
 									class="page-item ${pageBtn1==pageNumber?'active disabled':''}"><a
 									class="page-link text-dark" href="#">${pageBtn1}</a></li>
 							</c:if>
 							<c:if test="${numberOfPages>1}">
 								<c:set var="pageBtn2"
-									value="${pageNumber==1?pageNumber+1:(pageNumber==numberOfPages?pageNumber-1:pageNumber)}" />
+									value="${pageNumber==1?pageNumber+1:(pageNumber==numberOfPages&&numberOfPages!=2?pageNumber-1:pageNumber)}" />
 								<li onclick="setPage(${pageBtn2==pageNumber?0:pageBtn2});"
 									class="page-item ${pageBtn2==pageNumber?'active disabled':''}"><a
 									class="page-link text-dark" href="#">${pageBtn2}</a></li>
 							</c:if>
-							<c:if test="${numberOfPages>1}">
+							<c:if test="${numberOfPages>2}">
 								<c:set var="pageBtn3"
 									value="${pageNumber==1?pageNumber+2:(pageNumber==numberOfPages?pageNumber:pageNumber+1)}" />
 								<li onclick="setPage(${pageBtn3==pageNumber?0:pageBtn3});"
@@ -101,7 +101,7 @@
 										<span class="sr-only text-dark">Next</span>
 								</a></li>
 							</c:if>
-							<c:if test="${(numberOfPages>4) && (pageNumber<numberOfPages-1)}">
+							<c:if test="${(numberOfPages>3) && (pageNumber<numberOfPages-1)}">
 								<li onclick="setPage(${numberOfPages});" class="page-item"><a
 									class="page-link text-dark" href="#">${numberOfPages}</a></li>
 							</c:if>
