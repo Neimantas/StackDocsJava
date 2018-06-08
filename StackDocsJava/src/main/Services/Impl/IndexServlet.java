@@ -73,14 +73,15 @@ public class IndexServlet extends HttpServlet {
 				// Atvaizduojame reikiamo puslapio temas
 				for (int i = (pageNumber - 1) * 10; i < pageNumber * 10 && i < topics.size(); i++) {
 					topicMap.put(topics.get(i).get_TopicId(), topics.get(i).get_TopicTitle());
-					//languageMap.put(topics.get(i).get_TopicId()
-
+					languageMap.put(topics.get(i).get_TopicId(),
+							topics.get(i).get_LanguageTitle() != null ? topics.get(i).get_LanguageTitle() + " | " : "");
 				}
 
 			} else {
 
 				topicMap.put(null, dto.get_Message());
 				languageMap.put(null, null);
+
 			}
 		}
 		request.setAttribute("topic", topic);
@@ -88,6 +89,7 @@ public class IndexServlet extends HttpServlet {
 		request.setAttribute("pageNumber", pageNumber);
 		request.setAttribute("numberOfPages", countNumberOfPages());
 		request.setAttribute("topicMap", topicMap);
+		request.setAttribute("languageMap", languageMap);
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 
 	}
