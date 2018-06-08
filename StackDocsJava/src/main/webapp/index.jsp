@@ -33,9 +33,9 @@
 				</div>
 				<div class="col-8">
 					<div class="input-group">
-						<input type="text" value="${topic!=null?topic:''}" class="form-control" id="topic"
-							placeholder="Search topic..." aria-label="Recipient's username"
-							aria-describedby="basic-addon2">
+						<input type="text" value="${topic!=null?topic:''}"
+							class="form-control" id="topic" placeholder="Search topic..."
+							aria-label="Recipient's username" aria-describedby="basic-addon2">
 						<div class="input-group-append">
 							<button class="btn btn-outline-secondary" type="submit"
 								onclick="searchTopic();">Submit</button>
@@ -51,7 +51,7 @@
 						<select class="custom-select" size="10" id="title">
 
 							<c:forEach items="${topicMap}" var="topic">
-								<option value="${topic.key}">${topic.value}</option>
+								<option value="${topic.key}">${languageMap.get(topic.key)}${topic.value}</option>
 							</c:forEach>
 						</select>
 
