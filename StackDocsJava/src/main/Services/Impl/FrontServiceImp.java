@@ -78,6 +78,10 @@ public class FrontServiceImp implements IFrontService {
 						Topic topic = new Topic();
 						topic.set_TopicId(t.topicId);
 						topic.set_LanguageId(t.languageId);
+						if (hService.getLanguageTagByLanguageId(t.languageId).isSuccess()) {
+							topic.set_LanguageTitle(
+									hService.getLanguageTagByLanguageId(t.languageId).getLanguageTag().get(0).title);
+						}
 						topic.set_TopicTitle(t.title);
 						String textCheck = t.title.toLowerCase();
 						if (textCheck.contains(topicWord2)) {
@@ -93,6 +97,10 @@ public class FrontServiceImp implements IFrontService {
 						Topic topic = new Topic();
 						topic.set_TopicId(t.topicId);
 						topic.set_LanguageId(t.languageId);
+						if (hService.getLanguageTagByLanguageId(t.languageId).isSuccess()) {
+							topic.set_LanguageTitle(
+									hService.getLanguageTagByLanguageId(t.languageId).getLanguageTag().get(0).title);
+						}
 						topic.set_TopicTitle(t.title);
 						topicsFront.add(topic);
 					}
