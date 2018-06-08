@@ -61,7 +61,7 @@
 					<div class="col">
 						<ul class="pagination">
 							<c:if test="${numberOfPages>3 && pageNumber>2}">
-								<li onclick="setPage(1);" class="page-item disabled"><a
+								<li onclick="setPage(1);" class="page-item"><a
 									class="page-link text-dark" href="#" tabindex="-1">1</a></li>
 							</c:if>
 							<c:if test="${pageNumber>3 && numberOfPages!=4}">
