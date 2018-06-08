@@ -2,8 +2,13 @@ package Services.Impl;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import Models.Example;
 import Models.Topic;
+import Models.DAL.ExamplesDAL;
 import Models.DAL.TopicsDAL;
+import Models.DTO.ExamplesDTO;
+import Models.DTO.ExamplesFrontDTO;
 import Models.DTO.TopicsDTO;
 import Models.DTO.TopicsFrontDTO;
 import Models.DTO.TopicsInfoFrontDTO;
@@ -33,7 +38,7 @@ public class FrontServiceImp implements IFrontService {
 					if (t.introductionHtml.equals("") || t.introductionHtml.equals(null)) {
 						topic.set_IntroductionHtml("<p>No Introduction info</p>");
 					}
-					if (!t.syntaxHtml.equals("")|| !t.syntaxHtml.equals(null)) {
+					if (!t.syntaxHtml.equals("") || !t.syntaxHtml.equals(null)) {
 						topic.set_SyntaxHtml(t.syntaxHtml);
 					}
 					if (t.syntaxHtml.equals("") || t.syntaxHtml.equals(null)) {
@@ -136,5 +141,26 @@ public class FrontServiceImp implements IFrontService {
 		}
 		return new TopicsFrontDTO(false, "Stringo FrontService", null);
 
+	}
+
+	@Override
+	public ExamplesFrontDTO getExamplesByID(int topicId) {
+		HigherServiceImpl hService = new HigherServiceImpl();
+		ExamplesDTO example = hService.getExamplesByTopicId(topicId);
+		if (example.isSuccess()) {
+			List<Example> exampleFront = new ArrayList<Example>();
+			for (ExamplesDAL ex : example.getExamples()) {
+				Example exampl = new Example();
+				exampl.setTopicId(ex.topicId);
+				exampl.setExampleId(ex.exampleId);
+				exampl.setTitle(ex.title);
+				exampl.setBodyHtml(ex.bodyHtml);
+				exampleFront.add(exampl);
+			}
+			return new ExamplesFrontDTO(true, "success", exampleFront);
+
+		}
+
+		return new ExamplesFrontDTO(false, "Stringo Front Sevice exmaple dalis", null);
 	}
 }
