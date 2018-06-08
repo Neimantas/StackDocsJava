@@ -51,7 +51,7 @@
 						<select class="custom-select" size="10" id="title">
 
 							<c:forEach items="${topicMap}" var="topic">
-								<option value="${topic.key}">${topic.value}</option>
+								<option value="${topic.key}"><div class="col">Language </div><div class="col">${topic.value}</div></option>
 							</c:forEach>
 						</select>
 

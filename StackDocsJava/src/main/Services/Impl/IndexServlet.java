@@ -65,6 +65,7 @@ public class IndexServlet extends HttpServlet {
 		}
 
 		Map<Integer, String> topicMap = new HashMap<>();
+		Map<Integer, String> languageMap = new HashMap<>();
 		if (dto != null) {
 			if (dto.is_Succcess()) {
 
@@ -72,13 +73,14 @@ public class IndexServlet extends HttpServlet {
 				// Atvaizduojame reikiamo puslapio temas
 				for (int i = (pageNumber - 1) * 10; i < pageNumber * 10 && i < topics.size(); i++) {
 					topicMap.put(topics.get(i).get_TopicId(), topics.get(i).get_TopicTitle());
+					//languageMap.put(topics.get(i).get_TopicId()
 
 				}
 
 			} else {
 
 				topicMap.put(null, dto.get_Message());
-
+				languageMap.put(null, null);
 			}
 		}
 		request.setAttribute("topic", topic);
