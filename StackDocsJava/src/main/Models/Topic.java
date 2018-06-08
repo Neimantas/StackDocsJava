@@ -3,11 +3,20 @@ package Models;
 public class Topic {
 	private int _TopicId;
 	private int _LanguageId;
+	private String _LanguageTitle;
 	private String _TopicTitle;
 	private String _IntroductionHtml;
 	private String _SyntaxHtml;
 	private String _ParametersHtml;
 	private String _RemarksHtml;
+
+	public String get_LanguageTitle() {
+		return _LanguageTitle;
+	}
+
+	public void set_LanguageTitle(String _LanguageTitle) {
+		this._LanguageTitle = _LanguageTitle;
+	}
 
 	public int get_LanguageId() {
 		return _LanguageId;
