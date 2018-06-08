@@ -53,6 +53,10 @@ public class HigherServiceImpl implements IHigherService {
 				return new LanguageTagDTO(false, null, e.getMessage());
 				
 			}
+			finally {
+				DataBaseImpl.getInstance().close();
+
+			}
 		}
 			
 		return new LanguageTagDTO(false, null, readTableDTO.getMessage());
@@ -98,11 +102,18 @@ public class HigherServiceImpl implements IHigherService {
 				return new TopicsDTO(false, null, e.getMessage());
 				
 			}
+			finally {
+				DataBaseImpl.getInstance().close();
+
+			}
 		}
+		
+	
 		
 		return new TopicsDTO(false, null, readTableDTO.getMessage());
 	}
 	private ExamplesDTO readExamples() {
+	
 		
 		ICrud crud = new CRUD();
 		
@@ -128,6 +139,10 @@ public class HigherServiceImpl implements IHigherService {
 			} catch (SQLException e) {
 			
 				return new ExamplesDTO(false, null, e.getMessage());
+			}
+			finally {
+				DataBaseImpl.getInstance().close();
+
 			}
 		}
 		
