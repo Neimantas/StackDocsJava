@@ -20,7 +20,7 @@ public class CRUD implements ICrud {
 
 	public CRUD() {
 
-		IDataBase db = new DataBaseImpl();
+		IDataBase db = DataBaseImpl.getInstance();
 		conn = db.connect();
 		try {
 			statements = conn.createStatement();
@@ -51,16 +51,7 @@ public class CRUD implements ICrud {
 			createTableDTO.setSuccess(false);
 			createTableDTO.setMessage(e.getMessage());
 			return createTableDTO;
-		} finally {
-			try {
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		} 
 
 		return createTableDTO;
 
@@ -79,16 +70,6 @@ public class CRUD implements ICrud {
 			readTableDTO.setSuccess(false);
 			readTableDTO.setMessage(e.getMessage());
 			return readTableDTO;
-		}
-		finally {
-			try {
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 
 		return readTableDTO;
@@ -115,16 +96,7 @@ public class CRUD implements ICrud {
 			updateTableDTO.setMessage(e.getMessage());
 			return updateTableDTO;
 		}
-		finally {
-			try {
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+
 		return updateTableDTO;
 	}
 
@@ -143,16 +115,7 @@ public class CRUD implements ICrud {
 			deleteTableDTO.setMessage(e.getMessage());
 			return deleteTableDTO;
 		}
-		finally {
-			try {
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+
 		return deleteTableDTO;
 
 	}
