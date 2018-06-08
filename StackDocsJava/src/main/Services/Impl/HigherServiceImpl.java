@@ -209,6 +209,24 @@ public class HigherServiceImpl implements IHigherService {
 		return new ExamplesDTO(false, null, examplesDTO.getMessage());
 		
 	}
+	@Override
+	public LanguageTagDTO getLanguageTagByLanguageId(int languageId) {
+		
+		LanguageTagDTO languageTagDTO = readLanguageTag();
+		
+		if(languageTagDTO.isSuccess()) {
+			
+			List<LanguageTagDAL> ret = languageTagDTO.getLanguageTag().stream()
+					.filter(e -> e.languageId == languageId).collect(Collectors.toList());
+			
+			return new LanguageTagDTO(true, ret, "success");
+		}
+		
+//		List<Object> ret = topics.stream().filter(e -> ((TopicsDAL)e).languageId == languageId).collect(Collectors.toList());
+		
+		return new LanguageTagDTO(false, null, languageTagDTO.getMessage());
+		
+	}
 	
 
 }

@@ -38,23 +38,26 @@ public class Higher_Main {
 //		System.out.println("-------");
 //		System.out.println(hs.getAllTopics().getTopics().size());
 		
-		hs.getAllLanguages();
-		try {
-			Thread.currentThread().sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println("-----");
-		System.out.println(hs.getAllLanguages().getLanguageTag().size());
-		try {
-			Thread.currentThread().sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println("-------");
-		System.out.println(hs.getAllLanguages().getLanguageTag().size());
+//		hs.getAllLanguages();
+//		try {
+//			Thread.currentThread().sleep(5000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		System.out.println("-----");
+//		System.out.println(hs.getAllLanguages().getLanguageTag().size());
+//		try {
+//			Thread.currentThread().sleep(5000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		System.out.println("-------");
+//		System.out.println(hs.getAllLanguages().getLanguageTag().size());
+		
+		System.out.println(hs.getLanguageTagByLanguageId(5).getLanguageTag().get(0).title);
+		
 	}
 
 }
