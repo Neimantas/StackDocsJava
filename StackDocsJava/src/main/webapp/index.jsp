@@ -33,7 +33,7 @@
 				</div>
 				<div class="col-8">
 					<div class="input-group">
-						<input type="text" class="form-control" id="topic"
+						<input type="text" value="${topic!=null?topic:''}" class="form-control" id="topic"
 							placeholder="Search topic..." aria-label="Recipient's username"
 							aria-describedby="basic-addon2">
 						<div class="input-group-append">
