@@ -44,14 +44,24 @@ public class CRUD implements ICrud {
 
 		try {
 			readResultSet = statements.executeQuery(readQuerry);
-			
+
 			createTableDTO.setSuccess(true);
 		} catch (SQLException e) {
-			
+
 			createTableDTO.setSuccess(false);
 			createTableDTO.setMessage(e.getMessage());
 			return createTableDTO;
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+
 		return createTableDTO;
 
 	}
@@ -59,9 +69,9 @@ public class CRUD implements ICrud {
 	public ReadTableDTO read(String tableName) {
 
 		String readQuerry = "SELECT * FROM " + tableName + ";";
-			ReadTableDTO readTableDTO = new ReadTableDTO();
+		ReadTableDTO readTableDTO = new ReadTableDTO();
 		try {
-			
+
 			readTableDTO.setReadResultSet(statements.executeQuery(readQuerry));
 			readTableDTO.setSuccess(true);
 		} catch (SQLException e) {
@@ -70,52 +80,78 @@ public class CRUD implements ICrud {
 			readTableDTO.setMessage(e.getMessage());
 			return readTableDTO;
 		}
+		finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
 		return readTableDTO;
 	}
 
-
 	public UpdateTableDTO update(CrudUpdate params) {
-		String readQuerry = "UPDATE " + params.tableName + " SET " + params.changeValueOfColum + "='" 
-		+ params.changeValueTO;
+		String readQuerry = "UPDATE " + params.tableName + " SET " + params.changeValueOfColum + "='"
+				+ params.changeValueTO;
 
+		if (params.getIsWhereUsed()) {
 
-		if(params.getIsWhereUsed()) {
-
-			readQuerry += "' WHERE"
-					+ params.conditionColumName + "='" + params.conditionChangeWhereValueIsEqual + "';";
+			readQuerry += "' WHERE" + params.conditionColumName + "='" + params.conditionChangeWhereValueIsEqual + "';";
 		}
-	
-		
+
 		UpdateTableDTO updateTableDTO = new UpdateTableDTO();
-		
+
 		try {
 			readResultSet = statements.executeQuery(readQuerry);
 			updateTableDTO.setSuccess(true);
-			
+
 		} catch (SQLException e) {
 
 			updateTableDTO.setSuccess(false);
 			updateTableDTO.setMessage(e.getMessage());
 			return updateTableDTO;
 		}
+		finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		return updateTableDTO;
 	}
 
 	public DeleteTableDTO delete(String tableName, String conditionColum, String conditionValue) {
-		
+
 		DeleteTableDTO deleteTableDTO = new DeleteTableDTO();
 		String readQuerry = "DELETE FROM " + tableName + " WHERE " + conditionColum + "='" + conditionValue + "';";
 
 		try {
 			statements.executeQuery(readQuerry);
 			deleteTableDTO.setSuccess(true);
-			
+
 		} catch (SQLException e) {
 
 			deleteTableDTO.setSuccess(false);
 			deleteTableDTO.setMessage(e.getMessage());
 			return deleteTableDTO;
+		}
+		finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return deleteTableDTO;
 
