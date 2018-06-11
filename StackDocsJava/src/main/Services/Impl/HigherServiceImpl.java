@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import Models.DAL.ExamplesDAL;
-import Models.DAL.LanguageTagDAL;
+import Models.DAL.LanguageTagsDAL;
 import Models.DAL.TopicsDAL;
 import Models.DTO.ExamplesDTO;
 import Models.DTO.LanguageTagDTO;
@@ -30,12 +30,12 @@ public class HigherServiceImpl implements IHigherService {
 		
 		ReadTableDTO readTableDTO = crud.read("LanguageTags");
 		if(readTableDTO.isSuccess()) {
-			List<LanguageTagDAL> languageList = new ArrayList<>();
+			List<LanguageTagsDAL> languageList = new ArrayList<>();
 			ResultSet resultSet = readTableDTO.getReadResultSet();
 			try {
 				
 				while(resultSet.next()) {
-					LanguageTagDAL languageTag = new LanguageTagDAL();
+					LanguageTagsDAL languageTag = new LanguageTagsDAL();
 					languageTag.languageId = resultSet.getInt("LanguageId");
 					languageTag.tag = resultSet.getInt("Tag");
 					languageTag.title = resultSet.getString("Title");
@@ -231,7 +231,7 @@ public class HigherServiceImpl implements IHigherService {
 		
 		if(languageTagDTO.isSuccess()) {
 			
-			List<LanguageTagDAL> ret = languageTagDTO.getLanguageTag().stream()
+			List<LanguageTagsDAL> ret = languageTagDTO.getLanguageTag().stream()
 					.filter(e -> e.languageId == languageId).collect(Collectors.toList());
 			
 			return new LanguageTagDTO(true, ret, "success");

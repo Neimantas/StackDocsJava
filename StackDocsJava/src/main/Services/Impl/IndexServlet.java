@@ -105,6 +105,8 @@ public class IndexServlet extends HttpServlet {
 	}
 
 	private int countNumberOfPages() {
+		
+	//	System.out.println(dto.get_Message());
 		if (dto != null) {
 			int numberOfTopics = dto.get_Topics().size();
 			if (numberOfTopics % 10 == 0) {

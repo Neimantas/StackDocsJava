@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Models.CrudUpdate;
+import Models.DAL.ExamplesDAL;
+import Models.DAL.LanguageTagsDAL;
+import Models.DAL.TopicsDAL;
 import Models.DTO.UpdateTableDTO;
 
 import Services.IHigherService;
@@ -15,13 +18,13 @@ public class CRUD_Main {
 	public static void main(String[] args) {
 		
 		CRUD crud = new CRUD();
-//			System.out.println(crud.read("LanguageTags"));
-//
-//		IHigherService serv = new HigherServiceImpl();
-//		
-//		System.out.println(serv.readLanguageTag("Bla").size());
-//		System.out.println(serv.readTopics("").size());
-//		System.out.println(serv.readExamples("").size());
+		System.out.println(crud.read(new ExamplesDAL()).isSuccess());
+		System.out.println(crud.read(new LanguageTagsDAL()).isSuccess());
+		System.out.println(crud.read(new TopicsDAL()).isSuccess());
+		System.out.println(crud.read(new String()).isSuccess());
+		
+
+
 		
 //####################################################	
 //		UpdateTableDTO updDTO = new UpdateTableDTO();

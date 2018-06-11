@@ -1,6 +1,6 @@
 package Models.DAL;
 
-public class LanguageTagDAL {
+public class LanguageTagsDAL {
 	public int languageId;
 	public int tag;
 	public String title;

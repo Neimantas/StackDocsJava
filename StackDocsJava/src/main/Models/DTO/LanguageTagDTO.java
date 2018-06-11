@@ -2,17 +2,17 @@ package Models.DTO;
 
 import java.util.List;
 
-import Models.DAL.LanguageTagDAL;
+import Models.DAL.LanguageTagsDAL;
 
 public class LanguageTagDTO {
 	
 	public boolean _Success;
 	public String _Message;
-	public List<LanguageTagDAL> _LanguageTag;
+	public List<LanguageTagsDAL> _LanguageTag;
 	
 	public LanguageTagDTO() { }
 	
-	public LanguageTagDTO(boolean success, List<LanguageTagDAL> dal, String message) {
+	public LanguageTagDTO(boolean success, List<LanguageTagsDAL> dal, String message) {
 		_Success = success;
 		_LanguageTag = dal;
 		_Message = message;
@@ -34,11 +34,11 @@ public class LanguageTagDTO {
 		_Message = message;
 	}
 
-	public List<LanguageTagDAL> getLanguageTag() {
+	public List<LanguageTagsDAL> getLanguageTag() {
 		return _LanguageTag;
 	}
 
-	public void setLanguageTag(List<LanguageTagDAL> languageTag) {
+	public void setLanguageTag(List<LanguageTagsDAL> languageTag) {
 		_LanguageTag = languageTag;
 	}
 
