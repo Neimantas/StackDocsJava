@@ -3,7 +3,7 @@ import Services.Impl.FrontServiceImp;
 public class TestFrontService {
 
 	public static void main(String[] args) {
-		FrontServiceImp test = new FrontServiceImp();
+		//FrontServiceImp test = new FrontServiceImp();
 		// test.getTopicsByLanguageId(1, "");
 		// System.out.println(test.getTopicsByLanguageId(1, "").is_Succcess());
 		// System.out.println(test.getTopicsByLanguageId(1,

@@ -19,9 +19,9 @@ public class CRUD implements ICrud {
 	private ResultSet readResultSet;
 	private Connection conn;
 
-	public CRUD() {
+	public CRUD(DataBaseImpl databaseImpl) {
 
-		IDataBase db = DataBaseImpl.getInstance();
+		IDataBase db = databaseImpl;
 		conn = db.connect();
 		try {
 			statements = conn.createStatement();

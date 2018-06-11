@@ -19,14 +19,22 @@ import Services.IHigherService;
 
 public class HigherServiceImpl implements IHigherService {
 	
+	ICache cache;
+	ICrud crud;
+	
+	public HigherServiceImpl(CacheImpl cacheImpl, CRUD crudImpl) {
+		cache = cacheImpl;
+		crud = crudImpl;
+	}
+	
+
+	
+	
 	private LanguageTagDTO readLanguageTag() {
-		
-		ICache cache = CacheImpl.getInstance();
+
 		if (cache.get("LanguageTag") != null) {
 			return (LanguageTagDTO)cache.get("LanguageTag");
 		}
-		
-		ICrud crud = new CRUD();
 		
 		ReadTableDTO readTableDTO = crud.read(new LanguageTagsDAL());
 		if(readTableDTO.isSuccess()) {
@@ -64,12 +72,9 @@ public class HigherServiceImpl implements IHigherService {
 	}
 	private TopicsDTO readTopics() {
 		
-		ICache cache = CacheImpl.getInstance();
 		if (cache.get("Topics") != null) {
 			return (TopicsDTO)cache.get("Topics");
 		}
-		
-		ICrud crud = new CRUD();
 		
 		ReadTableDTO readTableDTO = crud.read(new TopicsDAL());
 		if(readTableDTO.isSuccess()) {
@@ -113,9 +118,6 @@ public class HigherServiceImpl implements IHigherService {
 		return new TopicsDTO(false, null, readTableDTO.getMessage());
 	}
 	private ExamplesDTO readExamples() {
-	
-		
-		ICrud crud = new CRUD();
 		
 		ReadTableDTO readTableDTO = crud.read(new ExamplesDAL());
 		

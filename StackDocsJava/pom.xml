@@ -30,6 +30,11 @@
     	<version>2.5</version>
     	<scope>provided</scope>
 	</dependency>
+	<dependency>
+    	<groupId>eu.lestard</groupId>
+    	<artifactId>easy-di</artifactId>
+    	<version>0.3.0</version>
+	</dependency>
   </dependencies>
   <build>
      <plugins>

@@ -6,11 +6,11 @@ public class CacheServiceTest {
 		
 //		CacheImpl<Integer> intCache = CacheImpl.<Integer>getInstance();
 //		CacheImpl<String> stringCache = CacheImpl.<String>getInstance();
-		CacheImpl otherCache = CacheImpl.getInstance();
-		CacheImpl otherCache2 = CacheImpl.getInstance();
-
-		System.out.println(otherCache);
-		System.out.println(otherCache2);
+//		CacheImpl otherCache = CacheImpl.getInstance();
+//		CacheImpl otherCache2 = CacheImpl.getInstance();
+//
+//		System.out.println(otherCache);
+//		System.out.println(otherCache2);
 		
 //		intCache.put("one", 1);
 //		System.out.println(intCache.get("one"));
@@ -28,18 +28,18 @@ public class CacheServiceTest {
 //		System.out.println(otherCache.get("one").getClass().getName());
 //		System.out.println(otherCache.get("two").getClass().getName());
 		
-		otherCache.put("one", new Object());
-		
-		System.out.println(otherCache.get("one"));
-		
-		try {
-			Thread.currentThread().sleep(15000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println(otherCache.get("one"));
-		
+//		otherCache.put("one", new Object());
+//		
+//		System.out.println(otherCache.get("one"));
+//		
+//		try {
+//			Thread.currentThread().sleep(15000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		System.out.println(otherCache.get("one"));
+//		
 	}
 
 }

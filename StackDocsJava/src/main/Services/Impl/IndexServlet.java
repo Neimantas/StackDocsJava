@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import Models.DTO.TopicsFrontDTO;
 import Services.IFrontService;
+import eu.lestard.easydi.EasyDI;
 import Models.Topic;
 
 /**
@@ -26,7 +27,8 @@ public class IndexServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	private IFrontService fs;
+	private static EasyDI easyDI;
+	private IFrontService frontService;
 	private TopicsFrontDTO dto;
 	private String topic;
 	private int currentLanguageId;
@@ -34,8 +36,11 @@ public class IndexServlet extends HttpServlet {
 
 	public IndexServlet() {
 		super();
-		fs = new FrontServiceImp();
+		easyDI = new EasyDI();
+		frontService = easyDI.getInstance(FrontServiceImp.class);
 	}
+
+	
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -56,7 +61,7 @@ public class IndexServlet extends HttpServlet {
 				topic = "";
 			}
 			pageNumber = 1;
-			dto = fs.getTopicsByLanguageId(currentLanguageId, topic);
+			dto = frontService.getTopicsByLanguageId(currentLanguageId, topic);
 		}
 
 		if (getParamChange != null) { // jei keiciame puslapi
@@ -117,5 +122,11 @@ public class IndexServlet extends HttpServlet {
 		}
 		return 0;
 	}
+
+	public static EasyDI getEasyDI() {
+		return easyDI;
+	}
+	
+	
 
 }

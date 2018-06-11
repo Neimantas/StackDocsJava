@@ -13,12 +13,20 @@ import Models.DTO.TopicsDTO;
 import Models.DTO.TopicsFrontDTO;
 import Models.DTO.TopicsInfoFrontDTO;
 import Services.IFrontService;
+import Services.IHigherService;
 
 public class FrontServiceImp implements IFrontService {
+	
+	IHigherService hService;
+	
+	public FrontServiceImp(HigherServiceImpl hServiceImpl) {
+		hService = hServiceImpl;
+	}
+	
 
 	@Override
 	public TopicsInfoFrontDTO getTopicInfoByTopicId(int topicId) {
-		HigherServiceImpl hService = new HigherServiceImpl();
+		//HigherServiceImpl hService = new HigherServiceImpl();
 		TopicsDTO tInfoDTO = hService.getTopicInfoByTopicId(topicId);
 
 		if (tInfoDTO.isSuccess()) {
@@ -66,7 +74,6 @@ public class FrontServiceImp implements IFrontService {
 
 	@Override
 	public TopicsFrontDTO getTopicsByLanguageId(int languageId, String topicWord) {
-		HigherServiceImpl hService = new HigherServiceImpl();
 		if (languageId == 0) {
 			TopicsDTO allTitleDTO = hService.getAllTopics();
 			String topicWord2 = topicWord.toLowerCase();
@@ -153,7 +160,6 @@ public class FrontServiceImp implements IFrontService {
 
 	@Override
 	public ExamplesFrontDTO getExamplesByID(int topicId) {
-		HigherServiceImpl hService = new HigherServiceImpl();
 		ExamplesDTO example = hService.getExamplesByTopicId(topicId);
 		if (example.isSuccess()) {
 			List<Example> exampleFront = new ArrayList<Example>();
