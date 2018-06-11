@@ -10,7 +10,7 @@ import Models.DTO.UpdateTableDTO;
 
 public interface ICrud {
 
-	CreateTableDTO create(String tableName, String[] values);
+	CreateTableDTO create(Object dal);
 
 	ReadTableDTO read(Object dal);
 

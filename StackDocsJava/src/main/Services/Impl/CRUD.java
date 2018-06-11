@@ -1,5 +1,6 @@
 package Services.Impl;
 
+import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,21 +32,39 @@ public class CRUD implements ICrud {
 		}
 	}
 
-	public CreateTableDTO create(String tableName, String[] values) {
+	public CreateTableDTO create(Object dal) {
 		CreateTableDTO createTableDTO = new CreateTableDTO();
 		String fullValuesString = "";
-		for (int i = 0; i < values.length; i++) {
-			fullValuesString.concat(values[i]);
-			fullValuesString.concat(",");
+		
+		Class classInput = dal.getClass();
+		String tableName = classInput.getSimpleName();
+		tableName = tableName.replaceAll("DAL", "");
+		
+		Field[] classFields = classInput.getFields();
+		
+		for(Field column : classFields) {
+			//for x -> fullValueString += columnNama + " " + columnvalue
+			try {
+				if(column.getType() == String.class) {
+					fullValuesString += ("\"");
+					fullValuesString += (column.get(dal));			
+					fullValuesString += ("\",");
+				}else {
+				
+				fullValuesString += (column.get(dal));			
+				fullValuesString += (",");
+				}
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}	
 		}
-
 		fullValuesString = fullValuesString.substring(0, fullValuesString.length() - 1);
-
-		String readQuerry = "INSERT INTO " + tableName + "(" + fullValuesString + ");";
-
+		String readQuerry = "INSERT INTO " + tableName + " VALUES (" + fullValuesString + ");";
+			System.out.println(readQuerry);
 		try {
-			readResultSet = statements.executeQuery(readQuerry);
-
+			statements.executeQuery(readQuerry);
 			createTableDTO.setSuccess(true);
 		} catch (SQLException e) {
 
@@ -80,6 +99,14 @@ public class CRUD implements ICrud {
 			return readTableDTO;
 		}
 
+		// if(tablename == Examples)(
+		//readExamples
+		//}
+		
+		
+		
+		
+		
 		return readTableDTO;
 	}
 

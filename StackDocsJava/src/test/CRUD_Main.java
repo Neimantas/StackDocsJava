@@ -18,11 +18,11 @@ public class CRUD_Main {
 	public static void main(String[] args) {
 		
 		CRUD crud = new CRUD();
-		System.out.println(crud.read(new ExamplesDAL()).isSuccess());
-		System.out.println(crud.read(new LanguageTagsDAL()).isSuccess());
-		System.out.println(crud.read(new TopicsDAL()).isSuccess());
-		System.out.println(crud.read(new String()).isSuccess());
-		
+//		System.out.println(crud.read(new ExamplesDAL()).isSuccess());
+//		System.out.println(crud.read(new LanguageTagsDAL()).isSuccess());
+//		System.out.println(crud.read(new TopicsDAL()).isSuccess());
+//		System.out.println(crud.read(new String()).isSuccess());
+//		
 
 
 		
@@ -35,6 +35,15 @@ public class CRUD_Main {
 //		updDTO = crud.update(params);
 //####################################################
 		
+		ExamplesDAL dal = new ExamplesDAL();
+		dal.bodyHtml = "thi is body";
+		dal.exampleId = 9919191;
+		dal.title = "Test";
+		dal.topicId = 99199;
+
+		
+		
+		System.out.println(crud.create(dal).getMessage());
 		
 		
 

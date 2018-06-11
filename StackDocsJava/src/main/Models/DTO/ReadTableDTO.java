@@ -1,10 +1,11 @@
 package Models.DTO;
 
 import java.sql.ResultSet;
+import java.util.List;
 
-public class ReadTableDTO {
+public class ReadTableDTO<T> {
 	private boolean success;
-	private ResultSet readResultSet;
+	private List<T> readResultSet;
 	private String message;
 	public boolean isSuccess() {
 		return success;
@@ -12,10 +13,10 @@ public class ReadTableDTO {
 	public void setSuccess(boolean success) {
 		this.success = success;
 	}
-	public ResultSet getReadResultSet() {
+	public List<T> getReadResultSet() {
 		return readResultSet;
 	}
-	public void setReadResultSet(ResultSet readResultSet) {
+	public void setReadResultSet(List<T> readResultSet) {
 		this.readResultSet = readResultSet;
 	}
 	public String getMessage() {
