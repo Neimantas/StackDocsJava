@@ -67,7 +67,6 @@ public class CRUD implements ICrud {
 		
 				
 		String readQuerry = "SELECT * FROM " + tableName + ";";
-		System.out.println(readQuerry);
 		ReadTableDTO readTableDTO = new ReadTableDTO();
 		try {
 
