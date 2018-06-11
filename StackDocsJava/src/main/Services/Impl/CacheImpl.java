@@ -17,7 +17,9 @@ public class CacheImpl<T> implements ICache<T> {
 	
 	private static CacheImpl instance = null;
 	
-	public CacheImpl() {}
+	public CacheImpl() {
+		instance = this;
+	}
 	
 	@Override
 	public void put(String key, T data) {
@@ -55,15 +57,15 @@ public class CacheImpl<T> implements ICache<T> {
 		
 	}
 	
-//	@SuppressWarnings("unchecked")
-//	public static <T> CacheImpl<T> getInstance() {
+	@SuppressWarnings("unchecked")
+	public static <T> CacheImpl<T> getInstance() {
 //		
 //		if(instance == null) {
 //			instance = new CacheImpl<T>();
 //			return instance;
 //		}
-//		return instance;
-//	}
+		return instance;
+	}
 
 
 }

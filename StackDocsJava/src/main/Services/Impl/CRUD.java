@@ -15,20 +15,15 @@ import Services.ICrud;
 import Services.IDataBase;
 
 public class CRUD implements ICrud {
+	private IDataBase db;
 	private Statement statements;
 	private ResultSet readResultSet;
 	private Connection conn;
 
 	public CRUD(DataBaseImpl databaseImpl) {
 
-		IDataBase db = databaseImpl;
-		conn = db.connect();
-		try {
-			statements = conn.createStatement();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		db = databaseImpl;
+
 	}
 
 	public CreateTableDTO create(String tableName, String[] values) {
@@ -44,6 +39,7 @@ public class CRUD implements ICrud {
 		String readQuerry = "INSERT INTO " + tableName + "(" + fullValuesString + ");";
 
 		try {
+			setConnection();
 			readResultSet = statements.executeQuery(readQuerry);
 
 			createTableDTO.setSuccess(true);
@@ -52,33 +48,32 @@ public class CRUD implements ICrud {
 			createTableDTO.setSuccess(false);
 			createTableDTO.setMessage(e.getMessage());
 			return createTableDTO;
-		} 
+		}
 
 		return createTableDTO;
 
 	}
 
 	public ReadTableDTO read(Object dal) {
-		
+
 		Class classInput = dal.getClass();
 		String tableName = classInput.getSimpleName();
 		tableName = tableName.replaceAll("DAL", "");
-		
-		
-				
+
 		String readQuerry = "SELECT * FROM " + tableName + ";";
 		ReadTableDTO readTableDTO = new ReadTableDTO();
-		try {
 
+		try {
+			setConnection();
 			readTableDTO.setReadResultSet(statements.executeQuery(readQuerry));
 			readTableDTO.setSuccess(true);
+
 		} catch (SQLException e) {
 
 			readTableDTO.setSuccess(false);
 			readTableDTO.setMessage(e.getMessage());
 			return readTableDTO;
 		}
-
 		return readTableDTO;
 	}
 
@@ -94,6 +89,7 @@ public class CRUD implements ICrud {
 		UpdateTableDTO updateTableDTO = new UpdateTableDTO();
 
 		try {
+			setConnection();
 			readResultSet = statements.executeQuery(readQuerry);
 			updateTableDTO.setSuccess(true);
 
@@ -113,6 +109,7 @@ public class CRUD implements ICrud {
 		String readQuerry = "DELETE FROM " + tableName + " WHERE " + conditionColum + "='" + conditionValue + "';";
 
 		try {
+			setConnection();
 			statements.executeQuery(readQuerry);
 			deleteTableDTO.setSuccess(true);
 
@@ -125,6 +122,16 @@ public class CRUD implements ICrud {
 
 		return deleteTableDTO;
 
+	}
+	
+	private void setConnection() {
+		conn = db.connect();
+		try {
+			statements = conn.createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

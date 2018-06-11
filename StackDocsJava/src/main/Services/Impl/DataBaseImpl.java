@@ -48,11 +48,13 @@ public class DataBaseImpl implements IDataBase {
 		}
 
 	}
-	  public static DataBaseImpl getInstance() {
-//	      if(instance == null) {
-//	         instance = new DataBaseImpl();
-//	      }
-	      return instance;
-	   }
+
+	public static DataBaseImpl getInstance() {
+		// if(instance == null) {
+		// instance = new DataBaseImpl();
+		// }
+		return instance;
+	}
+
 
 }
