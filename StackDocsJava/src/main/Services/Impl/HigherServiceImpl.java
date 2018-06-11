@@ -28,7 +28,7 @@ public class HigherServiceImpl implements IHigherService {
 		
 		ICrud crud = new CRUD();
 		
-		ReadTableDTO readTableDTO = crud.read("LanguageTags");
+		ReadTableDTO readTableDTO = crud.read(new LanguageTagsDAL());
 		if(readTableDTO.isSuccess()) {
 			List<LanguageTagsDAL> languageList = new ArrayList<>();
 			ResultSet resultSet = readTableDTO.getReadResultSet();
@@ -71,7 +71,7 @@ public class HigherServiceImpl implements IHigherService {
 		
 		ICrud crud = new CRUD();
 		
-		ReadTableDTO readTableDTO = crud.read("Topics");
+		ReadTableDTO readTableDTO = crud.read(new TopicsDAL());
 		if(readTableDTO.isSuccess()) {
 			ResultSet resultSet = readTableDTO.getReadResultSet();
 			List<TopicsDAL> topics = new ArrayList<>();
@@ -117,7 +117,7 @@ public class HigherServiceImpl implements IHigherService {
 		
 		ICrud crud = new CRUD();
 		
-		ReadTableDTO readTableDTO = crud.read("Examples");
+		ReadTableDTO readTableDTO = crud.read(new ExamplesDAL());
 		
 		if(readTableDTO.isSuccess()) {
 			ResultSet resultSet = readTableDTO.getReadResultSet();
