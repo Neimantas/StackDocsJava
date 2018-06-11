@@ -12,7 +12,7 @@ public interface ICrud {
 
 	CreateTableDTO create(String tableName, String[] values);
 
-	ReadTableDTO read(String tableName);
+	ReadTableDTO read(Object dal);
 
 	UpdateTableDTO update(CrudUpdate params);
 

@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import Models.CrudUpdate;
+import Models.DAL.ExamplesDAL;
 import Models.DTO.CreateTableDTO;
 import Models.DTO.DeleteTableDTO;
 import Models.DTO.ReadTableDTO;
@@ -57,9 +58,16 @@ public class CRUD implements ICrud {
 
 	}
 
-	public ReadTableDTO read(String tableName) {
-
+	public ReadTableDTO read(Object dal) {
+		
+		Class classInput = dal.getClass();
+		String tableName = classInput.getSimpleName();
+		tableName = tableName.replaceAll("DAL", "");
+		
+		
+				
 		String readQuerry = "SELECT * FROM " + tableName + ";";
+		System.out.println(readQuerry);
 		ReadTableDTO readTableDTO = new ReadTableDTO();
 		try {
 
