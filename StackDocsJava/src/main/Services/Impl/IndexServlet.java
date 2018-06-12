@@ -1,19 +1,17 @@
 package Services.Impl;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
-//import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Configuration.StartupContainer;
 import Models.DTO.TopicsFrontDTO;
 import Services.IFrontService;
-import eu.lestard.easydi.EasyDI;
 import Models.Topic;
 
 /**
@@ -27,17 +25,15 @@ public class IndexServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	private static EasyDI easyDI;
 	private IFrontService frontService;
 	private TopicsFrontDTO dto;
 	private String topic;
 	private int currentLanguageId;
 	private int pageNumber;
+	
 
 	public IndexServlet() {
-		super();
-		easyDI = new EasyDI();
-		frontService = easyDI.getInstance(FrontServiceImp.class);
+		frontService = StartupContainer.easyDI.getInstance(FrontServiceImp.class);
 	}
 
 	
@@ -48,7 +44,6 @@ public class IndexServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		String getParamSearch = request.getParameter("search");
 		String getParamChange = request.getParameter("change");
 
@@ -123,10 +118,5 @@ public class IndexServlet extends HttpServlet {
 		return 0;
 	}
 
-	public static EasyDI getEasyDI() {
-		return easyDI;
-	}
-	
-	
 
 }

@@ -5,17 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
-//import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Configuration.StartupContainer;
 import Models.Example;
 import Models.Topic;
 import Models.DTO.ExamplesFrontDTO;
 import Models.DTO.TopicsInfoFrontDTO;
 import Services.IFrontService;
-import eu.lestard.easydi.EasyDI;
 
 //@WebServlet(urlPatterns = "/ReadServlet")
 public class ReadServlet extends HttpServlet {
@@ -29,8 +28,7 @@ public class ReadServlet extends HttpServlet {
 	private String remarks;
 
 	public ReadServlet() {
-		super();
-		frontService = IndexServlet.getEasyDI().getInstance(FrontServiceImp.class);
+		frontService = StartupContainer.easyDI.getInstance(FrontServiceImp.class);
 	}
 
 	@Override
