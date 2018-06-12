@@ -56,9 +56,15 @@ public class Higher_Main {
 //		System.out.println("-------");
 //		System.out.println(hs.getAllLanguages().getLanguageTag().size());
 		
-		System.out.println(hs.getLanguageTagByLanguageId(5).isSuccess());
-		System.out.println(hs.getLanguageTagByLanguageId(5).getMessage());
-		
+//		System.out.println(hs.getLanguageTagByLanguageId(5).isSuccess());
+//		System.out.println(hs.getLanguageTagByLanguageId(5).getMessage());
+		System.out.println(hs.getTopicsByLanguageId(5).getTopics().size());
+		System.out.println(hs.getExamplesByTopicId(5).getExamples().get(0).title);
+		System.out.println(hs.getAllLanguages().getLanguageTag().size());
+		System.out.println(hs.getAllTopics().getTopics().size());
+		System.out.println(hs.getTopicInfoByTopicId(6).getTopics().get(0).title);
+		System.out.println(hs.getExampleByExampleId(1).getExamples().get(0).title);
+		System.out.println(hs.getLanguageTagByLanguageId(5).getLanguageTag().get(0).title);
 	}
 
 }

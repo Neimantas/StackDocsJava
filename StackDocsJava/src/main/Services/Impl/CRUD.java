@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import Models.CrudUpdate;
 import Models.DAL.ExamplesDAL;
@@ -77,7 +79,7 @@ public class CRUD implements ICrud {
 
 	}
 
-	public ReadTableDTO read(Object dal) {
+	public ReadTableDTO read2(Object dal) {
 		
 		Class classInput = dal.getClass();
 		String tableName = classInput.getSimpleName();
@@ -106,7 +108,7 @@ public class CRUD implements ICrud {
 		return readTableDTO;
 	}
 	
-	public Object read2(Object dal) {
+	public ReadTableDTO read(Object dal) {
 		
 		Class someClass = dal.getClass();
 		String tableName = someClass.getSimpleName();
@@ -114,11 +116,13 @@ public class CRUD implements ICrud {
 		Object retDAL = null;
 		
 		String readQuerry = "SELECT * FROM " + tableName + ";";
-		
+		someClass.getSimpleName();
 		try {
-			
+		
 			ResultSet rs = statements.executeQuery(readQuerry);
 			
+			ReadTableDTO ret = new ReadTableDTO();
+			List<Object> retList = new ArrayList<>(); 
 			while(rs.next()) {
 				retDAL = someClass.newInstance();
 				Class retDALClass = retDAL.getClass();
@@ -138,19 +142,28 @@ public class CRUD implements ICrud {
 						retDALFields[i].set(retDAL, rs.getByte(i+1));
 					}
 				}
+				retList.add(retDAL);
 				
 			}
 			
 			//creating instance of object that we next return.
-			
-			
+			ret.setSuccess(true);
+			ret.setMessage("success");
+			ret.setReadResultSet(retList);
+			return ret;
 			
 			
 		} catch (InstantiationException | IllegalAccessException | SQLException e) {
-			e.printStackTrace();
+			
+			
+			ReadTableDTO ret = new ReadTableDTO();
+			ret.setSuccess(false);
+			ret.setMessage(e.getMessage());
+			
+			return ret;
 		}
 		
-		return retDAL;
+		
 		
 	}
 

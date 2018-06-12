@@ -47,17 +47,20 @@ public class CRUD_Main {
 		
 		
 		ExamplesDAL dal = new ExamplesDAL();
-		ExamplesDAL ret =(ExamplesDAL) crud.read2(dal);
-		System.out.println(ret.title + " " + ret.exampleId);
+		ExamplesDAL rdal =(ExamplesDAL)crud.read(dal).getReadResultSet().get(0);
+		System.out.println(rdal.title + " " + rdal.exampleId + " "  + rdal.bodyHtml);
+		
 		
 		TopicsDAL dal1 = new TopicsDAL();
-		TopicsDAL ret1 =(TopicsDAL) crud.read2(dal1);
-		System.out.println(ret1.title + " " + ret1.topicId + " " + ret1.isHelloWorldTopic);
+		TopicsDAL rdal1 =(TopicsDAL)crud.read(dal1).getReadResultSet().get(0);
+		System.out.println(rdal1.title + " " + rdal1.languageId + " "  + rdal1.syntaxHtml);
 		
-		TopicsDAL dal2 = new TopicsDAL();
-		TopicsDAL ret2 =(TopicsDAL) crud.read2(dal2);
-		System.out.println(ret2.title + " " + ret2.topicId + " " + ret2.isHelloWorldTopic);
-		System.out.println(1 % 12);
+		
+		LanguageTagsDAL dal3 = new LanguageTagsDAL();
+		LanguageTagsDAL rdal2 =(LanguageTagsDAL)crud.read(dal3).getReadResultSet().get(0);
+		System.out.println(rdal2.title + " " + rdal2.languageId + " "  + rdal2.tag);
+		
+		
 	}
 
 }

@@ -19,6 +19,12 @@ import Services.IHigherService;
 
 public class HigherServiceImpl implements IHigherService {
 	
+	private ICrud crud;
+	
+	public HigherServiceImpl() {
+		crud = new CRUD();
+	}
+	
 	private LanguageTagDTO readLanguageTag() {
 		
 		ICache cache = CacheImpl.getInstance();
@@ -115,7 +121,7 @@ public class HigherServiceImpl implements IHigherService {
 	private ExamplesDTO readExamples() {
 	
 		
-		ICrud crud = new CRUD();
+//		ICrud crud = new CRUD();
 		
 		ReadTableDTO readTableDTO = crud.read(new ExamplesDAL());
 		
@@ -150,11 +156,13 @@ public class HigherServiceImpl implements IHigherService {
 	}
 	public TopicsDTO getTopicsByLanguageId(int languageId) {
 
-		TopicsDTO topicsDTO = readTopics();
-		
+//		TopicsDTO topicsDTO = readTopics();
+//		ICrud crud = new CRUD();
+		ReadTableDTO dto = crud.read(new TopicsDAL());
 		//check if readTopics method ended with errors
-		if(topicsDTO.isSuccess()) {
-			List<TopicsDAL> ret = topicsDTO.getTopics().stream()
+		if(dto.isSuccess()) {
+			List<TopicsDAL> list = (List<TopicsDAL>)(Object)dto.getReadResultSet();
+			List<TopicsDAL> ret = list.stream()
 					.filter(e -> e.languageId == languageId).collect(Collectors.toList());
 			//add to cache before return
 			return new TopicsDTO(true, ret, "success");
@@ -162,16 +170,19 @@ public class HigherServiceImpl implements IHigherService {
 		
 //		List<Object> ret = topics.stream().filter(e -> ((TopicsDAL)e).languageId == languageId).collect(Collectors.toList());
 		
-		return new TopicsDTO(false, null, topicsDTO.getMessage());
+		return new TopicsDTO(false, null, dto.getMessage());
 	}
 	
 	@Override
 	public ExamplesDTO getExamplesByTopicId(int topicId) {
 		
-		ExamplesDTO examplesDTO = readExamples();
+//		ExamplesDTO examplesDTO = readExamples();
+//		ICrud crud = new CRUD();
+		ReadTableDTO examplesDTO = crud.read(new ExamplesDAL());
 		//check if readTopics method ended with errors
 		if(examplesDTO.isSuccess()) {
-			List<ExamplesDAL> ret = examplesDTO.getExamples().stream()
+			List<ExamplesDAL> list = (List<ExamplesDAL>)(Object)examplesDTO.getReadResultSet();
+			List<ExamplesDAL> ret = list.stream()
 					.filter(e -> e.topicId == topicId).collect(Collectors.toList());
 			return new ExamplesDTO(true, ret, "success");
 		}
@@ -182,23 +193,49 @@ public class HigherServiceImpl implements IHigherService {
 	}
 	@Override
 	public LanguageTagDTO getAllLanguages() {
-
-		return readLanguageTag();
+//		ICrud crud = new CRUD();
+		ReadTableDTO languageTagsDTO = crud.read(new LanguageTagsDAL());
+		if(languageTagsDTO.isSuccess()) {
+			List<LanguageTagsDAL> list = (List<LanguageTagsDAL>)(Object) languageTagsDTO.getReadResultSet();
+			LanguageTagDTO ret = new LanguageTagDTO();
+			ret.setSuccess(true);
+			ret.setLanguageTag(list);
+			ret.setMessage("success");
+			return ret;
+		}
+		LanguageTagDTO ret = new LanguageTagDTO();
+		ret.setSuccess(false);
+		ret.setMessage(languageTagsDTO.getMessage());
+		return ret;
 	}
 	@Override
 	public TopicsDTO getAllTopics() {
-
-		return readTopics();
+//		ICrud crud = new CRUD();
+		ReadTableDTO topicsDTO = crud.read(new TopicsDAL());
+		if(topicsDTO.isSuccess()) {
+			List<TopicsDAL> list = (List<TopicsDAL>)(Object) topicsDTO.getReadResultSet();
+			TopicsDTO ret = new TopicsDTO();
+			ret.setSuccess(true);
+			ret.setMessage("success");
+			ret.setTopics(list);
+			return ret;
+		}
+		TopicsDTO ret = new TopicsDTO();
+		ret.setSuccess(false);
+		ret.setMessage(topicsDTO.getMessage());
+		return ret;
 	}
 	
 	@Override
 	public TopicsDTO getTopicInfoByTopicId(int topicId) {
 		
-		TopicsDTO topicsDTO = readTopics();
-		
+//		TopicsDTO topicsDTO = readTopics();
+//		ICrud crud = new CRUD();
+		ReadTableDTO topicsDTO = crud.read(new TopicsDAL());
 		if(topicsDTO.isSuccess()) {
 			
-			List<TopicsDAL> ret = topicsDTO.getTopics().stream()
+			List<TopicsDAL> list = (List<TopicsDAL>)(Object) topicsDTO.getReadResultSet();
+			List<TopicsDAL> ret = list.stream()
 					.filter(e -> e.topicId == topicId).collect(Collectors.toList());
 			
 			return new TopicsDTO(true, ret, "success");
@@ -213,9 +250,12 @@ public class HigherServiceImpl implements IHigherService {
 	@Override
 	public ExamplesDTO getExampleByExampleId(int exampleId) {
 		
-		ExamplesDTO examplesDTO = readExamples();
+//		ExamplesDTO examplesDTO = readExamples();
+//		ICrud crud = new CRUD();
+		ReadTableDTO examplesDTO = crud.read(new ExamplesDAL());
 		if(examplesDTO.isSuccess()) {
-			List<ExamplesDAL> ret = examplesDTO.getExamples().stream()
+			List<ExamplesDAL> list = (List<ExamplesDAL>)(Object)examplesDTO.getReadResultSet();
+			List<ExamplesDAL> ret = list.stream()
 					.filter(e -> e.exampleId == exampleId).collect(Collectors.toList());
 			return new ExamplesDTO(true, ret, "success");
 		}
@@ -227,11 +267,12 @@ public class HigherServiceImpl implements IHigherService {
 	@Override
 	public LanguageTagDTO getLanguageTagByLanguageId(int languageId) {
 		
-		LanguageTagDTO languageTagDTO = readLanguageTag();
-		
-		if(languageTagDTO.isSuccess()) {
-			
-			List<LanguageTagsDAL> ret = languageTagDTO.getLanguageTag().stream()
+//		LanguageTagDTO languageTagDTO = readLanguageTag();
+//		ICrud crud = new CRUD();
+		ReadTableDTO languageTagsDTO = crud.read(new LanguageTagsDAL());
+		if(languageTagsDTO.isSuccess()) {
+			List<LanguageTagsDAL> list = (List<LanguageTagsDAL>)(Object) languageTagsDTO.getReadResultSet();
+			List<LanguageTagsDAL> ret = list.stream()
 					.filter(e -> e.languageId == languageId).collect(Collectors.toList());
 			
 			return new LanguageTagDTO(true, ret, "success");
@@ -239,7 +280,7 @@ public class HigherServiceImpl implements IHigherService {
 		
 //		List<Object> ret = topics.stream().filter(e -> ((TopicsDAL)e).languageId == languageId).collect(Collectors.toList());
 		
-		return new LanguageTagDTO(false, null, languageTagDTO.getMessage());
+		return new LanguageTagDTO(false, null, languageTagsDTO.getMessage());
 		
 	}
 	
