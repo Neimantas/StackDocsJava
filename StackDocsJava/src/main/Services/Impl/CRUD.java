@@ -103,11 +103,55 @@ public class CRUD implements ICrud {
 		//readExamples
 		//}
 		
-		
-		
-		
-		
 		return readTableDTO;
+	}
+	
+	public Object read2(Object dal) {
+		
+		Class someClass = dal.getClass();
+		String tableName = someClass.getSimpleName();
+		tableName = tableName.replaceAll("DAL", "");
+		Object retDAL = null;
+		
+		String readQuerry = "SELECT * FROM " + tableName + ";";
+		
+		try {
+			
+			ResultSet rs = statements.executeQuery(readQuerry);
+			
+			while(rs.next()) {
+				retDAL = someClass.newInstance();
+				Class retDALClass = retDAL.getClass();
+				Field[] retDALFields = retDALClass.getFields();
+				
+				for(int i = 0; i<retDALFields.length; i++) {
+					
+					if(retDALFields[i].getType() == String.class) {
+						retDALFields[i].set(retDAL, rs.getString(i+1));
+					}
+					if(retDALFields[i].getType() == int.class) {
+						
+						retDALFields[i].set(retDAL, rs.getInt(i+1));
+					}
+					if(retDALFields[i].getType() == byte.class) {
+						
+						retDALFields[i].set(retDAL, rs.getByte(i+1));
+					}
+				}
+				
+			}
+			
+			//creating instance of object that we next return.
+			
+			
+			
+			
+		} catch (InstantiationException | IllegalAccessException | SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return retDAL;
+		
 	}
 
 	public UpdateTableDTO update(CrudUpdate params) {
