@@ -2,17 +2,19 @@
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>StackDoc Topic content</title>
-<link rel="stylesheet" href="resources/css/bootstrap-4.1.1.min.css">
-<link rel="stylesheet" href="resources/css/myStyles.css">
-<script type="text/javascript" src="resources/js/myScripts.js"></script>
+  <title>Stack Doc Topic Content</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <link rel="stylesheet" href="resources/css/bootstrap-4.1.1.min.css">
+  <link rel="stylesheet" href="resources/css/myStyles.css">
+  <link rel="stylesheet" href="resources/css/fontawesome-all.css">
+  <script type="text/javascript" src="resources/js/myScripts.js"></script>
 </head>
 
 <body>
@@ -21,10 +23,10 @@
 			<div class="form-row p-2">
 				<div class="col">
 					<ul class="list-group">
-						<li class="list-group-item text-center">
+						<li class="list-group-item text-center border-secondary">
 							<h2>${topic}</h2>
 						</li>
-						<li class="list-group-item">
+						<li class="list-group-item border-secondary">
 							<h4>Introduction:</h4>
 							<p>${introduction}</p>
 							<h4>Syntax:</h4>

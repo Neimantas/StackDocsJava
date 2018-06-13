@@ -1,6 +1,9 @@
 function searchTopic() {
 	var language = document.getElementById("language").value;
 	var topic = document.getElementById("topic").value;
+	if(language == "") {
+		language = "0";
+	}
 	if(topic == "") {
 		topic = "0";
 	}
