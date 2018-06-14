@@ -25,9 +25,11 @@ public class ReadServlet extends HttpServlet {
 	private String syntax;
 	private String parameters;
 	private String remarks;
+	private IFrontService fs;
 
 	public ReadServlet() {
 		super();
+		fs = new FrontServiceImp();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -36,7 +38,7 @@ public class ReadServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String topicId = request.getParameter("topic");
 
-		IFrontService fs = new FrontServiceImp();
+//		IFrontService fs = new FrontServiceImp();
 		TopicsInfoFrontDTO dto = fs.getTopicInfoByTopicId(Integer.parseInt(topicId));
 
 		List<String> content = new ArrayList<String>();

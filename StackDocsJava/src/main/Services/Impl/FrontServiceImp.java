@@ -9,16 +9,24 @@ import Models.DAL.ExamplesDAL;
 import Models.DAL.TopicsDAL;
 import Models.DTO.ExamplesDTO;
 import Models.DTO.ExamplesFrontDTO;
+import Models.DTO.LanguageTagDTO;
 import Models.DTO.TopicsDTO;
 import Models.DTO.TopicsFrontDTO;
 import Models.DTO.TopicsInfoFrontDTO;
 import Services.IFrontService;
+import Services.IHigherService;
 
 public class FrontServiceImp implements IFrontService {
+	
+	private IHigherService hService;
+	
+	public FrontServiceImp() {
+		hService = new HigherServiceImpl();
+	}
 
 	@Override
 	public TopicsInfoFrontDTO getTopicInfoByTopicId(int topicId) {
-		HigherServiceImpl hService = new HigherServiceImpl();
+//		HigherServiceImpl hService = new HigherServiceImpl();
 		TopicsDTO tInfoDTO = hService.getTopicInfoByTopicId(topicId);
 
 		if (tInfoDTO.isSuccess()) {
@@ -66,7 +74,7 @@ public class FrontServiceImp implements IFrontService {
 
 	@Override
 	public TopicsFrontDTO getTopicsByLanguageId(int languageId, String topicWord) {
-		HigherServiceImpl hService = new HigherServiceImpl();
+//		HigherServiceImpl hService = new HigherServiceImpl();
 		if (languageId == 0) {
 			TopicsDTO allTitleDTO = hService.getAllTopics();
 			String topicWord2 = topicWord.toLowerCase();
@@ -78,9 +86,10 @@ public class FrontServiceImp implements IFrontService {
 						Topic topic = new Topic();
 						topic.set_TopicId(t.topicId);
 						topic.set_LanguageId(t.languageId);
-						if (hService.getLanguageTagByLanguageId(t.languageId).isSuccess()) {
+						LanguageTagDTO ldto = hService.getLanguageTagByLanguageId(t.languageId);
+						if (ldto.isSuccess()) {
 							topic.set_LanguageTitle(
-									hService.getLanguageTagByLanguageId(t.languageId).getLanguageTag().get(0).title);
+									ldto.getLanguageTag().get(0).title);
 						}
 						topic.set_TopicTitle(t.title);
 						String textCheck = t.title.toLowerCase();
@@ -97,9 +106,10 @@ public class FrontServiceImp implements IFrontService {
 						Topic topic = new Topic();
 						topic.set_TopicId(t.topicId);
 						topic.set_LanguageId(t.languageId);
-						if (hService.getLanguageTagByLanguageId(t.languageId).isSuccess()) {
+						LanguageTagDTO ldto = hService.getLanguageTagByLanguageId(t.languageId);
+						if (ldto.isSuccess()) {
 							topic.set_LanguageTitle(
-									hService.getLanguageTagByLanguageId(t.languageId).getLanguageTag().get(0).title);
+									ldto.getLanguageTag().get(0).title);
 						}
 						topic.set_TopicTitle(t.title);
 						topicsFront.add(topic);
@@ -153,7 +163,7 @@ public class FrontServiceImp implements IFrontService {
 
 	@Override
 	public ExamplesFrontDTO getExamplesByID(int topicId) {
-		HigherServiceImpl hService = new HigherServiceImpl();
+//		HigherServiceImpl hService = new HigherServiceImpl();
 		ExamplesDTO example = hService.getExamplesByTopicId(topicId);
 		if (example.isSuccess()) {
 			List<Example> exampleFront = new ArrayList<Example>();

@@ -46,20 +46,29 @@ public class CRUD_Main {
 //		System.out.println(crud.create(dal).getMessage());
 		
 		
-		ExamplesDAL dal = new ExamplesDAL();
-		ExamplesDAL rdal =(ExamplesDAL)crud.read(dal).getReadResultSet().get(0);
-		System.out.println(rdal.title + " " + rdal.exampleId + " "  + rdal.bodyHtml);
+//		ExamplesDAL dal = new ExamplesDAL();
+//		ExamplesDAL rdal =(ExamplesDAL)crud.read(dal).getReadResultSet().get(0);
+//		System.out.println(rdal.title + " " + rdal.exampleId + " "  + rdal.bodyHtml);
+//		
+//		
+//		TopicsDAL dal1 = new TopicsDAL();
+//		TopicsDAL rdal1 =(TopicsDAL)crud.read(dal1).getReadResultSet().get(0);
+//		System.out.println(rdal1.title + " " + rdal1.languageId + " "  + rdal1.syntaxHtml);
+//		
+//		
+//		LanguageTagsDAL dal3 = new LanguageTagsDAL();
+//		LanguageTagsDAL rdal2 =(LanguageTagsDAL)crud.read(dal3).getReadResultSet().get(0);
+//		System.out.println(rdal2.title + " " + rdal2.languageId + " "  + rdal2.tag);
+		TopicsDAL tdal = new TopicsDAL();
+		System.out.println("Speed with for");
+		crud.read(tdal);
+		System.out.println("speed without for");
+//		crud.read3(tdal);
 		
-		
-		TopicsDAL dal1 = new TopicsDAL();
-		TopicsDAL rdal1 =(TopicsDAL)crud.read(dal1).getReadResultSet().get(0);
-		System.out.println(rdal1.title + " " + rdal1.languageId + " "  + rdal1.syntaxHtml);
-		
-		
-		LanguageTagsDAL dal3 = new LanguageTagsDAL();
-		LanguageTagsDAL rdal2 =(LanguageTagsDAL)crud.read(dal3).getReadResultSet().get(0);
-		System.out.println(rdal2.title + " " + rdal2.languageId + " "  + rdal2.tag);
-		
+		System.out.println("Speed with for cached");
+		crud.read(tdal);
+		System.out.println("speed without for");
+//		crud.read3(tdal);
 		
 	}
 
