@@ -21,8 +21,7 @@ public class HigherServiceImpl implements IHigherService {
 	
 	ICrud crud;
 	
-	public HigherServiceImpl(CacheImpl cacheImpl, CRUD crudImpl) {
-//		cache = cacheImpl;
+	public HigherServiceImpl(CRUD crudImpl) {
 		crud = crudImpl;
 	}
 	
