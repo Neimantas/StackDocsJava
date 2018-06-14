@@ -11,8 +11,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-  <link rel="stylesheet" href="resources/css/bootstrap-4.1.1.min.css">
   <link rel="stylesheet" href="resources/css/myStyles.css">
+  <link rel="stylesheet" href="resources/css/bootstrap-4.1.1.min.css">
   <link rel="stylesheet" href="resources/css/bootstrap-select.css">
   <link rel="stylesheet" href="resources/css/fontawesome-all.css">
   <script type="text/javascript" src="resources/js/myScripts.js"></script>
@@ -21,27 +21,24 @@
 <body>
   <div class="container pt-5">
     <div>
-
       <div class="form-row p-2">
         <div class="col">
-          <select class="selectpicker form-control" data-size="6" data-style="btn btn-outline-secondary" id="language" data-live-search="true" title="Choose language...">
+          <select class="selectpicker form-control" data-size="6" data-style="border-secondary bg-white" id="language" data-live-search="true" title="Choose language...">
             	<option value="0" ${languageId==0?'selected':''}>All languages</option>
 				<c:forEach items="${languageDD}" var="language">
-                <option value="${language.key}">${language.value}</option>
+                <option value="${language.key}" ${languageId==language.key?'selected':''}>${language.value}</option>
               </c:forEach>
             </select>
         </div>
         <div class="col-8">
           <div class="input-group">
-            <input type="text" value="${topic!=null?topic:''}" class="form-control border-secondary" id="topic" placeholder="Search topic..." aria-label="Recipient's username"
-              aria-describedby="basic-addon2">
+            <input type="text" value="${topic!=null?topic:''}" class="form-control border-secondary" id="topic" placeholder="Search topic...">
             <div class="input-group-append">
               <button class="btn btn-outline-secondary" type="submit" onclick="searchTopic();"><i class="fas fa-search"></i></button>
             </div>
           </div>
         </div>
       </div>
-      <form>
         <div class="row p-2">
           <div class="col">
             <select class="custom-select border-secondary" size="10" id="title">
@@ -106,7 +103,6 @@
             <button type="button" class="btn btn-outline-dark float-right" onClick="readTitle()" )>Open</button>
           </div>
         </div>
-      </form>
     </div>
   </div>
 

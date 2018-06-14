@@ -44,11 +44,9 @@
 					<input class="btn btn-outline-dark" type="submit" value="Back">
 				</div>
 				<div class="col">
-					<!-- Button trigger modal -->
+					<button type="button" id="toTop" class="btn btn-outline-dark float-right ml-1" onClick="topFunction()"><i class="fas fa-angle-double-up"></i></button>
 					<button type="button" class="btn btn-outline-dark float-right"
 						data-toggle="modal" data-target="#exampleModalLong">Examples</button>
-
-					<!-- Modal -->
 					<div class="modal fade" id="exampleModalLong" tabindex="-1"
 						role="dialog" aria-labelledby="exampleModalLongTitle"
 						aria-hidden="true">
