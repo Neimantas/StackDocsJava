@@ -3,6 +3,8 @@ package Services.Impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Singleton;
+
 import Models.Example;
 import Models.Topic;
 import Models.DAL.ExamplesDAL;
@@ -16,13 +18,15 @@ import Models.DTO.TopicsInfoFrontDTO;
 import Services.IFrontService;
 import Services.IHigherService;
 
+@Singleton
 public class FrontServiceImp implements IFrontService {
 	
-	private IHigherService hService;
+	IHigherService hService;
 	
-	public FrontServiceImp() {
-		hService = new HigherServiceImpl();
+	public FrontServiceImp(HigherServiceImpl hServiceImpl) {
+		hService = hServiceImpl;
 	}
+	
 
 	@Override
 	public TopicsInfoFrontDTO getTopicInfoByTopicId(int topicId) {

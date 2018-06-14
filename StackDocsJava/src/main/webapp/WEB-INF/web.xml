@@ -5,6 +5,10 @@
 	      version="2.5">
 
   <display-name>Archetype Created Web Application</display-name>
+  
+  <listener>
+    <listener-class>Configuration.StartupContainer</listener-class>
+  </listener>
 
   <servlet>
   	<servlet-name>Index</servlet-name>

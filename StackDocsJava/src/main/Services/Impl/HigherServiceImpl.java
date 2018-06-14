@@ -19,7 +19,17 @@ import Services.IHigherService;
 
 public class HigherServiceImpl implements IHigherService {
 	
-	private ICrud crud;
+	ICrud crud;
+	
+	public HigherServiceImpl(CacheImpl cacheImpl, CRUD crudImpl) {
+		cache = cacheImpl;
+		crud = crudImpl;
+	}
+	
+
+	
+	
+		
 	
 	public HigherServiceImpl() {
 		crud = new CRUD();

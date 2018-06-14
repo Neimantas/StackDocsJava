@@ -17,7 +17,7 @@ public class CRUD_Main {
 
 	public static void main(String[] args) {
 		
-		CRUD crud = new CRUD();
+//		CRUD crud = new CRUD();
 //		System.out.println(crud.read(new ExamplesDAL()).isSuccess());
 //		System.out.println(crud.read(new LanguageTagsDAL()).isSuccess());
 //		System.out.println(crud.read(new TopicsDAL()).isSuccess());

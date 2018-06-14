@@ -6,12 +6,15 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import Services.IDataBase;
+import javax.inject.Singleton;
 
+@Singleton
 public class DataBaseImpl implements IDataBase {
 	private static DataBaseImpl instance = null;
 	private Connection conn = null;
 
-	private DataBaseImpl() {
+	public DataBaseImpl() {
+		instance = this;
 	};
 
 	public Connection connect() {
@@ -45,11 +48,13 @@ public class DataBaseImpl implements IDataBase {
 		}
 
 	}
-	  public static DataBaseImpl getInstance() {
-	      if(instance == null) {
-	         instance = new DataBaseImpl();
-	      }
-	      return instance;
-	   }
+
+	public static DataBaseImpl getInstance() {
+		// if(instance == null) {
+		// instance = new DataBaseImpl();
+		// }
+		return instance;
+	}
+
 
 }

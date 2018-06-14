@@ -19,21 +19,16 @@ import Services.ICrud;
 import Services.IDataBase;
 
 public class CRUD implements ICrud {
+	private IDataBase db;
 	private Statement statements;
 	private ResultSet readResultSet;
 	private Connection conn;
 	private int count;
 	
-	public CRUD() {
+	public CRUD(DataBaseImpl databaseImpl) {
 
-		IDataBase db = DataBaseImpl.getInstance();
-		conn = db.connect();
-		try {
-			statements = conn.createStatement();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		db = databaseImpl;
+
 	}
 
 	public CreateTableDTO create(Object dal) {
@@ -75,7 +70,7 @@ public class CRUD implements ICrud {
 			createTableDTO.setSuccess(false);
 			createTableDTO.setMessage(e.getMessage());
 			return createTableDTO;
-		} 
+		}
 
 		return createTableDTO;
 
@@ -111,7 +106,7 @@ public class CRUD implements ICrud {
 //	}
 //	
 	public ReadTableDTO read(Object dal) {
-		
+
 //		long start = System.currentTimeMillis();
 		Class someClass = dal.getClass();
 		Field[] objFields = someClass.getFields();
@@ -123,12 +118,11 @@ public class CRUD implements ICrud {
 		
 		String tableName = someClass.getSimpleName();
 		tableName = tableName.replaceAll("DAL", "");
-		
+
 		ICache cache = CacheImpl.getInstance();
 		if( cache.get(tableName) != null) {
 			return (ReadTableDTO)cache.get(tableName);
 		}
-		
 		Object retDAL = null;
 		
 		String readQuerry = "SELECT * FROM " + tableName + ";";
@@ -136,6 +130,7 @@ public class CRUD implements ICrud {
 		try {
 		
 			ResultSet rs = statements.executeQuery(readQuerry);
+
 			
 			ReadTableDTO ret = new ReadTableDTO();
 			List<Object> retList = new ArrayList<>(); 
@@ -301,6 +296,16 @@ public class CRUD implements ICrud {
 
 		return deleteTableDTO;
 
+	}
+	
+	private void setConnection() {
+		conn = db.connect();
+		try {
+			statements = conn.createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

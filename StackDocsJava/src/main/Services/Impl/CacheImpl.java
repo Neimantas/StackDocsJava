@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import Services.ICache;
+import javax.inject.Singleton;
 
+@Singleton
 public class CacheImpl<T> implements ICache<T> {
 	
 	private Map<String, T> objects = Collections.synchronizedMap(new HashMap<>());
@@ -15,8 +17,9 @@ public class CacheImpl<T> implements ICache<T> {
 	
 	private static CacheImpl instance = null;
 	
-	//Cannot instantiate Cache usual way. Use getInstance method instead
-	private CacheImpl() {}
+	public CacheImpl() {
+		instance = this;
+	}
 	
 	@Override
 	public void put(String key, T data) {
@@ -56,11 +59,11 @@ public class CacheImpl<T> implements ICache<T> {
 	
 	@SuppressWarnings("unchecked")
 	public static <T> CacheImpl<T> getInstance() {
-		
-		if(instance == null) {
-			instance = new CacheImpl<T>();
-			return instance;
-		}
+//		
+//		if(instance == null) {
+//			instance = new CacheImpl<T>();
+//			return instance;
+//		}
 		return instance;
 	}
 

@@ -1,16 +1,15 @@
 package Services.Impl;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
-//import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Configuration.StartupContainer;
 import Models.DTO.TopicsFrontDTO;
 import Services.IFrontService;
 import Models.Topic;
@@ -26,16 +25,18 @@ public class IndexServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	private IFrontService fs;
+	private IFrontService frontService;
 	private TopicsFrontDTO dto;
 	private String topic;
 	private int currentLanguageId;
 	private int pageNumber;
+	
 
 	public IndexServlet() {
-		super();
-		fs = new FrontServiceImp();
+		frontService = StartupContainer.easyDI.getInstance(FrontServiceImp.class);
 	}
+
+	
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -43,7 +44,6 @@ public class IndexServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		String getParamSearch = request.getParameter("search");
 		String getParamChange = request.getParameter("change");
 
@@ -56,7 +56,7 @@ public class IndexServlet extends HttpServlet {
 				topic = "";
 			}
 			pageNumber = 1;
-			dto = fs.getTopicsByLanguageId(currentLanguageId, topic);
+			dto = frontService.getTopicsByLanguageId(currentLanguageId, topic);
 		}
 
 		if (getParamChange != null) { // jei keiciame puslapi
@@ -65,6 +65,7 @@ public class IndexServlet extends HttpServlet {
 		}
 
 		Map<Integer, String> topicMap = new HashMap<>();
+		Map<Integer, String> languageMap = new HashMap<>();
 		if (dto != null) {
 			if (dto.is_Succcess()) {
 
@@ -72,12 +73,14 @@ public class IndexServlet extends HttpServlet {
 				// Atvaizduojame reikiamo puslapio temas
 				for (int i = (pageNumber - 1) * 10; i < pageNumber * 10 && i < topics.size(); i++) {
 					topicMap.put(topics.get(i).get_TopicId(), topics.get(i).get_TopicTitle());
-
+					languageMap.put(topics.get(i).get_TopicId(),
+							topics.get(i).get_LanguageTitle() != null ? topics.get(i).get_LanguageTitle() + " | " : "");
 				}
 
 			} else {
 
 				topicMap.put(null, dto.get_Message());
+				languageMap.put(null, null);
 
 			}
 		}
@@ -86,6 +89,7 @@ public class IndexServlet extends HttpServlet {
 		request.setAttribute("pageNumber", pageNumber);
 		request.setAttribute("numberOfPages", countNumberOfPages());
 		request.setAttribute("topicMap", topicMap);
+		request.setAttribute("languageMap", languageMap);
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 
 	}
@@ -113,5 +117,6 @@ public class IndexServlet extends HttpServlet {
 		}
 		return 0;
 	}
+
 
 }

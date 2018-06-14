@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
-//import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Configuration.StartupContainer;
 import Models.Example;
 import Models.Topic;
 import Models.DTO.ExamplesFrontDTO;
@@ -20,17 +20,15 @@ import Services.IFrontService;
 public class ReadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	IFrontService frontService;
 	private String topic;
 	private String introduction;
 	private String syntax;
 	private String parameters;
 	private String remarks;
-	private IFrontService fs;
 
 	public ReadServlet() {
-		super();
-		fs = new FrontServiceImp();
-		// TODO Auto-generated constructor stub
+		frontService = StartupContainer.easyDI.getInstance(FrontServiceImp.class);
 	}
 
 	@Override
@@ -38,8 +36,7 @@ public class ReadServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String topicId = request.getParameter("topic");
 
-//		IFrontService fs = new FrontServiceImp();
-		TopicsInfoFrontDTO dto = fs.getTopicInfoByTopicId(Integer.parseInt(topicId));
+		TopicsInfoFrontDTO dto = frontService.getTopicInfoByTopicId(Integer.parseInt(topicId));
 
 		List<String> content = new ArrayList<String>();
 
@@ -59,7 +56,7 @@ public class ReadServlet extends HttpServlet {
 			content.add(dto.get_Message());
 		}
 
-		ExamplesFrontDTO dtoE = fs.getExamplesByID(Integer.parseInt(topicId));
+		ExamplesFrontDTO dtoE = frontService.getExamplesByID(Integer.parseInt(topicId));
 
 		List<String> contExamples = new ArrayList<String>();	
 		
