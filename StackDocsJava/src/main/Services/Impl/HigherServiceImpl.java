@@ -22,7 +22,7 @@ public class HigherServiceImpl implements IHigherService {
 	ICrud crud;
 	
 	public HigherServiceImpl(CacheImpl cacheImpl, CRUD crudImpl) {
-		cache = cacheImpl;
+//		cache = cacheImpl;
 		crud = crudImpl;
 	}
 	
@@ -31,9 +31,9 @@ public class HigherServiceImpl implements IHigherService {
 	
 		
 	
-	public HigherServiceImpl() {
-		crud = new CRUD();
-	}
+//	public HigherServiceImpl() {
+//		crud = new CRUD();
+//	}
 	
 //	private LanguageTagDTO readLanguageTag() {
 //		
