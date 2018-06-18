@@ -24,10 +24,12 @@ public class CRUD implements ICrud {
 	private ResultSet readResultSet;
 	private Connection conn;
 	private int count;
+	private ICache cache;
 	
-	public CRUD(DataBaseImpl databaseImpl) {
+	public CRUD(DataBaseImpl databaseImpl, CacheImpl cacheImpl) {
 
 		db = databaseImpl;
+		cache = cacheImpl;
 	}
 
 	public CreateTableDTO create(Object dal) {
@@ -121,7 +123,7 @@ public class CRUD implements ICrud {
 		String tableName = someClass.getSimpleName();
 		tableName = tableName.replaceAll("DAL", "");
 
-		ICache cache = CacheImpl.getInstance();
+	//	ICache cache = CacheImpl.getInstance();
 		if( cache.get(tableName) != null) {
 			return (ReadTableDTO)cache.get(tableName);
 		}
