@@ -100,7 +100,9 @@
             </ul>
           </div>
           <div class="col">
-            <button type="button" class="btn btn-outline-dark float-right" onClick="readTitle()" )>Open</button>
+            <button type="button" class="btn btn-outline-dark float-right ml-1 font-weight-bold" onClick="readTitle()">Open</button>
+            <button type="button" class="btn btn-outline-dark float-right ml-1" data-toggle="tooltip" data-placement="bottom" title="Delete topic" onClick=""><i class="fas fa-trash-alt"></i></button>
+            <button type="button" class="btn btn-outline-dark float-right" data-toggle="tooltip" data-placement="bottom" title="Add new topic" onClick=""><i class="fas fa-plus-square"></i></button>
           </div>
         </div>
     </div>
@@ -110,6 +112,9 @@
   <script type="text/javascript" src="resources/js/popper.min.js"></script>
   <script type="text/javascript" src="resources/js/bootstrap-4.1.1.min.js"></script>
   <script type="text/javascript" src="resources/js/bootstrap-select.js"></script>
+  <script type="text/javascript">
+ 	 $(function () { $('[data-toggle="tooltip"]').tooltip()})
+  </script>
 
 </body>
 

@@ -3,3 +3,7 @@
   background: #343a40!important;
   color: white !important;
 }
+
+#toTop {
+  display: none;
+}
