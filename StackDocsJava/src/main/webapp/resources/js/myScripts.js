@@ -1,6 +1,9 @@
 function searchTopic() {
 	var language = document.getElementById("language").value;
 	var topic = document.getElementById("topic").value;
+	if(language == "") {
+		language = "0";
+	}
 	if(topic == "") {
 		topic = "0";
 	}
@@ -24,4 +27,19 @@ function setPage(page) {
 		location.href=url;
 	}
 
+}
+
+function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+		 if (document.body.scrollTop > 40 || document.documentElement.scrollTop > 40) {
+   document.getElementById("toTop").style.display = "block";
+		 } else {
+   document.getElementById("toTop").style.display = "none";
+	}
 }
