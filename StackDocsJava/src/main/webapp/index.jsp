@@ -101,12 +101,34 @@
           </div>
           <div class="col">
             <button type="button" class="btn btn-outline-dark float-right ml-1 font-weight-bold" onClick="readTitle()">Open</button>
-            <button type="button" class="btn btn-outline-dark float-right ml-1" data-toggle="tooltip" data-placement="bottom" title="Delete topic" onClick=""><i class="fas fa-trash-alt"></i></button>
+            <button type="button" class="btn btn-outline-dark float-right ml-1" data-toggle="modal" data-placement="bottom" data-target="#deleteTopic" title="Delete topic"><i class="fas fa-trash-alt"></i></button>
             <button type="button" class="btn btn-outline-dark float-right" data-toggle="tooltip" data-placement="bottom" title="Add new topic" onClick=""><i class="fas fa-plus-square"></i></button>
           </div>
         </div>
     </div>
   </div>
+  
+
+<!-- Modal -->
+<div class="modal fade" id="deleteTopic" tabindex="-1" role="dialog" aria-labelledby="deleteTopic" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary onClick="deleteTopic()">Delete topic</button>
+      </div>
+    </div>
+  </div>
+</div>
 
   <script type="text/javascript" src="resources/js/jquery-3.3.1.slim.min.js"></script>
   <script type="text/javascript" src="resources/js/popper.min.js"></script>

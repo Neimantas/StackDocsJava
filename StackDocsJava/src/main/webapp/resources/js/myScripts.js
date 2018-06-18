@@ -29,6 +29,18 @@ function setPage(page) {
 
 }
 
+function deleteTopic() {
+	
+	var topicDoc = document.getElementById("title");
+	var topic = topicDoc.options[topicDoc.selectedIndex];
+	if(topic.value == "undefined") {
+		topic.value = "0";
+	}	
+	url="main?rem=" + topic.value;
+	location.href=url;
+	
+}
+
 function topFunction() {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
