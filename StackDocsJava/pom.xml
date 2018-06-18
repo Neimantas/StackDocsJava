@@ -47,6 +47,29 @@
           <target>1.8</target>
         </configuration>
       </plugin>
+      <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <configuration>
+              <descriptorRefs>
+                  <descriptorRef>jar-with-dependencies</descriptorRef>
+              </descriptorRefs>
+              <finalName>stackDocsJava-${project.version}</finalName>
+              <archive>
+                  <manifest>
+                      <mainClass>main.Configuration.Main</mainClass>
+                  </manifest>
+              </archive>
+          </configuration>
+          <executions>
+              <execution>
+                  <phase>package</phase>
+                  <goals>
+                      <goal>single</goal>
+                  </goals>
+              </execution>
+          </executions>
+      </plugin>
     </plugins>
     <finalName>StackDocsJava</finalName>
   </build>
