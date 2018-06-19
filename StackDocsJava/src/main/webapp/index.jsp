@@ -6,16 +6,16 @@
 <html>
 
 <head>
-<title>Stack Doc Java</title>
+<title>Stack Docs Java</title>
 
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-<link rel="stylesheet" href="resources/css/myStyles.css">
 <link rel="stylesheet" href="resources/css/bootstrap-4.1.1.min.css">
 <link rel="stylesheet" href="resources/css/bootstrap-select.css">
 <link rel="stylesheet" href="resources/css/fontawesome-all.css">
+<link rel="stylesheet" href="resources/css/myStyles.css">
 <script type="text/javascript" src="resources/js/myScripts.js"></script>
 </head>
 
@@ -119,12 +119,13 @@
 					<button type="button"
 						class="btn btn-outline-dark float-right ml-1 font-weight-bold"
 						onClick="readTitle();">Open</button>
-					<button type="button" class="btn btn-outline-dark float-right ml-1"
-						data-toggle="modal" data-target="#deleteTopic"
-						data-placement="bottom" title="Delete topic"
-						onClick="changeModalText();">
-						<i class="fas fa-trash-alt"></i>
-					</button>
+					<c:if test="${topicMap.size() != 0}">
+						<button type="button"
+							class="btn btn-outline-dark float-right ml-1" data-toggle="tooltip" data-placement="bottom"
+							title="Delete topic" onClick="changeModalText();">
+							<i class="fas fa-trash-alt"></i>
+						</button>
+					</c:if>
 					<button type="button" class="btn btn-outline-dark float-right"
 						data-toggle="tooltip" data-placement="bottom"
 						title="Add new topic" onClick="">
@@ -145,10 +146,9 @@
 					try again</div>
 				<div class="modal-footer">
 					<button type="button" id="cancelBtn" class="btn btn-secondary"
-						data-dismiss="modal">OK</button>
-					<button type="button" id="deleteBtn"
-						class="btn btn-primary" onClick="deleteTopic();">Delete
-						topic</button>
+						data-dismiss="modal">Got it</button>
+					<button type="button" id="deleteBtn" class="btn btn-primary"
+						onClick="deleteTopic();">Delete topic</button>
 				</div>
 			</div>
 		</div>
@@ -160,9 +160,6 @@
 	<script type="text/javascript"
 		src="resources/js/bootstrap-4.1.1.min.js"></script>
 	<script type="text/javascript" src="resources/js/bootstrap-select.js"></script>
-	<script type="text/javascript">
- 	 $(function () { $('[data-toggle="tooltip"]').tooltip()})
-  </script>
 
 </body>
 

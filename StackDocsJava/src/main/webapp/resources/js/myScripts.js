@@ -15,10 +15,10 @@ function readTitle() {
 
 	var topicDoc = document.getElementById("title");
 	var topic = topicDoc.options[topicDoc.selectedIndex];
-
-	url = "read?topic=" + topic.value;
-	location.href = url;
-
+	if (topic != undefined) {
+		url = "read?topic=" + topic.value;
+		location.href = url;
+	}
 }
 
 function setPage(page) {
@@ -32,20 +32,23 @@ function setPage(page) {
 function changeModalText() {
 
 	var topicDoc = document.getElementById("title");
-	var topic = topicDoc.options[topicDoc.selectedIndex].text;
+	var topic = topicDoc.options[topicDoc.selectedIndex];
+	if (topic != undefined) {
+		document.getElementById("modalBody").innerHTML = "Are you sure you want to delete<br/> \""
+				+ topic.text + "\"";
+		document.getElementById("cancelBtn").innerHTML = "Cancel";
+		document.getElementById("deleteBtn").style.display = "block";
+	}
 
-	document.getElementById("modalBody").innerHTML = "Are you sure you want to delete<br/> \"" + topic + "\"";
-	document.getElementById("cancelBtn").innerHTML = "Cancel";
-	document.getElementById("deleteBtn").style.display = "block";
-
+	$('#deleteTopic').modal('show');
 }
 
 function deleteTopic() {
 
 	var topicDoc = document.getElementById("title");
 	var topicID = topicDoc.options[topicDoc.selectedIndex].value;
-	
-	//Kad uzkrauti ta pati puslapi po delete
+
+	// Kad uzkrauti ta pati puslapi po delete
 	var language = document.getElementById("language").value;
 	var topic = document.getElementById("topic").value;
 	if (language == "") {
@@ -55,7 +58,7 @@ function deleteTopic() {
 		topic = "0";
 	}
 	//
-	
+
 	url = "main?rem=" + topicID + "&search=true&language=" + language + "&topic=" + topic;
 	location.href = url;
 
@@ -76,4 +79,14 @@ function scrollFunction() {
 	} else {
 		document.getElementById("toTop").style.display = "none";
 	}
+}
+
+window.onload = function() {
+	dataToggle()
+};
+
+function dataToggle() {
+
+	$('[data-toggle="tooltip"]').tooltip();
+
 }
