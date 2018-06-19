@@ -17,7 +17,7 @@
 
 <body>
 	<div class="container pt-5">
-		<form action="/StackDocsJava/read" method="POST">
+		<form action="/read" method="POST">
 			<div class="form-row p-2">
 				<div class="col">
 					<ul class="list-group">

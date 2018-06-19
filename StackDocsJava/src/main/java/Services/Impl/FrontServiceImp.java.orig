@@ -21,6 +21,17 @@ import Services.IHigherService;
 @Singleton
 public class FrontServiceImp implements IFrontService {
 	
+<<<<<<< HEAD
+	private IHigherService hService;
+	
+	public FrontServiceImp() {
+		hService = new HigherServiceImpl();
+	}
+
+	@Override
+	public TopicsInfoFrontDTO getTopicInfoByTopicId(int topicId) {
+//		HigherServiceImpl hService = new HigherServiceImpl();
+=======
 	IHigherService hService;
 	
 	public FrontServiceImp(HigherServiceImpl hServiceImpl) {
@@ -30,7 +41,8 @@ public class FrontServiceImp implements IFrontService {
 
 	@Override
 	public TopicsInfoFrontDTO getTopicInfoByTopicId(int topicId) {
-//		HigherServiceImpl hService = new HigherServiceImpl();
+		//HigherServiceImpl hService = new HigherServiceImpl();
+>>>>>>> DEV
 		TopicsDTO tInfoDTO = hService.getTopicInfoByTopicId(topicId);
 
 		if (tInfoDTO.isSuccess()) {
@@ -78,7 +90,10 @@ public class FrontServiceImp implements IFrontService {
 
 	@Override
 	public TopicsFrontDTO getTopicsByLanguageId(int languageId, String topicWord) {
+<<<<<<< HEAD
 //		HigherServiceImpl hService = new HigherServiceImpl();
+=======
+>>>>>>> DEV
 		if (languageId == 0) {
 			TopicsDTO allTitleDTO = hService.getAllTopics();
 			String topicWord2 = topicWord.toLowerCase();
@@ -167,7 +182,10 @@ public class FrontServiceImp implements IFrontService {
 
 	@Override
 	public ExamplesFrontDTO getExamplesByID(int topicId) {
+<<<<<<< HEAD
 //		HigherServiceImpl hService = new HigherServiceImpl();
+=======
+>>>>>>> DEV
 		ExamplesDTO example = hService.getExamplesByTopicId(topicId);
 		if (example.isSuccess()) {
 			List<Example> exampleFront = new ArrayList<Example>();

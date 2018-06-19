@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,8 +16,9 @@ import Models.Topic;
 import Models.DTO.ExamplesFrontDTO;
 import Models.DTO.TopicsInfoFrontDTO;
 import Services.IFrontService;
+import eu.lestard.easydi.EasyDI;
 
-//@WebServlet(urlPatterns = "/ReadServlet")
+@WebServlet(urlPatterns = "/read")
 public class ReadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -26,9 +28,12 @@ public class ReadServlet extends HttpServlet {
 	private String syntax;
 	private String parameters;
 	private String remarks;
+	private EasyDI di;
 
-	public ReadServlet() {
-		frontService = StartupContainer.easyDI.getInstance(FrontServiceImp.class);
+	public ReadServlet(EasyDI in) {
+//		frontService = StartupContainer.easyDI.getInstance(FrontServiceImp.class);
+		di = in;
+		frontService = di.getInstance(FrontServiceImp.class);
 	}
 
 	@Override
@@ -87,7 +92,7 @@ public class ReadServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.sendRedirect("/StackDocsJava/main");
+		response.sendRedirect("/main");
 	}
 
 }

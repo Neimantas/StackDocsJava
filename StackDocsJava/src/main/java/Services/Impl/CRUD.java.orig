@@ -23,15 +23,20 @@ public class CRUD implements ICrud {
 	private Statement statements;
 	private ResultSet readResultSet;
 	private Connection conn;
+<<<<<<< HEAD
 	private int count;
 	
+	public CRUD() {
+=======
+
 	public CRUD(DataBaseImpl databaseImpl) {
 
 		db = databaseImpl;
+>>>>>>> DEV
+
 	}
 
 	public CreateTableDTO create(Object dal) {
-		setConnection();
 		CreateTableDTO createTableDTO = new CreateTableDTO();
 		String fullValuesString = "";
 		
@@ -63,18 +68,22 @@ public class CRUD implements ICrud {
 		String readQuerry = "INSERT INTO " + tableName + " VALUES (" + fullValuesString + ");";
 			System.out.println(readQuerry);
 		try {
+<<<<<<< HEAD
 			statements.executeQuery(readQuerry);
+=======
+			setConnection();
+			readResultSet = statements.executeQuery(readQuerry);
+
+>>>>>>> DEV
 			createTableDTO.setSuccess(true);
 		} catch (SQLException e) {
 
 			createTableDTO.setSuccess(false);
 			createTableDTO.setMessage(e.getMessage());
 			return createTableDTO;
-		} finally {
-			db.close();
 		}
 
-		return createTableDTO; 
+		return createTableDTO;
 
 	}
 
@@ -108,6 +117,7 @@ public class CRUD implements ICrud {
 //	}
 //	
 	public ReadTableDTO read(Object dal) {
+<<<<<<< HEAD
 		
 //		long start = System.currentTimeMillis();
 		Class someClass = dal.getClass();
@@ -120,21 +130,19 @@ public class CRUD implements ICrud {
 		
 		String tableName = someClass.getSimpleName();
 		tableName = tableName.replaceAll("DAL", "");
-
+		
 		ICache cache = CacheImpl.getInstance();
 		if( cache.get(tableName) != null) {
 			return (ReadTableDTO)cache.get(tableName);
 		}
+		
 		Object retDAL = null;
-		//if there is no info in cache, connect to db
-		setConnection();
 		
 		String readQuerry = "SELECT * FROM " + tableName + ";";
 		someClass.getSimpleName();
 		try {
 		
 			ResultSet rs = statements.executeQuery(readQuerry);
-
 			
 			ReadTableDTO ret = new ReadTableDTO();
 			List<Object> retList = new ArrayList<>(); 
@@ -169,7 +177,6 @@ public class CRUD implements ICrud {
 			
 //			long finish = System.currentTimeMillis();
 //			System.out.println(finish - start);
-			if (db != null) db.close();
 			return ret;
 			
 			
@@ -179,12 +186,34 @@ public class CRUD implements ICrud {
 			ReadTableDTO ret = new ReadTableDTO();
 			ret.setSuccess(false);
 			ret.setMessage(e.getMessage());
-			if (db != null) db.close();
+			
 			return ret;
-		} 
+		}
 		
 		
 		
+=======
+
+		Class classInput = dal.getClass();
+		String tableName = classInput.getSimpleName();
+		tableName = tableName.replaceAll("DAL", "");
+
+		String readQuerry = "SELECT * FROM " + tableName + ";";
+		ReadTableDTO readTableDTO = new ReadTableDTO();
+
+		try {
+			setConnection();
+			readTableDTO.setReadResultSet(statements.executeQuery(readQuerry));
+			readTableDTO.setSuccess(true);
+
+		} catch (SQLException e) {
+
+			readTableDTO.setSuccess(false);
+			readTableDTO.setMessage(e.getMessage());
+			return readTableDTO;
+		}
+		return readTableDTO;
+>>>>>>> DEV
 	}
 
 //	public ReadTableDTO read3(Object dal) {
@@ -259,7 +288,6 @@ public class CRUD implements ICrud {
 //	}
 	
 	public UpdateTableDTO update(CrudUpdate params) {
-		setConnection();
 		String readQuerry = "UPDATE " + params.tableName + " SET " + params.changeValueOfColum + "='"
 				+ params.changeValueTO;
 
@@ -271,6 +299,7 @@ public class CRUD implements ICrud {
 		UpdateTableDTO updateTableDTO = new UpdateTableDTO();
 
 		try {
+			setConnection();
 			readResultSet = statements.executeQuery(readQuerry);
 			updateTableDTO.setSuccess(true);
 
@@ -279,19 +308,18 @@ public class CRUD implements ICrud {
 			updateTableDTO.setSuccess(false);
 			updateTableDTO.setMessage(e.getMessage());
 			return updateTableDTO;
-		} finally {
-			db.close();
 		}
 
 		return updateTableDTO;
 	}
 
 	public DeleteTableDTO delete(String tableName, String conditionColum, String conditionValue) {
-		setConnection();
+
 		DeleteTableDTO deleteTableDTO = new DeleteTableDTO();
 		String readQuerry = "DELETE FROM " + tableName + " WHERE " + conditionColum + "='" + conditionValue + "';";
 
 		try {
+			setConnection();
 			statements.executeQuery(readQuerry);
 			deleteTableDTO.setSuccess(true);
 
@@ -300,8 +328,6 @@ public class CRUD implements ICrud {
 			deleteTableDTO.setSuccess(false);
 			deleteTableDTO.setMessage(e.getMessage());
 			return deleteTableDTO;
-		} finally {
-			db.close();
 		}
 
 		return deleteTableDTO;
