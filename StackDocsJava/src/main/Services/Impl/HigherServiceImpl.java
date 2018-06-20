@@ -6,13 +6,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import Models.Example;
+import Models.Language;
+import Models.Topic;
 import Models.DAL.ExamplesDAL;
 import Models.DAL.LanguageTagsDAL;
 import Models.DAL.TopicsDAL;
+import Models.DTO.CreateTableDTO;
+import Models.DTO.DeleteTableDTO;
 import Models.DTO.ExamplesDTO;
 import Models.DTO.LanguageTagDTO;
 import Models.DTO.ReadTableDTO;
 import Models.DTO.TopicsDTO;
+import Models.DTO.UpdateTableDTO;
 import Services.ICache;
 import Services.ICrud;
 import Services.IHigherService;
@@ -291,6 +297,65 @@ public class HigherServiceImpl implements IHigherService {
 		
 		return new LanguageTagDTO(false, null, languageTagsDTO.getMessage());
 		
+	}
+
+
+
+
+
+
+	@Override
+	public CreateTableDTO create(Object insertRecord) {
+		
+		if(insertRecord instanceof Topic) {
+			
+			return createTopic((Topic)insertRecord);
+			
+		} else if(insertRecord instanceof Example) {
+			
+			return createExample((Example)insertRecord);
+			
+		} else if(insertRecord instanceof Language) {
+			
+			return createLanguage((Language)insertRecord);
+			
+		}
+		
+		CreateTableDTO ret = new CreateTableDTO();
+		ret.setSuccess(false);
+		ret.setMessage("ERROR: wrong parameter given! Create method accepts only instances of Topic, Example and Language classes");
+		
+		return ret;
+	}
+
+	private CreateTableDTO createTopic(Topic topic) {
+		return null;
+	}
+	
+	private CreateTableDTO createExample(Example example) {
+		return null;
+	}
+
+	private CreateTableDTO createLanguage(Language language) {
+		return null;
+	}
+
+
+	@Override
+	public UpdateTableDTO update(Object updataRecord) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
+
+
+	@Override
+	public DeleteTableDTO delete(Object deleteRecord) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 
