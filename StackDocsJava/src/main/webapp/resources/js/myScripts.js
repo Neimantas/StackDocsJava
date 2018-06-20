@@ -111,6 +111,16 @@ function scrollFunction() {
 	}
 }
 
+window.onload = function() {
+	dataToggle()
+};
+
+function dataToggle() {
+
+	$('[data-toggle="tooltip"]').tooltip();
+
+}
+
 function expandTextarea(id) {
 	var textarea = document.getElementById(id);
     textarea.addEventListener('keyup', function() {
@@ -125,12 +135,4 @@ expandTextarea("syntax");
 expandTextarea("parameters");
 expandTextarea("remarks");
 
-window.onload = function() {
-	dataToggle()
-};
 
-function dataToggle() {
-
-	$('[data-toggle="tooltip"]').tooltip();
-
-}

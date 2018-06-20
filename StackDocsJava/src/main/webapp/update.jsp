@@ -16,7 +16,6 @@
 <link rel="stylesheet" href="resources/css/bootstrap-4.1.1.min.css">
 <link rel="stylesheet" href="resources/css/bootstrap-select.css">
 <link rel="stylesheet" href="resources/css/fontawesome-all.css">
-<script type="text/javascript" src="resources/js/myScripts.js"></script>
 </head>
 
 <body>
@@ -88,6 +87,7 @@
 	<script type="text/javascript"
 		src="resources/js/bootstrap-4.1.1.min.js"></script>
 	<script type="text/javascript" src="resources/js/bootstrap-select.js"></script>
+	<script type="text/javascript" src="resources/js/myScripts.js"></script>
 </body>
 
 </html>
