@@ -1,4 +1,5 @@
 import Models.Example;
+import Models.Language;
 import Models.Topic;
 import Models.DAL.TopicsDAL;
 import Models.DTO.ReadTableDTO;
@@ -82,9 +83,9 @@ public class Higher_Main {
 		example.title = " TEST EXAMPLE";
 		example.topicId = 5555;
 		
+		Language language = new Language("SUPERDUPERLANGUAGE", -1);
 		
-		
-		System.out.println(hs.create(example).getMessage());
+		System.out.println(hs.create(language).getMessage());
 	}
 
 }

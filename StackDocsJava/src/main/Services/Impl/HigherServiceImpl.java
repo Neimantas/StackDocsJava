@@ -404,7 +404,25 @@ public class HigherServiceImpl implements IHigherService {
 
 
 	private CreateTableDTO createLanguage(Language language) {
-		return null;
+
+		LanguageTagsDAL dal = new LanguageTagsDAL();
+		CreateTableDTO ret = new CreateTableDTO();
+		LanguageTagDTO ldto = getAllLanguages();
+		if (!ldto.isSuccess()) {
+			ret.setSuccess(false);
+			ret.setMessage(ldto.getMessage());
+			return ret;
+		}
+		int newLanguageId = ldto.getLanguageTag().size() + 60;
+		
+		System.out.println(newLanguageId);
+		
+		dal.languageId = newLanguageId;
+		dal.helloWorldTopicId = -1;
+		dal.tag = language.getLanguage();
+		dal.title = language.getLanguage();
+		
+		return crud.create(dal);
 	}
 
 
