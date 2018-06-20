@@ -21,6 +21,34 @@ function readTitle() {
 	
 }
 
+function createTopic() {
+		
+	url="create";
+	location.href=url;
+	
+}
+
+function createTopicBack() {
+	
+	url="main";
+	location.href=url;
+	
+}
+
+function updateTopic() {
+	
+	url="update";
+	location.href=url;
+	
+}
+
+function updateTopicBack() {
+	
+	url="read";
+	location.href=url;
+	
+}
+
 function setPage(page) {
 	if(page != "0") {
 		url="main?change=true&page=" + page;

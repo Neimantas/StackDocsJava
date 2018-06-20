@@ -102,7 +102,7 @@
           <div class="col">
             <button type="button" class="btn btn-outline-dark float-right ml-1 font-weight-bold" onClick="readTitle()">Open</button>
             <button type="button" class="btn btn-outline-dark float-right ml-1" data-toggle="tooltip" data-placement="bottom" title="Delete topic" onClick=""><i class="fas fa-trash-alt"></i></button>
-            <button type="button" class="btn btn-outline-dark float-right" data-toggle="tooltip" data-placement="bottom" title="Add new topic" onClick=""><i class="fas fa-plus-square"></i></button>
+            <button type="button" class="btn btn-outline-dark float-right" data-toggle="tooltip" data-placement="bottom" title="Add new topic" onClick="createTopic()"><i class="fas fa-plus-square"></i></button>
           </div>
         </div>
     </div>

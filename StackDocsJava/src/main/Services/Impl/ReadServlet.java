@@ -21,6 +21,7 @@ public class ReadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	IFrontService frontService;
+	private String topicId;
 	private String topic;
 	private String introduction;
 	private String syntax;
@@ -34,7 +35,7 @@ public class ReadServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String topicId = request.getParameter("topic");
+		topicId = request.getParameter("topic");
 
 		TopicsInfoFrontDTO dto = frontService.getTopicInfoByTopicId(Integer.parseInt(topicId));
 
