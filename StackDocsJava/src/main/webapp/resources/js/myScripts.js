@@ -18,6 +18,8 @@ function readTitle() {
 	if (topic != undefined) {
 		url = "read?topic=" + topic.value;
 		location.href = url;
+	} else {
+		$('#selectTopic').modal('show');
 	}
 }
 
@@ -34,13 +36,13 @@ function changeModalText() {
 	var topicDoc = document.getElementById("title");
 	var topic = topicDoc.options[topicDoc.selectedIndex];
 	if (topic != undefined) {
-		document.getElementById("modalBody").innerHTML = "Are you sure you want to delete<br/> \""
+		document.getElementById("selectModalBody").innerHTML = "Are you sure you want to delete<br/> \""
 				+ topic.text + "\"";
 		document.getElementById("cancelBtn").innerHTML = "Cancel";
 		document.getElementById("deleteBtn").style.display = "block";
 	}
 
-	$('#deleteTopic').modal('show');
+	$('#selectTopic').modal('show');
 }
 
 function deleteTopic() {

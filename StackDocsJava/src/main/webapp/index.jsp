@@ -23,6 +23,7 @@
 	<div class="container pt-5">
 		<div>
 			<div class="form-row p-2">
+				<!-- Language select/input -->
 				<div class="col">
 					<select class="selectpicker form-control" data-size="6"
 						data-style="border-secondary bg-white" id="language"
@@ -35,6 +36,7 @@
 						</c:forEach>
 					</select>
 				</div>
+				<!-- Topic input -->
 				<div class="col-8">
 					<div class="input-group">
 						<input type="text" value="${topic!=null?topic:''}"
@@ -49,6 +51,7 @@
 					</div>
 				</div>
 			</div>
+			<!-- Topics list creation -->
 			<div class="row p-2">
 				<div class="col">
 					<select class="custom-select border-secondary" size="10" id="title">
@@ -114,14 +117,15 @@
 						</c:if>
 					</ul>
 				</div>
-
+				<!-- Buttons -->
 				<div class="col">
 					<button type="button"
 						class="btn btn-outline-dark float-right ml-1 font-weight-bold"
 						onClick="readTitle();">Open</button>
 					<c:if test="${topicMap.size() != 0}">
 						<button type="button"
-							class="btn btn-outline-dark float-right ml-1" data-toggle="tooltip" data-placement="bottom"
+							class="btn btn-outline-dark float-right ml-1"
+							data-toggle="tooltip" data-placement="bottom"
 							title="Delete topic" onClick="changeModalText();">
 							<i class="fas fa-trash-alt"></i>
 						</button>
@@ -138,12 +142,12 @@
 
 
 	<!-- Modal -->
-	<div class="modal fade" id="deleteTopic" tabindex="-1" role="dialog"
-		aria-labelledby="deleteTopic" aria-hidden="true">
+	<div class="modal fade" id="selectTopic" tabindex="-1" role="dialog"
+		aria-labelledby="selectTopic" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
-				<div class="modal-body" id="modalBody">Please select topic and
-					try again</div>
+				<div class="modal-body" id="selectModalBody">Please select
+					topic and try again</div>
 				<div class="modal-footer">
 					<button type="button" id="cancelBtn" class="btn btn-secondary"
 						data-dismiss="modal">Got it</button>
