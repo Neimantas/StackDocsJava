@@ -30,13 +30,10 @@ public class IndexServlet extends HttpServlet {
 	private String topic;
 	private int currentLanguageId;
 	private int pageNumber;
-	
 
 	public IndexServlet() {
 		frontService = StartupContainer.easyDI.getInstance(FrontServiceImp.class);
 	}
-
-	
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -46,6 +43,27 @@ public class IndexServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String getParamSearch = request.getParameter("search");
 		String getParamChange = request.getParameter("change");
+		String getParamRemove = request.getParameter("rem");
+
+		// renkam info dropdown language uzpildymui
+		TopicsFrontDTO dto2 = frontService.getTopicsByLanguageId(0, "");
+		Map<Integer, String> languageDDMap = new HashMap<>();
+		if (dto2.is_Succcess()) {
+			List<Topic> topics = dto2.get_Topics();
+			for (Topic t : topics) {
+				languageDDMap.put(t.get_LanguageId(), t.get_LanguageTitle());
+			}
+		} else {
+			languageDDMap.put(null, null);
+		}
+
+		
+		if (getParamRemove != null) { // jei triname
+			
+			System.out.println("Bus iskvieciamas delete metodas, i kuri paduodama " + getParamRemove);
+			
+		}
+		
 
 		if (getParamSearch != null) { // jei atliekame paieska
 			String getParamLang = request.getParameter("language");
@@ -55,7 +73,11 @@ public class IndexServlet extends HttpServlet {
 			if (topic.equals("0")) {
 				topic = "";
 			}
+			
+			if (getParamRemove == null) {
 			pageNumber = 1;
+			}
+			
 			dto = frontService.getTopicsByLanguageId(currentLanguageId, topic);
 		}
 
@@ -63,6 +85,8 @@ public class IndexServlet extends HttpServlet {
 			String getParamPageNumber = request.getParameter("page");
 			pageNumber = Integer.parseInt(getParamPageNumber);
 		}
+		
+		
 
 		Map<Integer, String> topicMap = new HashMap<>();
 		Map<Integer, String> languageMap = new HashMap<>();
@@ -90,6 +114,7 @@ public class IndexServlet extends HttpServlet {
 		request.setAttribute("numberOfPages", countNumberOfPages());
 		request.setAttribute("topicMap", topicMap);
 		request.setAttribute("languageMap", languageMap);
+		request.setAttribute("languageDD", languageDDMap);
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 
 	}
@@ -105,8 +130,8 @@ public class IndexServlet extends HttpServlet {
 	}
 
 	private int countNumberOfPages() {
-		
-	//	System.out.println(dto.get_Message());
+
+		// System.out.println(dto.get_Message());
 		if (dto != null) {
 			int numberOfTopics = dto.get_Topics().size();
 			if (numberOfTopics % 10 == 0) {
@@ -117,6 +142,5 @@ public class IndexServlet extends HttpServlet {
 		}
 		return 0;
 	}
-
 
 }

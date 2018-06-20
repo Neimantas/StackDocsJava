@@ -3,3 +3,11 @@
   background: #343a40!important;
   color: white !important;
 }
+
+#deleteBtn {
+	display: none;
+}
+
+#toTop {
+  display: none;
+}

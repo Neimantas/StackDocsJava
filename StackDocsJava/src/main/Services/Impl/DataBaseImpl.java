@@ -21,7 +21,11 @@ public class DataBaseImpl implements IDataBase {
 
 		try {
 			// db parameters
+<<<<<<< HEAD
 			String url = "jdbc:sqlite:src/main/resources/stack.db";
+=======
+			String url = "jdbc:sqlite:stackDocsJava/src/main/recources/stack.db";
+>>>>>>> DEV
 			Class.forName("org.sqlite.JDBC").newInstance();
 			// create a connection to the database
 			conn = DriverManager.getConnection(url);

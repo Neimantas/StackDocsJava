@@ -63,7 +63,6 @@ public class ReadServlet extends HttpServlet {
 		if (dtoE.is_Succcess()) {
 			
 			List<Example> examples = dtoE.get_Examples();
-			System.out.println("Size > "+examples.size());
 			for (Example e : examples) {
 				
 				contExamples.add(e.bodyHtml);
