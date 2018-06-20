@@ -65,8 +65,9 @@ public class CRUD implements ICrud {
 		String readQuerry = "INSERT INTO " + tableName + " VALUES (" + fullValuesString + ");";
 			System.out.println(readQuerry);
 		try {
-			statements.executeQuery(readQuerry);
+			int rowsAffected = statements.executeUpdate(readQuerry);
 			createTableDTO.setSuccess(true);
+			createTableDTO.setMessage("Insertion. New "+ tableName +" created. " + rowsAffected + " rows affected. ");
 		} catch (SQLException e) {
 
 			createTableDTO.setSuccess(false);

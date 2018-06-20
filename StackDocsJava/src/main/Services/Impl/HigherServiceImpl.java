@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.eclipse.jdt.internal.compiler.classfmt.MethodInfoWithAnnotations;
+
 import Models.Example;
 import Models.Language;
 import Models.Topic;
@@ -241,6 +243,23 @@ public class HigherServiceImpl implements IHigherService {
 		return ret;
 	}
 	
+	public ExamplesDTO getAllExamples() {
+		ReadTableDTO examplesDTO = crud.read(new ExamplesDAL());
+		if(examplesDTO.isSuccess()) {
+			List<ExamplesDAL> list = (List<ExamplesDAL>)(Object) examplesDTO.getReadResultSet();
+			ExamplesDTO ret = new ExamplesDTO();
+			ret.setSuccess(true);
+			ret.setMessage("success");
+			ret.setExamples(list);
+			return ret;
+		}
+		ExamplesDTO ret = new ExamplesDTO();
+		ret.setSuccess(false);
+		ret.setMessage(examplesDTO.getMessage());
+		return ret;
+		
+	}
+	
 	@Override
 	public TopicsDTO getTopicInfoByTopicId(int topicId) {
 		
@@ -329,12 +348,60 @@ public class HigherServiceImpl implements IHigherService {
 	}
 
 	private CreateTableDTO createTopic(Topic topic) {
-		return null;
+		
+		TopicsDAL dal = new TopicsDAL();
+		CreateTableDTO ret = new CreateTableDTO();
+		TopicsDTO tdto = getAllTopics();
+		if (!tdto.isSuccess()) {
+			ret.setSuccess(false);
+			ret.setMessage(tdto.getMessage());
+			return ret;
+		}
+		int newTopicId = tdto.getTopics().size() + 1;
+		
+		System.out.println(newTopicId);
+		
+		dal.topicId = newTopicId;
+		dal.introductionHtml = topic.get_IntroductionHtml();
+		dal.isHelloWorldTopic = 0;
+		dal.languageId = topic.get_LanguageId();
+		dal.parametersHtml = topic.get_ParametersHtml();
+		dal.remarksHtml = topic.get_RemarksHtml();
+		dal.syntaxHtml = topic.get_SyntaxHtml();
+		dal.title = topic.get_TopicTitle();
+		
+		return crud.create(dal);
 	}
 	
 	private CreateTableDTO createExample(Example example) {
-		return null;
+
+		ExamplesDAL dal = new ExamplesDAL();
+		CreateTableDTO ret = new CreateTableDTO();
+		ExamplesDTO edto = getAllExamples();
+		if (!edto.isSuccess()) {
+			ret.setSuccess(false);
+			ret.setMessage(edto.getMessage());
+			return ret;
+		}
+		int newExampleId = edto.getExamples().size() + 10000;
+		
+		System.out.println(newExampleId);
+		
+		dal.exampleId = newExampleId;
+		dal.bodyHtml = example.bodyHtml;
+		dal.title = example.title;
+		dal.topicId = example.topicId;
+		
+		
+		return crud.create(dal);
 	}
+
+	
+
+
+
+
+
 
 	private CreateTableDTO createLanguage(Language language) {
 		return null;
