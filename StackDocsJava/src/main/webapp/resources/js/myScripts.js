@@ -24,31 +24,31 @@ function readTitle() {
 }
 
 function createTopic() {
-		
-	url="create";
-	location.href=url;
-	
+
+	url = "create";
+	location.href = url;
+
 }
 
 function createTopicBack() {
-	
-	url="main";
-	location.href=url;
-	
+
+	url = "main";
+	location.href = url;
+
 }
 
 function updateTopic() {
-	
-	url="update";
-	location.href=url;
-	
+
+	url = "update";
+	location.href = url;
+
 }
 
 function updateTopicBack() {
-	
-	url="read";
-	location.href=url;
-	
+
+	url = "read";
+	location.href = url;
+
 }
 
 function setPage(page) {
@@ -89,7 +89,8 @@ function deleteTopic() {
 	}
 	//
 
-	url = "main?rem=" + topicID + "&search=true&language=" + language + "&topic=" + topic;
+	url = "main?rem=" + topicID + "&search=true&language=" + language
+			+ "&topic=" + topic;
 	location.href = url;
 
 }
@@ -123,11 +124,11 @@ function dataToggle() {
 
 function expandTextarea(id) {
 	var textarea = document.getElementById(id);
-    textarea.addEventListener('keyup', function() {
-        this.style.overflow = 'hidden';
-        this.style.height = 0;
-        this.style.height = this.scrollHeight + 'px';
-    }, false);
+	textarea.addEventListener('keyup', function() {
+		this.style.overflow = 'hidden';
+		this.style.height = 0;
+		this.style.height = this.scrollHeight + 'px';
+	}, false);
 }
 
 expandTextarea("introduction");
@@ -135,4 +136,26 @@ expandTextarea("syntax");
 expandTextarea("parameters");
 expandTextarea("remarks");
 
+function sendTopicInfo() {
+	var language = document.getElementById("language");
+	var topic = document.getElementById("topic");
 
+	if (topic.value === "" || language.value === "") {
+		if (language.value === "") {
+			$('#language').selectpicker('setStyle', 'border-secondary',
+					'remove');
+			$('#language')
+					.selectpicker('setStyle', 'btn-outline-danger', 'add');
+			$('#language').selectpicker('setStyle', 'text-secondary', 'add');
+			$('#collapseErrorL').collapse('show')
+		}
+		if (topic.value === "") {
+			topic.classList.remove('border-secondary');
+			topic.classList.add('is-invalid');
+			$('#collapseErrorT').collapse('show')
+		}
+
+	} else {
+		document.getElementById('form').submit();
+	}
+}

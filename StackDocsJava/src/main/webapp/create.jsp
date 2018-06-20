@@ -20,13 +20,13 @@
 
 <body>
 	<div class="container pt-5">
-		<form action="/StackDocsJava/create" method="POST">
-			<div class="form-row p-2">
+		<form action="/StackDocsJava/create" method="POST" id="form">
+			<div class="form-row px-2">
 				<div class="col">
 					<label for="inputLangauge">Language</label> <select
 						class="selectpicker form-control" data-size="6"
 						data-style="border-secondary bg-white" id="language"
-						data-live-search="true" title="Choose language...">
+						name="language" data-live-search="true" title="Choose language...">
 						<c:forEach items="${languageDD}" var="language">
 							<option value="${language.key}">${language.value}</option>
 						</c:forEach>
@@ -34,42 +34,56 @@
 				</div>
 				<div class="col-8">
 					<label for="inputTopic">Topic</label> <input type="text"
-						class="form-control border-secondary" id="topic"
+						class="form-control border-secondary" id="topic" name="topic"
 						placeholder="Enter topic's title">
+				</div>
+			</div>
+			<div class="row m-1">
+				<div class="col">
+					<div class="collapse" id="collapseErrorL">
+						<div class="card card-body text-center small bg-danger text-white p-1">Choose language from the list</div>
+					</div>
+				</div>
+				<div class="col-8">
+					<div class="collapse" id="collapseErrorT">
+						<div class="card card-body text-center small bg-danger text-white p-1">Set topic's title</div>
+					</div>
 				</div>
 			</div>
 			<div class="row p-2">
 				<div class="col">
 					<label for="inputIntroduction">Introduction</label>
 					<textarea class="form-control border-secondary" id="introduction"
-						rows="3" placeholder="Enter topic's introduction"></textarea>
+						name="introduction" rows="3"
+						placeholder="Enter topic's introduction"></textarea>
 				</div>
 			</div>
 			<div class="row p-2">
 				<div class="col">
 					<label for="inputSyntax">Syntax</label>
 					<textarea class="form-control border-secondary" id="syntax"
-						rows="3" placeholder="Enter topic's syntax"></textarea>
+						name="syntax" rows="3" placeholder="Enter topic's syntax"></textarea>
 				</div>
 			</div>
 			<div class="row p-2">
 				<div class="col">
 					<label for="inputParameters">Parameters</label>
 					<textarea class="form-control border-secondary" id="parameters"
-						rows="3" placeholder="Enter topic's parameters"></textarea>
+						name="parameters" rows="3" placeholder="Enter topic's parameters"></textarea>
 				</div>
 			</div>
 			<div class="row p-2">
 				<div class="col">
 					<label for="inputRemarks">Remarks</label>
 					<textarea class="form-control border-secondary" id="remarks"
-						rows="3" placeholder="Enter topic's remarks"></textarea>
+						name="remarks" rows="3" placeholder="Enter topic's remarks"></textarea>
 				</div>
 			</div>
 			<div class="row p-2">
 				<div class="col">
-					<button type="submit"
-						class="btn btn-outline-dark float-right font-weight-bold ml-1">Save</button>
+					<button type="button"
+						class="btn btn-outline-dark float-right font-weight-bold ml-1"
+						onClick="sendTopicInfo()">Save</button>
 					<button type="button"
 						class="btn btn-outline-dark float-right font-weight-bold"
 						onClick="createTopicBack()">Cancel</button>
