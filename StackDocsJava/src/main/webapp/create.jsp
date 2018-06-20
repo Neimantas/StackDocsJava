@@ -16,7 +16,6 @@
 <link rel="stylesheet" href="resources/css/bootstrap-4.1.1.min.css">
 <link rel="stylesheet" href="resources/css/bootstrap-select.css">
 <link rel="stylesheet" href="resources/css/fontawesome-all.css">
-<script type="text/javascript" src="resources/js/myScripts.js"></script>
 </head>
 
 <body>
@@ -42,33 +41,29 @@
 			<div class="row p-2">
 				<div class="col">
 					<label for="inputIntroduction">Introduction</label>
-					<textarea class="form-control border-secondary"
-						id="exampleFormControlTextarea1" rows="3"
-						placeholder="Enter topic's introduction"></textarea>
+					<textarea class="form-control border-secondary" id="introduction"
+						rows="3" placeholder="Enter topic's introduction"></textarea>
 				</div>
 			</div>
 			<div class="row p-2">
 				<div class="col">
 					<label for="inputSyntax">Syntax</label>
-					<textarea class="form-control border-secondary"
-						id="exampleFormControlTextarea1" rows="3"
-						placeholder="Enter topic's syntax"></textarea>
+					<textarea class="form-control border-secondary" id="syntax"
+						rows="3" placeholder="Enter topic's syntax"></textarea>
 				</div>
 			</div>
 			<div class="row p-2">
 				<div class="col">
 					<label for="inputParameters">Parameters</label>
-					<textarea class="form-control border-secondary"
-						id="exampleFormControlTextarea1" rows="3"
-						placeholder="Enter topic's parameters"></textarea>
+					<textarea class="form-control border-secondary" id="parameters"
+						rows="3" placeholder="Enter topic's parameters"></textarea>
 				</div>
 			</div>
 			<div class="row p-2">
 				<div class="col">
 					<label for="inputRemarks">Remarks</label>
-					<textarea class="form-control border-secondary"
-						id="exampleFormControlTextarea1" rows="3"
-						placeholder="Enter topic's remarks"></textarea>
+					<textarea class="form-control border-secondary" id="remarks"
+						rows="3" placeholder="Enter topic's remarks"></textarea>
 				</div>
 			</div>
 			<div class="row p-2">
@@ -76,7 +71,8 @@
 					<button type="submit"
 						class="btn btn-outline-dark float-right font-weight-bold ml-1">Save</button>
 					<button type="button"
-						class="btn btn-outline-dark float-right font-weight-bold" onClick="createTopicBack()">Cancel</button>
+						class="btn btn-outline-dark float-right font-weight-bold"
+						onClick="createTopicBack()">Cancel</button>
 				</div>
 			</div>
 		</form>
@@ -88,6 +84,7 @@
 	<script type="text/javascript"
 		src="resources/js/bootstrap-4.1.1.min.js"></script>
 	<script type="text/javascript" src="resources/js/bootstrap-select.js"></script>
+	<script type="text/javascript" src="resources/js/myScripts.js"></script>
 </body>
 
 </html>

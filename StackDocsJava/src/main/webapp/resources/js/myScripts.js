@@ -71,3 +71,17 @@ function scrollFunction() {
    document.getElementById("toTop").style.display = "none";
 	}
 }
+
+function expandTextarea(id) {
+	var textarea = document.getElementById(id);
+    textarea.addEventListener('keyup', function() {
+        this.style.overflow = 'hidden';
+        this.style.height = 0;
+        this.style.height = this.scrollHeight + 'px';
+    }, false);
+}
+
+expandTextarea("introduction");
+expandTextarea("syntax");
+expandTextarea("parameters");
+expandTextarea("remarks");
