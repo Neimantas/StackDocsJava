@@ -4,6 +4,10 @@
   color: white !important;
 }
 
+#deleteBtn {
+	display: none;
+}
+
 #toTop {
   display: none;
 }

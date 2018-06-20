@@ -79,9 +79,7 @@
 	<script type="text/javascript" src="resources/js/popper.min.js"></script>
 	<script type="text/javascript"
 		src="resources/js/bootstrap-4.1.1.min.js"></script>
-	<script type="text/javascript">
- 	 $(function () { $('[data-toggle="tooltip"]').tooltip()})
- 	</script>
+
 </body>
 
 </html>
