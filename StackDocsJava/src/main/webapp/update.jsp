@@ -23,51 +23,48 @@
 		<form action="/StackDocsJava/update" method="POST">
 			<div class="form-row p-2">
 				<div class="col">
-					<label for="inputLangauge">Language</label> <select
-						class="selectpicker form-control" data-size="6"
-						data-style="border-secondary bg-white" id="language"
-						data-live-search="true" title="Choose language...">
-						<c:forEach items="${languageDD}" var="language">
-							<option value="${language.key}">${language.value}</option>
-						</c:forEach>
+					<label for="inputLangauge">Language</label> 
+					<select
+						class="custom-select border-secondary" disabled>
+						<option value="${languageId}" selected>${language}</option>
 					</select>
 				</div>
 				<div class="col-8">
 					<label for="inputTopic">Topic</label> <input type="text"
 						class="form-control border-secondary" id="topic"
-						placeholder="Enter topic's title">
+						placeholder="Enter topic's title" value="${topic}" name="${topicId}">
 				</div>
 			</div>
 			<div class="row p-2">
 				<div class="col">
 					<label for="inputIntroduction">Introduction</label>
 					<textarea class="form-control border-secondary"
-						id="exampleFormControlTextarea1" rows="3"
-						placeholder="Enter topic's introduction"></textarea>
+						id="introduction" rows="3"
+						placeholder="Enter topic's introduction">${introduction}</textarea>
 				</div>
 			</div>
 			<div class="row p-2">
 				<div class="col">
 					<label for="inputSyntax">Syntax</label>
 					<textarea class="form-control border-secondary"
-						id="exampleFormControlTextarea1" rows="3"
-						placeholder="Enter topic's syntax"></textarea>
+						id="syntax" rows="3"
+						placeholder="Enter topic's syntax">${syntax}</textarea>
 				</div>
 			</div>
 			<div class="row p-2">
 				<div class="col">
 					<label for="inputParameters">Parameters</label>
 					<textarea class="form-control border-secondary"
-						id="exampleFormControlTextarea1" rows="3"
-						placeholder="Enter topic's parameters"></textarea>
+						id="parameters" rows="3"
+						placeholder="Enter topic's parameters">${parameters}</textarea>
 				</div>
 			</div>
 			<div class="row p-2">
 				<div class="col">
 					<label for="inputRemarks">Remarks</label>
 					<textarea class="form-control border-secondary"
-						id="exampleFormControlTextarea1" rows="3"
-						placeholder="Enter topic's remarks"></textarea>
+						id="remarks" rows="3"
+						placeholder="Enter topic's remarks">${remarks}</textarea>
 				</div>
 			</div>
 			<div class="row p-2">
@@ -75,7 +72,8 @@
 					<button type="submit"
 						class="btn btn-outline-dark float-right font-weight-bold ml-1">Save</button>
 					<button type="button"
-						class="btn btn-outline-dark float-right font-weight-bold" onClick="updateTopicBack()">Cancel</button>
+						class="btn btn-outline-dark float-right font-weight-bold"
+						onClick="updateTopicBack()">Cancel</button>
 				</div>
 			</div>
 		</form>

@@ -16,7 +16,7 @@ function readTitle() {
 	var topicDoc = document.getElementById("title");
 	var topic = topicDoc.options[topicDoc.selectedIndex];
 	if (topic != undefined) {
-		url = "read?topic=" + topic.value;
+		url = "read?open=true&topic=" + topic.value;
 		location.href = url;
 	} else {
 		$('#selectTopic').modal('show');
@@ -38,8 +38,10 @@ function createTopicBack() {
 }
 
 function updateTopic() {
+	
+	var topic = document.getElementById("edit").value;
 
-	url = "update";
+	url = "update?topic="+topic;
 	location.href = url;
 
 }

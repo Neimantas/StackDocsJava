@@ -21,6 +21,8 @@ public class ReadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	IFrontService frontService;
+	TopicsInfoFrontDTO dto;
+	ExamplesFrontDTO dtoE;
 	private String topicId;
 	private String topic;
 	private String introduction;
@@ -35,9 +37,12 @@ public class ReadServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		topicId = request.getParameter("topic");
+		String open = request.getParameter("open");
 
-		TopicsInfoFrontDTO dto = frontService.getTopicInfoByTopicId(Integer.parseInt(topicId));
+		if (open != null) {
+			topicId = request.getParameter("topic");
+			dto = frontService.getTopicInfoByTopicId(Integer.parseInt(topicId));
+		}
 
 		List<String> content = new ArrayList<String>();
 
@@ -57,23 +62,26 @@ public class ReadServlet extends HttpServlet {
 			content.add(dto.get_Message());
 		}
 
-		ExamplesFrontDTO dtoE = frontService.getExamplesByID(Integer.parseInt(topicId));
+		if (open != null) {
+			dtoE = frontService.getExamplesByID(Integer.parseInt(topicId));
+		}
 
-		List<String> contExamples = new ArrayList<String>();	
-		
+		List<String> contExamples = new ArrayList<String>();
+
 		if (dtoE.is_Succcess()) {
-			
+
 			List<Example> examples = dtoE.get_Examples();
 			for (Example e : examples) {
-				
+
 				contExamples.add(e.bodyHtml);
-				
+
 			}
-			
+
 		} else {
 			contExamples.add(dtoE.get_Message());
 		}
 
+		request.setAttribute("topicId", topicId);
 		request.setAttribute("topic", topic);
 		request.setAttribute("introduction", introduction);
 		request.setAttribute("syntax", syntax);
