@@ -41,12 +41,12 @@
 			<div class="row m-1">
 				<div class="col">
 					<div class="collapse" id="collapseErrorL">
-						<div class="card card-body text-center small bg-danger text-white p-1">Choose language from the list</div>
+						<div class="card card-body text-right small border-0 text-danger p-1">Language title must be selected</div>
 					</div>
 				</div>
 				<div class="col-8">
 					<div class="collapse" id="collapseErrorT">
-						<div class="card card-body text-center small bg-danger text-white p-1">Set topic's title</div>
+						<div class="card card-body text-right small border-0 text-danger p-1">Topic's title must be set</div>
 					</div>
 				</div>
 			</div>

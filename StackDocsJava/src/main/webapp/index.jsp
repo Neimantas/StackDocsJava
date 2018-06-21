@@ -42,7 +42,7 @@
 							class="form-control border-secondary" id="topic"
 							placeholder="Search topic...">
 						<div class="input-group-append">
-							<button class="btn btn-outline-secondary" type="submit"
+							<button class="btn btn-outline-dark" type="submit"
 								onclick="searchTopic();">
 								<i class="fas fa-search"></i>
 							</button>

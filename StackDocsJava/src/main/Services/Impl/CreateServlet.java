@@ -50,6 +50,7 @@ public class CreateServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		// suvestos info perdavimas i CRUD'a
+		
 		// Map<String, String> map = new HashMap<String, String>();
 		//
 		// map.put("languageId", request.getParameter("language"));
@@ -67,11 +68,9 @@ public class CreateServlet extends HttpServlet {
 		list.add(request.getParameter("syntax"));
 		list.add(request.getParameter("parameters"));
 		list.add(request.getParameter("remarks"));
-
-		for (int i = 0; i < list.size(); i++) {
-			System.out.print("'" + list.get(i) + "' ");
-		}
 		
+		System.out.println("Isvkieciamas create metodas, kuriam paduodamas list'as");
+
 		response.sendRedirect("/StackDocsJava/main");
 	}
 
