@@ -2,8 +2,8 @@ package Models;
 
 public class Language {
 
-	private String _language;
-	private int _id;
+	public String _language; //Title
+	public int _id; // LanguageID
 
 	public Language(String language, int id) {
 		_language = language;
