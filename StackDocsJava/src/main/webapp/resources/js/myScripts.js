@@ -32,7 +32,7 @@ function createTopic() {
 
 function createTopicBack() {
 
-	url = "main";
+	url = "main?back=true";
 	location.href = url;
 
 }
