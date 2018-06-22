@@ -404,8 +404,8 @@ public class HigherServiceImpl implements IHigherService {
 
 		dal.languageId = newLanguageId;
 		dal.helloWorldTopicId = -1;
-		dal.tag = language.getLanguage();
-		dal.title = language.getLanguage();
+		dal.tag = language.tag;
+		dal.title = language.title;
 
 		return crud.create(dal);
 	}
@@ -443,10 +443,10 @@ public class HigherServiceImpl implements IHigherService {
 		params.setWhereUsed(true);
 		params.setTableName("LanguageTags"); // Lenteles pavadinimas
 		params.setConditionColumName("LanguageID"); // pagal koki stulpeli filtruoja pakeitimus
-		params.setConditionChangeWhereValueIsEqual(language._id+""); // kokios eilutes reiksme norim pakeisti
+		params.setConditionChangeWhereValueIsEqual(language.id+""); // kokios eilutes reiksme norim pakeisti
 
 		params.setChangeValueOfColum("Title"); // Kurio stulpelio irasus keisim (Visi isskyrus LanguageId)
-		params.setChangeValueTO(language._language); // I kokia reiksme keisim
+		params.setChangeValueTO(language.title); // I kokia reiksme keisim
 		crudCheck = crud.update(params);
 		
 		
@@ -571,7 +571,7 @@ public class HigherServiceImpl implements IHigherService {
 
 	private DeleteTableDTO deleteLanguage(Language deleteRecord) {
 		
-		return crud.delete("LanguageTags", "languageid", deleteRecord._id+""); 
+		return crud.delete("LanguageTags", "languageid", deleteRecord.id+""); 
 		
 	}
 
