@@ -546,8 +546,44 @@ public class HigherServiceImpl implements IHigherService {
 
 	@Override
 	public DeleteTableDTO delete(Object deleteRecord) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		if (deleteRecord instanceof Topic) {
+
+			return deleteTopic((Topic) deleteRecord);
+
+		} else if (deleteRecord instanceof Example) {
+
+			return deleteExample((Example) deleteRecord);
+
+		} else if (deleteRecord instanceof Language) {
+
+			return deleteLanguage((Language) deleteRecord);
+
+		}
+
+		DeleteTableDTO ret = new DeleteTableDTO();
+		ret.setSuccess(false);
+		ret.setMessage(
+				"ERROR: wrong parameter given! Delete method accepts only instances of Topic, Example and Language classes");
+
+		return ret;
+	}
+
+	private DeleteTableDTO deleteLanguage(Language deleteRecord) {
+		
+		return crud.delete("LanguageTags", "languageid", deleteRecord._id+""); 
+		
+	}
+
+	private DeleteTableDTO deleteExample(Example deleteRecord) {
+		
+		return crud.delete("Examples", "exampleid", deleteRecord.exampleId+""); 
+		
+	}
+
+	private DeleteTableDTO deleteTopic(Topic deleteRecord) {
+
+		return crud.delete("Topics", "topicid", deleteRecord._TopicId+"");
 	}
 
 }

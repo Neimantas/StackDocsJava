@@ -76,7 +76,7 @@ public class CRUD implements ICrud {
 		} finally {
 			db.close();
 		}
-
+		cache.remove(tableName);
 		return createTableDTO; 
 
 	}
@@ -262,6 +262,7 @@ public class CRUD implements ICrud {
 //	}
 	
 	public UpdateTableDTO update(CrudUpdate params) {
+		
 		setConnection();
 		String readQuerry = "UPDATE " + params.tableName + " SET " + params.changeValueOfColum + "='"
 				+ params.changeValueTO;
@@ -286,7 +287,7 @@ public class CRUD implements ICrud {
 		} finally {
 			db.close();
 		}
-
+		cache.remove(params.tableName);
 		return updateTableDTO;
 	}
 
@@ -296,9 +297,9 @@ public class CRUD implements ICrud {
 		String readQuerry = "DELETE FROM " + tableName + " WHERE " + conditionColum + "='" + conditionValue + "';";
 
 		try {
-			statements.executeQuery(readQuerry);
+			statements.executeUpdate(readQuerry);
 			deleteTableDTO.setSuccess(true);
-
+			deleteTableDTO.setMessage("Record deleted successfully.");
 		} catch (SQLException e) {
 
 			deleteTableDTO.setSuccess(false);
@@ -307,7 +308,7 @@ public class CRUD implements ICrud {
 		} finally {
 			db.close();
 		}
-
+		cache.remove(tableName);
 		return deleteTableDTO;
 
 	}
