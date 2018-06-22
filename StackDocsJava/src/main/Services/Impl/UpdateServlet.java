@@ -10,39 +10,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Configuration.StartupContainer;
-import Models.Example;
 import Models.Topic;
-import Models.DTO.ExamplesFrontDTO;
+import Models.DTO.TopicsFrontDTO;
 import Models.DTO.TopicsInfoFrontDTO;
 import Services.IFrontService;
 
-//@WebServlet(urlPatterns = "/ReadServlet")
-public class ReadServlet extends HttpServlet {
+public class UpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	IFrontService frontService;
-	TopicsInfoFrontDTO dto;
-	ExamplesFrontDTO dtoE;
 	private String topicId;
+	private String language;
+	private int languageId;
 	private String topic;
 	private String introduction;
 	private String syntax;
 	private String parameters;
 	private String remarks;
 
-	public ReadServlet() {
+	public UpdateServlet() {
 		frontService = StartupContainer.easyDI.getInstance(FrontServiceImp.class);
 	}
 
-	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String open = request.getParameter("open");
+		topicId = request.getParameter("topic");
 
-		if (open != null) {
-			topicId = request.getParameter("topic");
-			dto = frontService.getTopicInfoByTopicId(Integer.parseInt(topicId));
-		}
+		TopicsInfoFrontDTO dto = frontService.getTopicInfoByTopicId(Integer.parseInt(topicId));
 
 		List<String> content = new ArrayList<String>();
 
@@ -50,7 +44,8 @@ public class ReadServlet extends HttpServlet {
 
 			List<Topic> topics = dto.get_Topics();
 			for (Topic t : topics) {
-
+				languageId = t.get_LanguageId();
+				language = t.get_LanguageTitle();
 				topic = t.get_TopicTitle();
 				introduction = t.get_IntroductionHtml();
 				syntax = t.get_SyntaxHtml();
@@ -62,40 +57,26 @@ public class ReadServlet extends HttpServlet {
 			content.add(dto.get_Message());
 		}
 
-		if (open != null) {
-			dtoE = frontService.getExamplesByID(Integer.parseInt(topicId));
-		}
-
-		List<String> contExamples = new ArrayList<String>();
-
-		if (dtoE.is_Succcess()) {
-
-			List<Example> examples = dtoE.get_Examples();
-			for (Example e : examples) {
-
-				contExamples.add(e.bodyHtml);
-
-			}
-
-		} else {
-			contExamples.add(dtoE.get_Message());
-		}
-
+		request.setAttribute("language", language);
+		request.setAttribute("languageId", languageId);
 		request.setAttribute("topicId", topicId);
 		request.setAttribute("topic", topic);
 		request.setAttribute("introduction", introduction);
 		request.setAttribute("syntax", syntax);
 		request.setAttribute("parameters", parameters);
 		request.setAttribute("remarks", remarks);
-		request.setAttribute("example", contExamples);
 
-		request.getRequestDispatcher("read.jsp").forward(request, response);
+		request.getRequestDispatcher("update.jsp").forward(request, response);
 	}
 
-	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.sendRedirect("/StackDocsJava/main?back=true");
+		String topicId = request.getParameter("topic");
+
+		// surenkama info ir siunciama i update CRUD'a
+
+		request.setAttribute("topic", topicId);
+		response.sendRedirect("/StackDocsJava/read");
 	}
 
 }

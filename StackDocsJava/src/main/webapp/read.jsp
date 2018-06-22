@@ -14,7 +14,6 @@
   <link rel="stylesheet" href="resources/css/bootstrap-4.1.1.min.css">
   <link rel="stylesheet" href="resources/css/myStyles.css">
   <link rel="stylesheet" href="resources/css/fontawesome-all.css">
-  <script type="text/javascript" src="resources/js/myScripts.js"></script>
 </head>
 
 <body>
@@ -45,7 +44,7 @@
 				</div>
 				<div class="col">
 					<button type="button" id="toTop" class="btn btn-outline-dark float-right ml-1" onClick="topFunction()"><i class="fas fa-angle-double-up"></i></button>
-					<button type="button" id="edit" class="btn btn-outline-dark float-right ml-1" data-toggle="tooltip" data-placement="bottom" title="Edit topic info" onClick=""><i class="fas fa-edit"></i></button>
+					<button type="button" id="edit" class="btn btn-outline-dark float-right ml-1" value="${topicId}" data-toggle="tooltip" data-placement="bottom" title="Edit topic info" onClick="updateTopic()"><i class="fas fa-edit"></i></button>
 					<button type="button" class="btn btn-outline-dark float-right font-weight-bold"
 						data-toggle="modal" data-target="#exampleModalLong">Examples</button>
 					<div class="modal fade" id="exampleModalLong" tabindex="-1"
@@ -79,7 +78,7 @@
 	<script type="text/javascript" src="resources/js/popper.min.js"></script>
 	<script type="text/javascript"
 		src="resources/js/bootstrap-4.1.1.min.js"></script>
-
+	<script type="text/javascript" src="resources/js/myScripts.js"></script>
 </body>
 
 </html>

@@ -16,7 +16,6 @@
 <link rel="stylesheet" href="resources/css/bootstrap-select.css">
 <link rel="stylesheet" href="resources/css/fontawesome-all.css">
 <link rel="stylesheet" href="resources/css/myStyles.css">
-<script type="text/javascript" src="resources/js/myScripts.js"></script>
 </head>
 
 <body>
@@ -43,7 +42,7 @@
 							class="form-control border-secondary" id="topic"
 							placeholder="Search topic...">
 						<div class="input-group-append">
-							<button class="btn btn-outline-secondary" type="submit"
+							<button class="btn btn-outline-dark" type="submit"
 								onclick="searchTopic();">
 								<i class="fas fa-search"></i>
 							</button>
@@ -132,7 +131,7 @@
 					</c:if>
 					<button type="button" class="btn btn-outline-dark float-right"
 						data-toggle="tooltip" data-placement="bottom"
-						title="Add new topic" onClick="">
+						title="Add new topic" onClick="createTopic()">
 						<i class="fas fa-plus-square"></i>
 					</button>
 				</div>
@@ -164,7 +163,7 @@
 	<script type="text/javascript"
 		src="resources/js/bootstrap-4.1.1.min.js"></script>
 	<script type="text/javascript" src="resources/js/bootstrap-select.js"></script>
-
+	<script type="text/javascript" src="resources/js/myScripts.js"></script>
 </body>
 
 </html>
