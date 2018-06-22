@@ -95,7 +95,7 @@ public class ReadServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.sendRedirect("/StackDocsJava/main");
+		response.sendRedirect("/StackDocsJava/main?back=true");
 	}
 
 }

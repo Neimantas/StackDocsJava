@@ -44,6 +44,7 @@ public class IndexServlet extends HttpServlet {
 		String getParamSearch = request.getParameter("search");
 		String getParamChange = request.getParameter("change");
 		String getParamRemove = request.getParameter("rem");
+		String getParamBack = request.getParameter("back");
 
 		// renkam info dropdown language uzpildymui
 		TopicsFrontDTO dto2 = frontService.getTopicsByLanguageId(0, "");
@@ -57,13 +58,17 @@ public class IndexServlet extends HttpServlet {
 			languageDDMap.put(null, null);
 		}
 
-		
-		if (getParamRemove != null) { // jei triname
-			
-			System.out.println("Bus iskvieciamas delete metodas, i kuri paduodama " + getParamRemove);
-			
+		if (getParamSearch == null && getParamChange == null && getParamRemove == null && getParamBack == null) {
+			dto = null;
+			topic = null;
+			currentLanguageId = 0;
 		}
-		
+
+		if (getParamRemove != null) { // jei triname
+
+			System.out.println("Bus iskvieciamas delete metodas, i kuri paduodama " + getParamRemove);
+
+		}
 
 		if (getParamSearch != null) { // jei atliekame paieska
 			String getParamLang = request.getParameter("language");
@@ -73,11 +78,11 @@ public class IndexServlet extends HttpServlet {
 			if (topic.equals("0")) {
 				topic = "";
 			}
-			
+
 			if (getParamRemove == null) {
-			pageNumber = 1;
+				pageNumber = 1;
 			}
-			
+
 			dto = frontService.getTopicsByLanguageId(currentLanguageId, topic);
 		}
 
@@ -85,8 +90,6 @@ public class IndexServlet extends HttpServlet {
 			String getParamPageNumber = request.getParameter("page");
 			pageNumber = Integer.parseInt(getParamPageNumber);
 		}
-		
-		
 
 		Map<Integer, String> topicMap = new HashMap<>();
 		Map<Integer, String> languageMap = new HashMap<>();
