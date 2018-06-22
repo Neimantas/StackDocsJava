@@ -20,8 +20,8 @@
 
 <body>
 	<div class="container pt-5">
-		<form action="/StackDocsJava/update" method="POST">
-			<div class="form-row p-2">
+		<form action="/StackDocsJava/update" method="POST" id="form">
+			<div class="form-row px-2">
 				<div class="col">
 					<label for="inputLangauge">Language</label> 
 					<select
@@ -33,6 +33,13 @@
 					<label for="inputTopic">Topic</label> <input type="text"
 						class="form-control border-secondary" id="topic"
 						placeholder="Enter topic's title" value="${topic}" name="${topicId}">
+				</div>
+			</div>
+			<div class="row m-1">
+				<div class="col">
+					<div class="collapse" id="collapseError">
+						<div class="card card-body text-right small border-0 text-danger p-1">Topic's title can't be blank</div>
+					</div>
 				</div>
 			</div>
 			<div class="row p-2">
@@ -69,8 +76,8 @@
 			</div>
 			<div class="row p-2">
 				<div class="col">
-					<button type="submit"
-						class="btn btn-outline-dark float-right font-weight-bold ml-1">Save</button>
+					<button type="button"
+						class="btn btn-outline-dark float-right font-weight-bold ml-1" onClick="submitUpdate()">Save</button>
 					<button type="button"
 						class="btn btn-outline-dark float-right font-weight-bold"
 						onClick="updateTopicBack()">Cancel</button>

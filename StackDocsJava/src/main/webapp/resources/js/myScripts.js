@@ -38,10 +38,10 @@ function createTopicBack() {
 }
 
 function updateTopic() {
-	
+
 	var topic = document.getElementById("edit").value;
 
-	url = "update?topic="+topic;
+	url = "update?topic=" + topic;
 	location.href = url;
 
 }
@@ -157,6 +157,18 @@ function sendTopicInfo() {
 			$('#collapseErrorT').collapse('show')
 		}
 
+	} else {
+		document.getElementById('form').submit();
+	}
+}
+
+function submitUpdate() {
+	var topic = document.getElementById("topic");
+
+	if (topic.value === "") {
+		topic.classList.remove('border-secondary');
+		topic.classList.add('is-invalid');
+		$('#collapseError').collapse('show')
 	} else {
 		document.getElementById('form').submit();
 	}

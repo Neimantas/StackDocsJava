@@ -72,12 +72,10 @@ public class UpdateServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String topicId = request.getParameter("topic");
-		
-		//surenkama info ir siunciama i update CRUD'a
-		
-//		response.sendRedirect("/StackDocsJava/read");
+
+		// surenkama info ir siunciama i update CRUD'a
+
 		request.setAttribute("topic", topicId);
-		System.out.println("Tarpine stotele");
 		response.sendRedirect("/StackDocsJava/read");
 	}
 
