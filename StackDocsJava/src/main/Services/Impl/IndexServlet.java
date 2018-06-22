@@ -66,7 +66,8 @@ public class IndexServlet extends HttpServlet {
 
 		if (getParamRemove != null) { // jei triname
 
-			System.out.println("Bus iskvieciamas delete metodas, i kuri paduodama " + getParamRemove);
+			System.out.println(frontService.deleteTopic(Integer.parseInt(getParamRemove)));
+			dto = frontService.getTopicsByLanguageId(currentLanguageId, topic);
 
 		}
 
@@ -135,7 +136,7 @@ public class IndexServlet extends HttpServlet {
 	private int countNumberOfPages() {
 
 		// System.out.println(dto.get_Message());
-		if (dto != null) {
+		if (dto != null && dto.is_Succcess()) {
 			int numberOfTopics = dto.get_Topics().size();
 			if (numberOfTopics % 10 == 0) {
 				return numberOfTopics / 10;

@@ -197,7 +197,7 @@ public class FrontServiceImp implements IFrontService {
 		return "Example perduodta trinimui";
 	}
 
-	private String deleteTopic(int topicID) {
+	public String deleteTopic(int topicID) {
 		hService.delete(getTopicInfoByTopicId(topicID).get_Topics().get(0));
 		return "Topic perduodta trinimui";
 	}
