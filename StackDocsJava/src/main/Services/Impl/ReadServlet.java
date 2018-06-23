@@ -38,7 +38,12 @@ public class ReadServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String open = request.getParameter("open");
-
+		String update = request.getParameter("update");
+		
+		if (update != null) {
+			dto = frontService.getTopicInfoByTopicId(Integer.parseInt(topicId));
+		}
+		
 		if (open != null) {
 			topicId = request.getParameter("topic");
 			dto = frontService.getTopicInfoByTopicId(Integer.parseInt(topicId));

@@ -96,7 +96,7 @@ public class UpdateServlet extends HttpServlet {
 		// surenkama info ir siunciama i update CRUD'a
 
 		request.setAttribute("topic", topicId);
-		response.sendRedirect("/StackDocsJava/read");
+		response.sendRedirect("/StackDocsJava/read?update=true");
 	}
 
 }

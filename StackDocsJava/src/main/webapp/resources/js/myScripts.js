@@ -124,20 +124,6 @@ function dataToggle() {
 
 }
 
-function expandTextarea(id) {
-	var textarea = document.getElementById(id);
-	textarea.addEventListener('keyup', function() {
-		this.style.overflow = 'hidden';
-		this.style.height = 0;
-		this.style.height = this.scrollHeight + 'px';
-	}, false);
-}
-
-//expandTextarea("introduction");
-//expandTextarea("syntax");
-//expandTextarea("parameters");
-//expandTextarea("remarks");
-
 function sendTopicInfo() {
 	var language = document.getElementById("language");
 	var topic = document.getElementById("topic");
@@ -173,3 +159,19 @@ function submitUpdate() {
 		document.getElementById('formUpdate').submit();
 	}
 }
+
+
+function expandTextarea(id) {
+	var textarea = document.getElementById(id);
+	textarea.addEventListener('keyup', function() {
+		this.style.overflow = 'hidden';
+		this.style.height = 0;
+		this.style.height = this.scrollHeight + 'px';
+	}, false);
+}
+
+expandTextarea("introduction");
+expandTextarea("syntax");
+expandTextarea("parameters");
+expandTextarea("remarks");
+
