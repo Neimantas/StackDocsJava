@@ -71,8 +71,28 @@ public class UpdateServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String topicId = request.getParameter("topic");
+//		String topicId = request.getParameter("topic");
+		
+		List<String> list = new ArrayList<String>();
 
+		list.add(languageId+"");
+		list.add(request.getParameter("topic"));
+		list.add(topicId);
+		list.add(request.getParameter("introduction"));
+		list.add(request.getParameter("syntax"));
+		list.add(request.getParameter("parameters"));
+		list.add(request.getParameter("remarks"));
+		
+//		System.out.println(topicId);
+		
+		System.out.println(list.get(0));
+		System.out.println(list.get(1));
+		System.out.println(list.get(2));
+		System.out.println(list.get(3));
+		System.out.println(list.get(4));
+		System.out.println(list.get(5));
+		
+		frontService.updateTopic(list);
 		// surenkama info ir siunciama i update CRUD'a
 
 		request.setAttribute("topic", topicId);

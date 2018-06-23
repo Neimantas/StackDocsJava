@@ -66,7 +66,7 @@ public class IndexServlet extends HttpServlet {
 
 		if (getParamRemove != null) { // jei triname
 
-			System.out.println(frontService.deleteTopic(Integer.parseInt(getParamRemove)));
+			System.out.println(frontService.deleteTopic(Integer.parseInt(getParamRemove)).getMessage());
 			dto = frontService.getTopicsByLanguageId(currentLanguageId, topic);
 
 		}

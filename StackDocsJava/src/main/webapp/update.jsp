@@ -20,19 +20,19 @@
 
 <body>
 	<div class="container pt-5">
-		<form action="/StackDocsJava/update" method="POST" id="form">
+		<form action="/StackDocsJava/update" method="POST" id="formUpdate">
 			<div class="form-row px-2">
 				<div class="col">
 					<label for="inputLangauge">Language</label> 
 					<select
 						class="custom-select border-secondary" disabled>
-						<option value="${languageId}" selected>${language}</option>
+						<option value="${languageId}" name="language" selected>${language}</option>
 					</select>
 				</div>
 				<div class="col-8">
 					<label for="inputTopic">Topic</label> <input type="text"
-						class="form-control border-secondary" id="topic"
-						placeholder="Enter topic's title" value="${topic}" name="${topicId}">
+						class="form-control border-secondary" 
+						placeholder="Enter topic's title" value="${topic}" id="topic" name="topic">
 				</div>
 			</div>
 			<div class="row m-1">
@@ -46,7 +46,7 @@
 				<div class="col">
 					<label for="inputIntroduction">Introduction</label>
 					<textarea class="form-control border-secondary"
-						id="introduction" rows="3"
+						id="introduction" name="introduction" rows="3"
 						placeholder="Enter topic's introduction">${introduction}</textarea>
 				</div>
 			</div>
@@ -54,7 +54,7 @@
 				<div class="col">
 					<label for="inputSyntax">Syntax</label>
 					<textarea class="form-control border-secondary"
-						id="syntax" rows="3"
+						id="syntax" name="syntax" rows="3"
 						placeholder="Enter topic's syntax">${syntax}</textarea>
 				</div>
 			</div>
@@ -62,7 +62,7 @@
 				<div class="col">
 					<label for="inputParameters">Parameters</label>
 					<textarea class="form-control border-secondary"
-						id="parameters" rows="3"
+						id="parameters" name="parameters" rows="3"
 						placeholder="Enter topic's parameters">${parameters}</textarea>
 				</div>
 			</div>
@@ -70,7 +70,7 @@
 				<div class="col">
 					<label for="inputRemarks">Remarks</label>
 					<textarea class="form-control border-secondary"
-						id="remarks" rows="3"
+						id="remarks" name="remarks" rows="3"
 						placeholder="Enter topic's remarks">${remarks}</textarea>
 				</div>
 			</div>

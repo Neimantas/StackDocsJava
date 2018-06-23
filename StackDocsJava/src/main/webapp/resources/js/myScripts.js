@@ -133,10 +133,10 @@ function expandTextarea(id) {
 	}, false);
 }
 
-expandTextarea("introduction");
-expandTextarea("syntax");
-expandTextarea("parameters");
-expandTextarea("remarks");
+//expandTextarea("introduction");
+//expandTextarea("syntax");
+//expandTextarea("parameters");
+//expandTextarea("remarks");
 
 function sendTopicInfo() {
 	var language = document.getElementById("language");
@@ -164,12 +164,12 @@ function sendTopicInfo() {
 
 function submitUpdate() {
 	var topic = document.getElementById("topic");
-
+	
 	if (topic.value === "") {
 		topic.classList.remove('border-secondary');
 		topic.classList.add('is-invalid');
 		$('#collapseError').collapse('show')
 	} else {
-		document.getElementById('form').submit();
+		document.getElementById('formUpdate').submit();
 	}
 }

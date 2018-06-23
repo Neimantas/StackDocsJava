@@ -16,6 +16,7 @@ import Models.Topic;
 import Models.DAL.ExamplesDAL;
 import Models.DAL.LanguageTagsDAL;
 import Models.DAL.TopicsDAL;
+import Models.DTO.CreateTableDTO;
 import Models.DTO.DeleteTableDTO;
 import Models.DTO.ExamplesDTO;
 import Models.DTO.ExamplesFrontDTO;
@@ -24,6 +25,7 @@ import Models.DTO.LanguageTagFrontDTO;
 import Models.DTO.TopicsDTO;
 import Models.DTO.TopicsFrontDTO;
 import Models.DTO.TopicsInfoFrontDTO;
+import Models.DTO.UpdateTableDTO;
 import Models.Mapping.ExamplesDALtoExample;
 import Models.Mapping.LanguageTagsDALtoLanguage;
 import Models.Mapping.TopicsDALtoTopic;
@@ -187,19 +189,49 @@ public class FrontServiceImp implements IFrontService {
 
 	// -------------------------------------------------------------------------------------------------------
 	// ------------------------------Delete-----------------------------------------------------------
-	public String deleteLanguage(int Languageid) {
-		hService.delete(languageTagByLanguageId(Languageid)._LanguageTag.get(0));
-		return "Language perduodta trinimui";
+	public DeleteTableDTO deleteLanguage(int languageid) {
+		
+		return hService.delete(languageTagByLanguageId(languageid)._LanguageTag.get(0));
+//		return "Language perduodta trinimui";
 	}
 
-	public String deleteExample(int example) {
-		hService.delete(getExamplesByID(example).get_Examples().get(0));
-		return "Example perduodta trinimui";
+	public DeleteTableDTO deleteExample(int example) {
+		return hService.delete(getExamplesByID(example).get_Examples().get(0));
+//		return "Example perduodta trinimui";
 	}
 
-	public String deleteTopic(int topicID) {
-		hService.delete(getTopicInfoByTopicId(topicID).get_Topics().get(0));
-		return "Topic perduodta trinimui";
+	public DeleteTableDTO deleteTopic(int topicID) {
+		return hService.delete(getTopicInfoByTopicId(topicID).get_Topics().get(0));
+//		return "Topic perduodta trinimui";
+	}
+
+	@Override
+	public CreateTableDTO createTopic(List<String> params) {
+		Topic ret = new Topic();
+		
+		ret._LanguageId = Integer.parseInt(params.get(0));
+		ret._TopicTitle = params.get(1);
+		ret._IntroductionHtml = params.get(2);
+		ret._SyntaxHtml = params.get(3);
+		ret._ParametersHtml = params.get(4);
+		ret._RemarksHtml = params.get(5);
+		
+		return hService.create(ret);
+	}
+
+	@Override
+	public UpdateTableDTO updateTopic(List<String> params) {
+		Topic ret = new Topic();
+		
+		ret._LanguageId = Integer.parseInt(params.get(0));
+		ret._TopicTitle = params.get(1);
+		ret._TopicId = Integer.parseInt(params.get(2));
+		ret._IntroductionHtml = params.get(3);
+		ret._SyntaxHtml = params.get(4);
+		ret._ParametersHtml = params.get(5);
+		ret._RemarksHtml = params.get(6);
+		
+		return hService.update(ret);
 	}
 	
 	

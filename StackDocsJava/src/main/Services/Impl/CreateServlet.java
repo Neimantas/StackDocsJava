@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import Configuration.StartupContainer;
 import Models.Topic;
+import Models.DTO.CreateTableDTO;
 import Models.DTO.TopicsFrontDTO;
 import Services.IFrontService;
 
@@ -70,7 +71,8 @@ public class CreateServlet extends HttpServlet {
 		list.add(request.getParameter("remarks"));
 		
 		System.out.println("Isvkieciamas create metodas, kuriam paduodamas list'as");
-
+		CreateTableDTO dto = frontService.createTopic(list);
+		System.out.println(dto.getMessage());
 		response.sendRedirect("/StackDocsJava/main");
 	}
 
