@@ -29,6 +29,7 @@ public class ReadServlet extends HttpServlet {
 	private String syntax;
 	private String parameters;
 	private String remarks;
+	private String update;
 
 	public ReadServlet() {
 		frontService = StartupContainer.easyDI.getInstance(FrontServiceImp.class);
@@ -38,12 +39,12 @@ public class ReadServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String open = request.getParameter("open");
-		String update = request.getParameter("update");
-		
+		update = request.getParameter("update");
+
 		if (update != null) {
 			dto = frontService.getTopicInfoByTopicId(Integer.parseInt(topicId));
 		}
-		
+
 		if (open != null) {
 			topicId = request.getParameter("topic");
 			dto = frontService.getTopicInfoByTopicId(Integer.parseInt(topicId));
@@ -100,7 +101,11 @@ public class ReadServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.sendRedirect("/StackDocsJava/main?back=true");
+		if (update != null) {
+			response.sendRedirect("/StackDocsJava/main?update=true");
+		} else {
+			response.sendRedirect("/StackDocsJava/main?back=true");
+		}
 	}
 
 }

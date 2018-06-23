@@ -189,22 +189,25 @@ public class FrontServiceImp implements IFrontService {
 
 	// -------------------------------------------------------------------------------------------------------
 	// ------------------------------Delete-----------------------------------------------------------
+	@Override
 	public DeleteTableDTO deleteLanguage(int languageid) {
 		
 		return hService.delete(languageTagByLanguageId(languageid)._LanguageTag.get(0));
-//		return "Language perduodta trinimui";
 	}
 
+	@Override
 	public DeleteTableDTO deleteExample(int example) {
 		return hService.delete(getExamplesByID(example).get_Examples().get(0));
-//		return "Example perduodta trinimui";
 	}
 
+	@Override
 	public DeleteTableDTO deleteTopic(int topicID) {
 		return hService.delete(getTopicInfoByTopicId(topicID).get_Topics().get(0));
-//		return "Topic perduodta trinimui";
 	}
 
+	
+	// -------------------------------------------------------------------------------------------------------
+	// ------------------------------Create-----------------------------------------------------------
 	@Override
 	public CreateTableDTO createTopic(List<String> params) {
 		Topic ret = new Topic();
@@ -219,6 +222,9 @@ public class FrontServiceImp implements IFrontService {
 		return hService.create(ret);
 	}
 
+	
+	// -------------------------------------------------------------------------------------------------------
+	// ------------------------------Update-----------------------------------------------------------
 	@Override
 	public UpdateTableDTO updateTopic(List<String> params) {
 		Topic ret = new Topic();

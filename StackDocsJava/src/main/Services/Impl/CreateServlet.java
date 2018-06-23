@@ -70,10 +70,9 @@ public class CreateServlet extends HttpServlet {
 		list.add(request.getParameter("parameters"));
 		list.add(request.getParameter("remarks"));
 		
-		System.out.println("Isvkieciamas create metodas, kuriam paduodamas list'as");
 		CreateTableDTO dto = frontService.createTopic(list);
 		System.out.println(dto.getMessage());
-		response.sendRedirect("/StackDocsJava/main");
+		response.sendRedirect("/StackDocsJava/main?update=true");
 	}
 
 }
