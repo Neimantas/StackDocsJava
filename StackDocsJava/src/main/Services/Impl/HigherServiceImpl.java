@@ -350,10 +350,8 @@ public class HigherServiceImpl implements IHigherService {
 			ret.setMessage(tdto.getMessage());
 			return ret;
 		}
-		// Bug - jei istrinam ne paskutine tema, pridedant bando perrasyti esama ID
+
 		int newTopicId = findFirstEmptyId(tdto);
-		//
-		System.out.println(newTopicId);
 
 		dal.topicId = newTopicId;
 		dal.introductionHtml = topic.get_IntroductionHtml();
