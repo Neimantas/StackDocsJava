@@ -350,8 +350,9 @@ public class HigherServiceImpl implements IHigherService {
 			ret.setMessage(tdto.getMessage());
 			return ret;
 		}
-		int newTopicId = tdto.getTopics().size() + 1;
-
+		// Bug - jei istrinam ne paskutine tema, pridedant bando perrasyti esama ID
+		int newTopicId = findFirstEmptyId(tdto);
+		//
 		System.out.println(newTopicId);
 
 		dal.topicId = newTopicId;
@@ -419,11 +420,11 @@ public class HigherServiceImpl implements IHigherService {
 
 		} else if (updataRecord instanceof Example) {
 
-			return updateExamples((Example)updataRecord);
+			return updateExamples((Example) updataRecord);
 
 		} else if (updataRecord instanceof Language) {
 
-			return updateLanguages((Language)updataRecord);
+			return updateLanguages((Language) updataRecord);
 
 		}
 
@@ -439,17 +440,16 @@ public class HigherServiceImpl implements IHigherService {
 	private UpdateTableDTO updateLanguages(Language language) {
 		CrudUpdate params = new CrudUpdate();
 		UpdateTableDTO crudCheck;
-		
+
 		params.setWhereUsed(true);
 		params.setTableName("LanguageTags"); // Lenteles pavadinimas
 		params.setConditionColumName("LanguageID"); // pagal koki stulpeli filtruoja pakeitimus
-		params.setConditionChangeWhereValueIsEqual(language.id+""); // kokios eilutes reiksme norim pakeisti
+		params.setConditionChangeWhereValueIsEqual(language.id + ""); // kokios eilutes reiksme norim pakeisti
 
 		params.setChangeValueOfColum("Title"); // Kurio stulpelio irasus keisim (Visi isskyrus LanguageId)
 		params.setChangeValueTO(language.title); // I kokia reiksme keisim
 		crudCheck = crud.update(params);
-		
-		
+
 		UpdateTableDTO updateTableTDO = new UpdateTableDTO();
 		if (crudCheck.isSuccess()) {
 
@@ -467,25 +467,24 @@ public class HigherServiceImpl implements IHigherService {
 	private UpdateTableDTO updateExamples(Example example) {
 		CrudUpdate params = new CrudUpdate();
 		UpdateTableDTO crudCheck;
-		
+
 		params.setWhereUsed(true);
 		params.setTableName("Examples"); // Lenteles pavadinimas
 		params.setConditionColumName("ExampleId"); // pagal koki stulpeli filtruoja pakeitimus
-		params.setConditionChangeWhereValueIsEqual(example.exampleId+""); // kokios eilutes reiksme norim pakeisti
+		params.setConditionChangeWhereValueIsEqual(example.exampleId + ""); // kokios eilutes reiksme norim pakeisti
 
 		params.setChangeValueOfColum("topicId"); // Kurio stulpelio irasus keisim (Visi isskyrus LanguageId)
-		params.setChangeValueTO(example.topicId+""); // I kokia reiksme keisim
+		params.setChangeValueTO(example.topicId + ""); // I kokia reiksme keisim
 		crudCheck = crud.update(params);
-		
+
 		params.setChangeValueOfColum("title"); // Kurio stulpelio irasus keisim (Visi isskyrus LanguageId)
 		params.setChangeValueTO(example.title); // I kokia reiksme keisim
 		crudCheck = crud.update(params);
-		
+
 		params.setChangeValueOfColum("bodyHtml"); // Kurio stulpelio irasus keisim (Visi isskyrus LanguageId)
 		params.setChangeValueTO(example.bodyHtml); // I kokia reiksme keisim
 		crudCheck = crud.update(params);
-		
-		
+
 		UpdateTableDTO updateTableTDO = new UpdateTableDTO();
 		if (crudCheck.isSuccess()) {
 
@@ -503,7 +502,7 @@ public class HigherServiceImpl implements IHigherService {
 	private UpdateTableDTO updateTopic(Topic topic) {
 		CrudUpdate params = new CrudUpdate();
 		UpdateTableDTO crudCheck;
-		
+
 		params.setWhereUsed(true);
 		params.setTableName("Topics"); // Lenteles pavadinimas
 		params.setConditionColumName("TopicId"); // pagal koki stulpeli filtruoja pakeitimus
@@ -512,7 +511,7 @@ public class HigherServiceImpl implements IHigherService {
 		params.setChangeValueOfColum("Title"); // Kurio stulpelio irasus keisim (Visi isskyrus LanguageId)
 		params.setChangeValueTO(topic._TopicTitle); // I kokia reiksme keisim
 		crudCheck = crud.update(params);
-		
+
 		params.setChangeValueOfColum("IntroductionHtml"); // Kurio stulpelio irasus keisim (Visi isskyrus LanguageId)
 		params.setChangeValueTO(topic._IntroductionHtml); // I kokia reiksme keisim
 		crudCheck = crud.update(params);
@@ -520,16 +519,15 @@ public class HigherServiceImpl implements IHigherService {
 		params.setChangeValueOfColum("SyntaxHtml"); // Kurio stulpelio irasus keisim (Visi isskyrus LanguageId)
 		params.setChangeValueTO(topic._SyntaxHtml); // I kokia reiksme keisim
 		crudCheck = crud.update(params);
-		
+
 		params.setChangeValueOfColum("ParametersHtml"); // Kurio stulpelio irasus keisim (Visi isskyrus LanguageId)
 		params.setChangeValueTO(topic._ParametersHtml); // I kokia reiksme keisim
 		crudCheck = crud.update(params);
-		
+
 		params.setChangeValueOfColum("RemarksHtml"); // Kurio stulpelio irasus keisim (Visi isskyrus LanguageId)
 		params.setChangeValueTO(topic._RemarksHtml); // I kokia reiksme keisim
 		crudCheck = crud.update(params);
-		
-		
+
 		UpdateTableDTO updateTableTDO = new UpdateTableDTO();
 		if (crudCheck.isSuccess()) {
 
@@ -546,7 +544,7 @@ public class HigherServiceImpl implements IHigherService {
 
 	@Override
 	public DeleteTableDTO delete(Object deleteRecord) {
-		
+
 		if (deleteRecord instanceof Topic) {
 
 			return deleteTopic((Topic) deleteRecord);
@@ -570,20 +568,36 @@ public class HigherServiceImpl implements IHigherService {
 	}
 
 	private DeleteTableDTO deleteLanguage(Language deleteRecord) {
-		
-		return crud.delete("LanguageTags", "languageid", deleteRecord.id+""); 
-		
+
+		return crud.delete("LanguageTags", "languageid", deleteRecord.id + "");
+
 	}
 
 	private DeleteTableDTO deleteExample(Example deleteRecord) {
-		
-		return crud.delete("Examples", "exampleid", deleteRecord.exampleId+""); 
-		
+
+		return crud.delete("Examples", "exampleid", deleteRecord.exampleId + "");
+
 	}
 
 	private DeleteTableDTO deleteTopic(Topic deleteRecord) {
+		ExamplesDTO eDTO = getExamplesByTopicId(deleteRecord._TopicId);
+		if (eDTO.isSuccess()) {
+			for (int i = 0; i < eDTO.getExamples().size(); i++) {
+				System.out.println("Example " + crud.delete("Examples", "exampleid", eDTO.getExamples().get(i).exampleId + "").getMessage());
+			}
+		}
+		return crud.delete("Topics", "topicid", deleteRecord._TopicId + "");
 
-		return crud.delete("Topics", "topicid", deleteRecord._TopicId+"");
+	}
+
+	private int findFirstEmptyId(TopicsDTO tdto) {
+		int emptyId = 1;
+		for (int i = 0; i < tdto.getTopics().size(); i++) {
+			if (tdto.getTopics().get(i).topicId == emptyId) {
+				emptyId++;
+			}
+		}
+		return emptyId;
 	}
 
 }

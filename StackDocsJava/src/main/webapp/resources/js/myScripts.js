@@ -150,7 +150,7 @@ function sendTopicInfo() {
 
 function submitUpdate() {
 	var topic = document.getElementById("topic");
-	
+
 	if (topic.value === "") {
 		topic.classList.remove('border-secondary');
 		topic.classList.add('is-invalid');
@@ -159,7 +159,6 @@ function submitUpdate() {
 		document.getElementById('formUpdate').submit();
 	}
 }
-
 
 function expandTextarea(id) {
 	var textarea = document.getElementById(id);
@@ -174,4 +173,3 @@ expandTextarea("introduction");
 expandTextarea("syntax");
 expandTextarea("parameters");
 expandTextarea("remarks");
-

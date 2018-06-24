@@ -106,7 +106,7 @@ public class Higher_Main {
 		System.out.println(hs.getAllTopics().getTopics().size());
 		
 		System.out.println(hs.getAllLanguages().getLanguageTag().size());
-		Language language = new Language("", 1);
+		Language language = new Language();//("", 1);
 		
 		DeleteTableDTO del1 = hs.delete(language);
 		System.out.println(del1.getMessage());

@@ -51,7 +51,7 @@ public class CreateServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		// suvestos info perdavimas i CRUD'a
-		
+
 		// Map<String, String> map = new HashMap<String, String>();
 		//
 		// map.put("languageId", request.getParameter("language"));
@@ -60,7 +60,7 @@ public class CreateServlet extends HttpServlet {
 		// map.put("syntax", request.getParameter("syntax"));
 		// map.put("parameters", request.getParameter("parameters"));
 		// map.put("remarks", request.getParameter("remarks"));
-		
+
 		List<String> list = new ArrayList<String>();
 
 		list.add(request.getParameter("language"));
@@ -69,10 +69,10 @@ public class CreateServlet extends HttpServlet {
 		list.add(request.getParameter("syntax"));
 		list.add(request.getParameter("parameters"));
 		list.add(request.getParameter("remarks"));
-		
+
 		CreateTableDTO dto = frontService.createTopic(list);
 		System.out.println(dto.getMessage());
-		response.sendRedirect("/StackDocsJava/main?update=true");
+		response.sendRedirect("/StackDocsJava/main?search=true&language=" + list.get(0) + "&topic=" + list.get(1));
 	}
 
 }

@@ -60,7 +60,7 @@ public class IndexServlet extends HttpServlet {
 		}
 
 		if (getParamSearch == null && getParamChange == null && getParamRemove == null && getParamBack == null
-				&& getParamUpdate == null) { //jei uzkrauname puslapi is naujo neperkrovus serverio
+				&& getParamUpdate == null) { // jei uzkrauname puslapi is naujo neperkrovus serverio
 			dto = null;
 			topic = null;
 			currentLanguageId = 0;
@@ -81,16 +81,15 @@ public class IndexServlet extends HttpServlet {
 
 			dto = frontService.getTopicsByLanguageId(currentLanguageId, topic);
 		}
-		
+
 		if (getParamRemove != null) { // jei triname
 			System.out.println(frontService.deleteTopic(Integer.parseInt(getParamRemove)).getMessage());
 			dto = frontService.getTopicsByLanguageId(currentLanguageId, topic);
 		}
-		
-		if (getParamUpdate != null) { //po topic koregavimo ar pridejimo
+
+		if (getParamUpdate != null) { // po topic koregavimo
 			dto = frontService.getTopicsByLanguageId(currentLanguageId, topic);
 		}
-		
 
 		if (getParamChange != null) { // jei keiciame puslapi
 			String getParamPageNumber = request.getParameter("page");
