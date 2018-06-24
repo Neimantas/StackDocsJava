@@ -266,8 +266,7 @@ public class CRUD implements ICrud {
 
 		if (params.getIsWhereUsed()) {
 
-			readQuerry += "' WHERE " + params.conditionColumName + "='" + params.conditionChangeWhereValueIsEqual
-					+ "';";
+			readQuerry += "' WHERE " + params.conditionColumName + "='" + params.conditionChangeWhereValueIsEqual + "';";
 		}
 
 		UpdateTableDTO updateTableDTO = new UpdateTableDTO();

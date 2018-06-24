@@ -595,6 +595,8 @@ public class HigherServiceImpl implements IHigherService {
 		for (int i = 0; i < tdto.getTopics().size(); i++) {
 			if (tdto.getTopics().get(i).topicId == emptyId) {
 				emptyId++;
+			} else if (tdto.getTopics().get(i).topicId > emptyId) {
+				break;
 			}
 		}
 		return emptyId;
