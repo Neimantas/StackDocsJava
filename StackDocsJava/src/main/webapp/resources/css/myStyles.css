@@ -3,3 +3,35 @@
   background: #343a40!important;
   color: white !important;
 }
+
+#deleteBtn {
+	display: none;
+}
+
+#toTop {
+  display: none;
+}
+
+#introduction {
+	min-height: 90px;
+	resize:none;
+	overflow:hidden;
+}
+
+#syntax {
+	min-height: 90px;
+	resize:none;
+	overflow:hidden;
+}
+
+#parameters {
+	min-height: 90px;
+	resize:none;
+	overflow:hidden;
+}
+
+#remarks {
+	min-height: 90px;
+	resize:none;
+	overflow:hidden;
+}

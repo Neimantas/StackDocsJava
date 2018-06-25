@@ -11,6 +11,7 @@ import Models.DTO.UpdateTableDTO;
 
 import Services.IHigherService;
 import Services.Impl.CRUD;
+import Services.Impl.CacheImpl;
 import Services.Impl.DataBaseImpl;
 import Services.Impl.HigherServiceImpl;
 
@@ -18,7 +19,7 @@ public class CRUD_Main {
 
 	public static void main(String[] args) {
 		
-		CRUD crud = new CRUD(new DataBaseImpl());
+		CRUD crud = new CRUD(new DataBaseImpl(), new CacheImpl());
 //		System.out.println(crud.read(new ExamplesDAL()).isSuccess());
 //		System.out.println(crud.read(new LanguageTagsDAL()).isSuccess());
 //		System.out.println(crud.read(new TopicsDAL()).isSuccess());

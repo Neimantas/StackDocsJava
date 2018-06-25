@@ -40,8 +40,6 @@ public class IndexServlet extends HttpServlet {
 		frontService = di.getInstance(FrontServiceImp.class);
 	}
 
-	
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -50,6 +48,28 @@ public class IndexServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String getParamSearch = request.getParameter("search");
 		String getParamChange = request.getParameter("change");
+		String getParamRemove = request.getParameter("rem");
+		String getParamBack = request.getParameter("back");
+		String getParamUpdate = request.getParameter("update");
+
+		// renkam info dropdown language uzpildymui
+		TopicsFrontDTO dto2 = frontService.getTopicsByLanguageId(0, "");
+		Map<Integer, String> languageDDMap = new HashMap<>();
+		if (dto2.is_Succcess()) {
+			List<Topic> topics = dto2.get_Topics();
+			for (Topic t : topics) {
+				languageDDMap.put(t.get_LanguageId(), t.get_LanguageTitle());
+			}
+		} else {
+			languageDDMap.put(null, null);
+		}
+
+		if (getParamSearch == null && getParamChange == null && getParamRemove == null && getParamBack == null
+				&& getParamUpdate == null) { // jei uzkrauname puslapi is naujo neperkrovus serverio
+			dto = null;
+			topic = null;
+			currentLanguageId = 0;
+		}
 
 		if (getParamSearch != null) { // jei atliekame paieska
 			String getParamLang = request.getParameter("language");
@@ -59,7 +79,20 @@ public class IndexServlet extends HttpServlet {
 			if (topic.equals("0")) {
 				topic = "";
 			}
-			pageNumber = 1;
+
+			if (getParamRemove == null) {
+				pageNumber = 1;
+			}
+
+			dto = frontService.getTopicsByLanguageId(currentLanguageId, topic);
+		}
+
+		if (getParamRemove != null) { // jei triname
+			System.out.println(frontService.deleteTopic(Integer.parseInt(getParamRemove)).getMessage());
+			dto = frontService.getTopicsByLanguageId(currentLanguageId, topic);
+		}
+
+		if (getParamUpdate != null) { // po topic koregavimo
 			dto = frontService.getTopicsByLanguageId(currentLanguageId, topic);
 		}
 
@@ -94,6 +127,7 @@ public class IndexServlet extends HttpServlet {
 		request.setAttribute("numberOfPages", countNumberOfPages());
 		request.setAttribute("topicMap", topicMap);
 		request.setAttribute("languageMap", languageMap);
+		request.setAttribute("languageDD", languageDDMap);
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 
 	}
@@ -104,7 +138,6 @@ public class IndexServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
@@ -113,7 +146,6 @@ public class IndexServlet extends HttpServlet {
 		System.out.println(dto.get_Message());
 		System.out.println(dto.is_Succcess());
 		System.out.println("################CIA TURI KEIKTIS>>>>>");
-		if (dto != null) {
 			int numberOfTopics = dto.get_Topics().size();
 			if (numberOfTopics % 10 == 0) {
 				return numberOfTopics / 10;
@@ -123,6 +155,5 @@ public class IndexServlet extends HttpServlet {
 		}
 		return 0;
 	}
-
 
 }
