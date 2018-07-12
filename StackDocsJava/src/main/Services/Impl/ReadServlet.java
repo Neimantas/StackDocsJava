@@ -16,7 +16,6 @@ import Models.DTO.ExamplesFrontDTO;
 import Models.DTO.TopicsInfoFrontDTO;
 import Services.IFrontService;
 
-//@WebServlet(urlPatterns = "/ReadServlet")
 public class ReadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -57,11 +56,11 @@ public class ReadServlet extends HttpServlet {
 			List<Topic> topics = dto.get_Topics();
 			for (Topic t : topics) {
 
-				topic = t.get_TopicTitle();
-				introduction = t.get_IntroductionHtml();
-				syntax = t.get_SyntaxHtml();
-				parameters = t.get_ParametersHtml();
-				remarks = t.get_RemarksHtml();
+				topic = t._TopicTitle;
+				introduction = t._IntroductionHtml;
+				syntax = t._SyntaxHtml;
+				parameters = t._ParametersHtml;
+				remarks = t._RemarksHtml;
 			}
 
 		} else {
