@@ -18,15 +18,16 @@ import Services.ICrud;
 import Services.IDataBase;
 
 public class CRUD implements ICrud {
-	private IDataBase db;
-	private Statement statements;
-	private Connection conn;
-	private ICache cache;
-	private ResultSet readResultSet;
+
+	private IDataBase _database;
+	private Statement _statement;
+	private Connection _connection;
+	private ICache _cache;
+	private ResultSet _resultSet;
 
 	public CRUD(DataBaseImpl databaseImpl, CacheImpl cacheImpl) {
-		db = databaseImpl;
-		cache = cacheImpl;
+		_database = databaseImpl;
+		_cache = cacheImpl;
 	}
 
 	public CreateTableDTO create(Object dal) {
@@ -63,17 +64,17 @@ public class CRUD implements ICrud {
 			String readQuerry = "INSERT INTO " + tableName + " VALUES (" + fullValuesString + ");";
 			System.out.println(readQuerry);
 
-			statements.executeUpdate(readQuerry);
+			_statement.executeUpdate(readQuerry);
 			createTableDTO.success = true;
-			cache.remove(tableName);
+			_cache.remove(tableName);
 		} catch (SQLException e) {
 
 			createTableDTO.success = false;
 			createTableDTO.message = e.getMessage();
 			return createTableDTO;
 		} finally {
-			if (db != null)
-				db.close();
+			if (_database != null)
+				_database.close();
 		}
 		return createTableDTO;
 	}
@@ -89,13 +90,13 @@ public class CRUD implements ICrud {
 			}
 			String tableName = someClass.getSimpleName();
 			tableName = tableName.replaceAll("DAL", "");
-			if (cache.get(tableName) != null) {
-				return (ReadTableDTO) cache.get(tableName);
+			if (_cache.get(tableName) != null) {
+				return (ReadTableDTO) _cache.get(tableName);
 			}
 			Object retDAL = null;
 			setConnection();
 			String readQuerry = "SELECT * FROM " + tableName + ";";
-			ResultSet rs = statements.executeQuery(readQuerry);
+			ResultSet rs = _statement.executeQuery(readQuerry);
 			ReadTableDTO ret = new ReadTableDTO();
 			List<Object> retList = new ArrayList<>();
 
@@ -120,14 +121,14 @@ public class CRUD implements ICrud {
 			ret.success = true;
 			ret.message = "success";
 			ret.readResultSet = retList;
-			cache.put(tableName, ret);
+			_cache.put(tableName, ret);
 
 			// This one is not in Finnaly section, because need to keep open db till job is
 			// done.
 			// If put this one in Finnay, there will be a lot of db cosing and reopen. DO
 			// NOT MOVE TO FINNALY for god sake...
-			if (db != null)
-				db.close();
+			if (_database != null)
+				_database.close();
 			return ret;
 
 		} catch (InstantiationException | IllegalAccessException | SQLException e) {
@@ -149,7 +150,7 @@ public class CRUD implements ICrud {
 						+ "';";
 			}
 			System.out.println(readQuerry);
-			statements.executeUpdate(readQuerry);
+			_statement.executeUpdate(readQuerry);
 			updateTableDTO.success = true;
 
 		} catch (SQLException e) {
@@ -157,9 +158,9 @@ public class CRUD implements ICrud {
 			updateTableDTO.message = e.getMessage();
 			return updateTableDTO;
 		} finally {
-			db.close();
+			_database.close();
 		}
-		cache.remove(params.tableName);
+		_cache.remove(params.tableName);
 		return updateTableDTO;
 	}
 
@@ -168,23 +169,23 @@ public class CRUD implements ICrud {
 		try {
 			setConnection();
 			String readQuerry = "DELETE FROM " + tableName + " WHERE " + conditionColum + "='" + conditionValue + "';";
-			statements.executeUpdate(readQuerry);
+			_statement.executeUpdate(readQuerry);
 			deleteTableDTO.success = true;
-			cache.remove(tableName);
+			_cache.remove(tableName);
 		} catch (SQLException e) {
 			deleteTableDTO.success = false;
 			deleteTableDTO.message = e.getMessage();
 			return deleteTableDTO;
 		} finally {
-			db.close();
+			_database.close();
 		}
 		return deleteTableDTO;
 	}
 
 	private void setConnection() {
 		try {
-			conn = db.connect();
-			statements = conn.createStatement();
+			_connection = _database.connect();
+			_statement = _connection.createStatement();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

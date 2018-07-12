@@ -7,7 +7,7 @@ import Models.Business.CrudUpdate;
 import Models.Business.Example;
 import Models.Business.Language;
 import Models.Business.Topic;
-import Models.Const.Errors;
+import Models.Const.Error;
 import Models.Const.Settings;
 import Models.DAL.ExamplesDAL;
 import Models.DAL.LanguageTagsDAL;
@@ -24,14 +24,14 @@ import Services.IHigherService;
 
 public class HigherServiceImpl implements IHigherService {
 
-	ICrud crud;
+	private ICrud _crud;
 
 	public HigherServiceImpl(CRUD crudImpl) {
-		crud = crudImpl;
+		_crud = crudImpl;
 	}
 
 	public TopicsDTO getTopicsByLanguageId(int languageId) {
-		ReadTableDTO dto = crud.read(new TopicsDAL());
+		ReadTableDTO dto = _crud.read(new TopicsDAL());
 		if (dto.success) {
 			List<TopicsDAL> list = (List<TopicsDAL>) (Object) dto.readResultSet;
 			List<TopicsDAL> ret = list.stream().filter(e -> e.languageId == languageId).collect(Collectors.toList());
@@ -42,7 +42,7 @@ public class HigherServiceImpl implements IHigherService {
 
 	@Override
 	public ExamplesDTO getExamplesByTopicId(int topicId) {
-		ReadTableDTO examplesDTO = crud.read(new ExamplesDAL());
+		ReadTableDTO examplesDTO = _crud.read(new ExamplesDAL());
 		if (examplesDTO.success) {
 			List<ExamplesDAL> list = (List<ExamplesDAL>) (Object) examplesDTO.readResultSet;
 			List<ExamplesDAL> ret = list.stream().filter(e -> e.topicId == topicId).collect(Collectors.toList());
@@ -53,7 +53,7 @@ public class HigherServiceImpl implements IHigherService {
 
 	@Override
 	public LanguageTagDTO getAllLanguages() {
-		ReadTableDTO languageTagsDTO = crud.read(new LanguageTagsDAL());
+		ReadTableDTO languageTagsDTO = _crud.read(new LanguageTagsDAL());
 		if (languageTagsDTO.success) {
 			List<LanguageTagsDAL> list = (List<LanguageTagsDAL>) (Object) languageTagsDTO.readResultSet;
 			LanguageTagDTO ret = new LanguageTagDTO();
@@ -70,7 +70,7 @@ public class HigherServiceImpl implements IHigherService {
 
 	@Override
 	public TopicsDTO getAllTopics() {
-		ReadTableDTO topicsDTO = crud.read(new TopicsDAL());
+		ReadTableDTO topicsDTO = _crud.read(new TopicsDAL());
 		if (topicsDTO.success) {
 			List<TopicsDAL> list = (List<TopicsDAL>) (Object) topicsDTO.readResultSet;
 			TopicsDTO ret = new TopicsDTO();
@@ -86,7 +86,7 @@ public class HigherServiceImpl implements IHigherService {
 	}
 
 	public ExamplesDTO getAllExamples() {
-		ReadTableDTO examplesDTO = crud.read(new ExamplesDAL());
+		ReadTableDTO examplesDTO = _crud.read(new ExamplesDAL());
 		if (examplesDTO.success) {
 			List<ExamplesDAL> list = (List<ExamplesDAL>) (Object) examplesDTO.readResultSet;
 			ExamplesDTO ret = new ExamplesDTO();
@@ -103,7 +103,7 @@ public class HigherServiceImpl implements IHigherService {
 
 	@Override
 	public TopicsDTO getTopicInfoByTopicId(int topicId) {
-		ReadTableDTO topicsDTO = crud.read(new TopicsDAL());
+		ReadTableDTO topicsDTO = _crud.read(new TopicsDAL());
 		if (topicsDTO.success) {
 			List<TopicsDAL> list = (List<TopicsDAL>) (Object) topicsDTO.readResultSet;
 			List<TopicsDAL> ret = list.stream().filter(e -> e.topicId == topicId).collect(Collectors.toList());
@@ -114,7 +114,7 @@ public class HigherServiceImpl implements IHigherService {
 
 	@Override
 	public ExamplesDTO getExampleByExampleId(int exampleId) {
-		ReadTableDTO examplesDTO = crud.read(new ExamplesDAL());
+		ReadTableDTO examplesDTO = _crud.read(new ExamplesDAL());
 		if (examplesDTO.success) {
 			List<ExamplesDAL> list = (List<ExamplesDAL>) (Object) examplesDTO.readResultSet;
 			List<ExamplesDAL> ret = list.stream().filter(e -> e.exampleId == exampleId).collect(Collectors.toList());
@@ -125,7 +125,7 @@ public class HigherServiceImpl implements IHigherService {
 
 	@Override
 	public LanguageTagDTO getLanguageTagByLanguageId(int languageId) {
-		ReadTableDTO languageTagsDTO = crud.read(new LanguageTagsDAL());
+		ReadTableDTO languageTagsDTO = _crud.read(new LanguageTagsDAL());
 		if (languageTagsDTO.success) {
 			List<LanguageTagsDAL> list = (List<LanguageTagsDAL>) (Object) languageTagsDTO.readResultSet;
 			List<LanguageTagsDAL> ret = list.stream().filter(e -> e.languageId == languageId)
@@ -146,7 +146,7 @@ public class HigherServiceImpl implements IHigherService {
 		}
 		CreateTableDTO ret = new CreateTableDTO();
 		ret.success = false;
-		ret.message = Errors.createError.getMessage();
+		ret.message = Error.CREATE_ERROR.getMessage();
 		return ret;
 	}
 
@@ -168,7 +168,7 @@ public class HigherServiceImpl implements IHigherService {
 		dal.remarksHtml = topic.remarksHtml;
 		dal.syntaxHtml = topic.syntaxHtml;
 		dal.title = topic.topicTitle;
-		return crud.create(dal);
+		return _crud.create(dal);
 	}
 
 	private CreateTableDTO createExample(Example example) {
@@ -185,7 +185,7 @@ public class HigherServiceImpl implements IHigherService {
 		dal.bodyHtml = example.bodyHtml;
 		dal.title = example.title;
 		dal.topicId = example.topicId;
-		return crud.create(dal);
+		return _crud.create(dal);
 	}
 
 	private CreateTableDTO createLanguage(Language language) {
@@ -202,7 +202,7 @@ public class HigherServiceImpl implements IHigherService {
 		dal.helloWorldTopicId = -1; // not used field
 		dal.tag = language.tag;
 		dal.title = language.title;
-		return crud.create(dal);
+		return _crud.create(dal);
 	}
 
 	@Override
@@ -216,7 +216,7 @@ public class HigherServiceImpl implements IHigherService {
 		}
 		UpdateTableDTO updateTableTDO = new UpdateTableDTO();
 		updateTableTDO.success = false;
-		updateTableTDO.message = Errors.updateError.getMessage();
+		updateTableTDO.message = Error.UPDATE_ERROR.getMessage();
 		return updateTableTDO;
 	}
 
@@ -229,7 +229,7 @@ public class HigherServiceImpl implements IHigherService {
 		params.conditionChangeWhereValueIsEqual = Integer.toString(language.id);
 		params.changeValueOfColum = "Title";
 		params.changeValueTO = language.title;
-		crudCheck = crud.update(params);
+		crudCheck = _crud.update(params);
 		UpdateTableDTO updateTableTDO = new UpdateTableDTO();
 		if (crudCheck.success) {
 			updateTableTDO.success = true;
@@ -251,15 +251,15 @@ public class HigherServiceImpl implements IHigherService {
 		params.conditionChangeWhereValueIsEqual = Integer.toString(example.exampleId);
 		params.changeValueOfColum = "topicId";
 		params.changeValueTO = Integer.toString(example.topicId);
-		crudCheck = crud.update(params);
+		crudCheck = _crud.update(params);
 
 		params.changeValueOfColum = "title";
 		params.changeValueTO = example.title;
-		crudCheck = crud.update(params);
+		crudCheck = _crud.update(params);
 
 		params.changeValueOfColum = "bodyHtml";
 		params.changeValueTO = example.bodyHtml;
-		crudCheck = crud.update(params);
+		crudCheck = _crud.update(params);
 
 		UpdateTableDTO updateTableTDO = new UpdateTableDTO();
 		if (crudCheck.success) {
@@ -283,23 +283,23 @@ public class HigherServiceImpl implements IHigherService {
 
 		params.changeValueOfColum = "Title";
 		params.changeValueTO = topic.topicTitle;
-		crudCheck = crud.update(params);
+		crudCheck = _crud.update(params);
 
 		params.changeValueOfColum = "IntroductionHtml";
 		params.changeValueTO = topic.introductionHtml;
-		crudCheck = crud.update(params);
+		crudCheck = _crud.update(params);
 
 		params.changeValueOfColum = "SyntaxHtml";
 		params.changeValueTO = topic.syntaxHtml;
-		crudCheck = crud.update(params);
+		crudCheck = _crud.update(params);
 
 		params.changeValueOfColum = "ParametersHtml";
 		params.changeValueTO = topic.parametersHtml;
-		crudCheck = crud.update(params);
+		crudCheck = _crud.update(params);
 
 		params.changeValueOfColum = "RemarksHtml";
 		params.changeValueTO = topic.remarksHtml;
-		crudCheck = crud.update(params);
+		crudCheck = _crud.update(params);
 
 		UpdateTableDTO updateTableTDO = new UpdateTableDTO();
 		if (crudCheck.success) {
@@ -326,20 +326,20 @@ public class HigherServiceImpl implements IHigherService {
 		}
 		DeleteTableDTO ret = new DeleteTableDTO();
 		ret.success = false;
-		ret.message = Errors.deleteError.getMessage();
+		ret.message = Error.DELETE_ERROR.getMessage();
 		return ret;
 	}
 
 	private DeleteTableDTO deleteLanguage(Language deleteRecord) {
-		return crud.delete("LanguageTags", "languageid", Integer.toString(deleteRecord.id));
+		return _crud.delete("LanguageTags", "languageid", Integer.toString(deleteRecord.id));
 	}
 
 	private DeleteTableDTO deleteExample(Example deleteRecord) {
-		return crud.delete("Examples", "exampleid", Integer.toString(deleteRecord.exampleId));
+		return _crud.delete("Examples", "exampleid", Integer.toString(deleteRecord.exampleId));
 	}
 
 	private DeleteTableDTO deleteTopic(Topic deleteRecord) {
-		return crud.delete("Topics", "topicid", Integer.toString(deleteRecord.topicId));
+		return _crud.delete("Topics", "topicid", Integer.toString(deleteRecord.topicId));
 	}
 
 	private int findFirstEmptyId(TopicsDTO tdto) {

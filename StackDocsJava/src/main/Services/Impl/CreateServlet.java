@@ -20,10 +20,10 @@ import Services.IFrontService;
 public class CreateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	IFrontService frontService;
+	private IFrontService _frontService;
 
 	public CreateServlet() {
-		frontService = StartupContainer.easyDI.getInstance(FrontServiceImp.class);
+		_frontService = StartupContainer.easyDI.getInstance(FrontServiceImp.class);
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class CreateServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		// renkam info dropdown language uzpildymui
-		TopicsFrontDTO dto = frontService.getTopicsByLanguageId(0, "");
+		TopicsFrontDTO dto = _frontService.getTopicsByLanguageId(0, "");
 		Map<Integer, String> languageDDMap = new HashMap<>();
 		if (dto.success) {
 			List<Topic> topics = dto.topics;
@@ -59,7 +59,7 @@ public class CreateServlet extends HttpServlet {
 		list.add(request.getParameter("parameters"));
 		list.add(request.getParameter("remarks"));
 
-		CreateTableDTO dto = frontService.createTopic(list);
+		CreateTableDTO dto = _frontService.createTopic(list);
 		System.out.println(dto.message);
 		response.sendRedirect("/StackDocsJava/main?search=true&language=" + list.get(0) + "&topic=" + list.get(1));
 	}

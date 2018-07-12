@@ -19,63 +19,63 @@ import Services.IFrontService;
 public class ReadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	IFrontService frontService;
-	TopicsInfoFrontDTO dto;
-	ExamplesFrontDTO dtoE;
-	private String topicId;
-	private String topic;
-	private String introduction;
-	private String syntax;
-	private String parameters;
-	private String remarks;
-	private String update;
+	private IFrontService _frontService;
+	private TopicsInfoFrontDTO _topicsInfoFrontDTO;
+	private ExamplesFrontDTO _examplesFrontDTO;
+	private String _topicId;
+	private String _topic;
+	private String _introduction;
+	private String _syntax;
+	private String _parameters;
+	private String _remarks;
+	private String _update;
 
 	public ReadServlet() {
-		frontService = StartupContainer.easyDI.getInstance(FrontServiceImp.class);
+		_frontService = StartupContainer.easyDI.getInstance(FrontServiceImp.class);
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String open = request.getParameter("open");
-		update = request.getParameter("update");
+		_update = request.getParameter("update");
 
-		if (update != null) {
-			dto = frontService.getTopicInfoByTopicId(Integer.parseInt(topicId));
+		if (_update != null) {
+			_topicsInfoFrontDTO = _frontService.getTopicInfoByTopicId(Integer.parseInt(_topicId));
 		}
 
 		if (open != null) {
-			topicId = request.getParameter("topic");
-			dto = frontService.getTopicInfoByTopicId(Integer.parseInt(topicId));
+			_topicId = request.getParameter("topic");
+			_topicsInfoFrontDTO = _frontService.getTopicInfoByTopicId(Integer.parseInt(_topicId));
 		}
 
 		List<String> content = new ArrayList<String>();
 
-		if (dto.succcess) {
+		if (_topicsInfoFrontDTO.succcess) {
 
-			List<Topic> topics = dto.topicsInfo;
+			List<Topic> topics = _topicsInfoFrontDTO.topicsInfo;
 			for (Topic t : topics) {
 
-				topic = t.topicTitle;
-				introduction = t.introductionHtml;
-				syntax = t.syntaxHtml;
-				parameters = t.parametersHtml;
-				remarks = t.remarksHtml;
+				_topic = t.topicTitle;
+				_introduction = t.introductionHtml;
+				_syntax = t.syntaxHtml;
+				_parameters = t.parametersHtml;
+				_remarks = t.remarksHtml;
 			}
 
 		} else {
-			content.add(dto.message);
+			content.add(_topicsInfoFrontDTO.message);
 		}
 
 		if (open != null) {
-			dtoE = frontService.getExamplesByID(Integer.parseInt(topicId));
+			_examplesFrontDTO = _frontService.getExamplesByID(Integer.parseInt(_topicId));
 		}
 
 		List<String> contExamples = new ArrayList<String>();
 
-		if (dtoE.success) {
+		if (_examplesFrontDTO.success) {
 
-			List<Example> examples = dtoE.examples;
+			List<Example> examples = _examplesFrontDTO.examples;
 			for (Example e : examples) {
 
 				contExamples.add(e.bodyHtml);
@@ -83,15 +83,15 @@ public class ReadServlet extends HttpServlet {
 			}
 
 		} else {
-			contExamples.add(dtoE.message);
+			contExamples.add(_examplesFrontDTO.message);
 		}
 
-		request.setAttribute("topicId", topicId);
-		request.setAttribute("topic", topic);
-		request.setAttribute("introduction", introduction);
-		request.setAttribute("syntax", syntax);
-		request.setAttribute("parameters", parameters);
-		request.setAttribute("remarks", remarks);
+		request.setAttribute("topicId", _topicId);
+		request.setAttribute("topic", _topic);
+		request.setAttribute("introduction", _introduction);
+		request.setAttribute("syntax", _syntax);
+		request.setAttribute("parameters", _parameters);
+		request.setAttribute("remarks", _remarks);
 		request.setAttribute("example", contExamples);
 
 		request.getRequestDispatcher("read.jsp").forward(request, response);
@@ -100,7 +100,7 @@ public class ReadServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if (update != null) {
+		if (_update != null) {
 			response.sendRedirect("/StackDocsJava/main?update=true");
 		} else {
 			response.sendRedirect("/StackDocsJava/main?back=true");

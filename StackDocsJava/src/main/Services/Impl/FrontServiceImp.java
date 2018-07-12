@@ -30,15 +30,15 @@ import Services.IHigherService;
 @Singleton
 public class FrontServiceImp implements IFrontService {
 
-	IHigherService hService;
+	private IHigherService _higherService;
 
-	public FrontServiceImp(HigherServiceImpl hServiceImpl) {
-		hService = hServiceImpl;
+	public FrontServiceImp(HigherServiceImpl higherServiceImpl) {
+		_higherService = higherServiceImpl;
 	}
 
 	@Override
 	public TopicsInfoFrontDTO getTopicInfoByTopicId(int topicId) {
-		TopicsDTO tInfoDTO = hService.getTopicInfoByTopicId(topicId);
+		TopicsDTO tInfoDTO = _higherService.getTopicInfoByTopicId(topicId);
 		if (tInfoDTO.success) {
 			List<TopicsDAL> topicsListas = tInfoDTO.topics;
 			if (topicsListas.size() == 0) {
@@ -64,7 +64,7 @@ public class FrontServiceImp implements IFrontService {
 	public TopicsFrontDTO getTopicsByLanguageId(int languageId, String topicWord) {
 
 		if (languageId == 0) {
-			TopicsDTO allTitleDTO = hService.getAllTopics();
+			TopicsDTO allTitleDTO = _higherService.getAllTopics();
 			String topicWord2 = topicWord.toLowerCase();
 			if (allTitleDTO.success) {
 				if (topicWord2 != "") {
@@ -88,7 +88,7 @@ public class FrontServiceImp implements IFrontService {
 						Topic topic = new Topic();
 						TopicsDALtoTopic topicTag = new TopicsDALtoTopic();
 						topicTag.topicsTagsDaltoTopicTags(topicDal, topic);
-						LanguageTagDTO ldto = hService.getLanguageTagByLanguageId(topicDal.languageId);
+						LanguageTagDTO ldto = _higherService.getLanguageTagByLanguageId(topicDal.languageId);
 						// sito mebus >>>>>>>>>>>>>>>>>>>>>>>>
 						if (ldto.success) {
 							topic.languageTitle = ldto.languageTag.get(0).title;
@@ -100,11 +100,11 @@ public class FrontServiceImp implements IFrontService {
 				}
 
 			}
-			return new TopicsFrontDTO(false, hService.getAllTopics().message, null);
+			return new TopicsFrontDTO(false, _higherService.getAllTopics().message, null);
 		}
 		// ---------------------------------------------------------------------------------------------------------------
 		else {
-			TopicsDTO tDTO = hService.getTopicsByLanguageId(languageId);
+			TopicsDTO tDTO = _higherService.getTopicsByLanguageId(languageId);
 			String topicWord2 = topicWord.toLowerCase();
 			if (tDTO.success) {
 				List<TopicsDAL> topicsListas = tDTO.topics;
@@ -147,7 +147,7 @@ public class FrontServiceImp implements IFrontService {
 
 	@Override
 	public ExamplesFrontDTO getExamplesByID(int topicId) {
-		ExamplesDTO example = hService.getExamplesByTopicId(topicId);
+		ExamplesDTO example = _higherService.getExamplesByTopicId(topicId);
 		if (example.success) {
 			List<Example> exampleFront = new ArrayList<Example>();
 			for (ExamplesDAL ex : example.examples) {
@@ -167,7 +167,7 @@ public class FrontServiceImp implements IFrontService {
 
 	@Override
 	public LanguageTagFrontDTO languageTagByLanguageId(int languageId) {
-		LanguageTagDTO ldto = hService.getLanguageTagByLanguageId(languageId);
+		LanguageTagDTO ldto = _higherService.getLanguageTagByLanguageId(languageId);
 		if (ldto.success) {
 			List<Language> languageTagFront = new ArrayList<Language>();
 			for (LanguageTagsDAL languageTagDto : ldto.languageTag) {
@@ -187,17 +187,17 @@ public class FrontServiceImp implements IFrontService {
 	@Override
 	public DeleteTableDTO deleteLanguage(int languageid) {
 
-		return hService.delete(languageTagByLanguageId(languageid).languageTag.get(0));
+		return _higherService.delete(languageTagByLanguageId(languageid).languageTag.get(0));
 	}
 
 	@Override
 	public DeleteTableDTO deleteExample(int example) {
-		return hService.delete(getExamplesByID(example).examples.get(0));
+		return _higherService.delete(getExamplesByID(example).examples.get(0));
 	}
 
 	@Override
 	public DeleteTableDTO deleteTopic(int topicID) {
-		return hService.delete(getTopicInfoByTopicId(topicID).topicsInfo.get(0));
+		return _higherService.delete(getTopicInfoByTopicId(topicID).topicsInfo.get(0));
 	}
 
 	// -------------------------------------------------------------------------------------------------------
@@ -213,7 +213,7 @@ public class FrontServiceImp implements IFrontService {
 		ret.parametersHtml = params.get(4);
 		ret.remarksHtml = params.get(5);
 
-		return hService.create(ret);
+		return _higherService.create(ret);
 	}
 
 	// -------------------------------------------------------------------------------------------------------
@@ -230,7 +230,7 @@ public class FrontServiceImp implements IFrontService {
 		ret.parametersHtml = params.get(5);
 		ret.remarksHtml = params.get(6);
 
-		return hService.update(ret);
+		return _higherService.update(ret);
 	}
 
 }

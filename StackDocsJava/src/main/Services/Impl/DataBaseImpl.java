@@ -9,12 +9,8 @@ import javax.inject.Singleton;
 
 @Singleton
 public class DataBaseImpl implements IDataBase {
-	private static DataBaseImpl instance = null;
-	private Connection conn = null;
 
-	public DataBaseImpl() {
-		instance = this;
-	};
+	private Connection _connection;
 
 	public Connection connect() {
 
@@ -23,10 +19,10 @@ public class DataBaseImpl implements IDataBase {
 			String url = "jdbc:sqlite:stackDocsJava/src/main/recources/stack.db";
 			Class.forName("org.sqlite.JDBC").newInstance();
 			// create a connection to the database
-			conn = DriverManager.getConnection(url);
+			_connection = DriverManager.getConnection(url);
 
 			System.out.println("Connection to SQLite has been established.");
-			return conn;
+			return _connection;
 
 		} catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
 			System.out.println(e.getMessage());
@@ -37,22 +33,15 @@ public class DataBaseImpl implements IDataBase {
 
 	public void close() {
 
-		if (conn != null) {
+		if (_connection != null) {
 			try {
-				conn.close();
+				_connection.close();
 				System.out.println("DB connection was closed");
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}
 		}
 
-	}
-
-	public static DataBaseImpl getInstance() {
-		// if(instance == null) {
-		// instance = new DataBaseImpl();
-		// }
-		return instance;
 	}
 
 }

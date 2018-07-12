@@ -17,14 +17,14 @@ import Services.IFrontService;
 public class IndexServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private IFrontService frontService;
-	private TopicsFrontDTO dto;
-	private String topic;
-	private int currentLanguageId;
-	private int pageNumber;
+	private IFrontService _frontService;
+	private TopicsFrontDTO _topicsFrontDTO;
+	private String _topic;
+	private int _currentLanguageId;
+	private int _pageNumber;
 
 	public IndexServlet() {
-		frontService = StartupContainer.easyDI.getInstance(FrontServiceImp.class);
+		_frontService = StartupContainer.easyDI.getInstance(FrontServiceImp.class);
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -36,7 +36,7 @@ public class IndexServlet extends HttpServlet {
 		String getParamUpdate = request.getParameter("update");
 
 		// renkam info dropdown language uzpildymui
-		TopicsFrontDTO dto2 = frontService.getTopicsByLanguageId(0, "");
+		TopicsFrontDTO dto2 = _frontService.getTopicsByLanguageId(0, "");
 		Map<Integer, String> languageDDMap = new HashMap<>();
 		if (dto2.success) {
 			List<Topic> topics = dto2.topics;
@@ -49,62 +49,62 @@ public class IndexServlet extends HttpServlet {
 
 		if (getParamSearch == null && getParamChange == null && getParamRemove == null && getParamBack == null
 				&& getParamUpdate == null) { // jei uzkrauname puslapi is naujo neperkrovus serverio
-			dto = null;
-			topic = null;
-			currentLanguageId = 0;
+			_topicsFrontDTO = null;
+			_topic = null;
+			_currentLanguageId = 0;
 		}
 
 		if (getParamSearch != null) { // jei atliekame paieska
 			String getParamLang = request.getParameter("language");
-			topic = request.getParameter("topic");
-			currentLanguageId = Integer.parseInt(getParamLang);
+			_topic = request.getParameter("topic");
+			_currentLanguageId = Integer.parseInt(getParamLang);
 
-			if (topic.equals("0")) {
-				topic = "";
+			if (_topic.equals("0")) {
+				_topic = "";
 			}
 
 			if (getParamRemove == null) {
-				pageNumber = 1;
+				_pageNumber = 1;
 			}
 
-			dto = frontService.getTopicsByLanguageId(currentLanguageId, topic);
+			_topicsFrontDTO = _frontService.getTopicsByLanguageId(_currentLanguageId, _topic);
 		}
 
 		if (getParamRemove != null) { // jei triname
-			System.out.println(frontService.deleteTopic(Integer.parseInt(getParamRemove)).message);
-			dto = frontService.getTopicsByLanguageId(currentLanguageId, topic);
+			System.out.println(_frontService.deleteTopic(Integer.parseInt(getParamRemove)).message);
+			_topicsFrontDTO = _frontService.getTopicsByLanguageId(_currentLanguageId, _topic);
 		}
 
 		if (getParamUpdate != null) { // po topic koregavimo
-			dto = frontService.getTopicsByLanguageId(currentLanguageId, topic);
+			_topicsFrontDTO = _frontService.getTopicsByLanguageId(_currentLanguageId, _topic);
 		}
 
 		if (getParamChange != null) { // jei keiciame puslapi
 			String getParamPageNumber = request.getParameter("page");
-			pageNumber = Integer.parseInt(getParamPageNumber);
+			_pageNumber = Integer.parseInt(getParamPageNumber);
 		}
 
 		Map<Integer, String> topicMap = new HashMap<>();
 		Map<Integer, String> languageMap = new HashMap<>();
-		if (dto != null) {
-			if (dto.success) {
+		if (_topicsFrontDTO != null) {
+			if (_topicsFrontDTO.success) {
 
-				List<Topic> topics = dto.topics;
+				List<Topic> topics = _topicsFrontDTO.topics;
 				// Atvaizduojame reikiamo puslapio temas
-				for (int i = (pageNumber - 1) * 10; i < pageNumber * 10 && i < topics.size(); i++) {
+				for (int i = (_pageNumber - 1) * 10; i < _pageNumber * 10 && i < topics.size(); i++) {
 					topicMap.put(topics.get(i).topicId, topics.get(i).topicTitle);
 					languageMap.put(topics.get(i).topicId,
 							topics.get(i).languageTitle != null ? topics.get(i).languageTitle + " | " : "");
 				}
 
 			} else {
-				topicMap.put(null, dto.message);
+				topicMap.put(null, _topicsFrontDTO.message);
 				languageMap.put(null, null);
 			}
 		}
-		request.setAttribute("topic", topic);
-		request.setAttribute("languageId", currentLanguageId);
-		request.setAttribute("pageNumber", pageNumber);
+		request.setAttribute("topic", _topic);
+		request.setAttribute("languageId", _currentLanguageId);
+		request.setAttribute("pageNumber", _pageNumber);
 		request.setAttribute("numberOfPages", countNumberOfPages());
 		request.setAttribute("topicMap", topicMap);
 		request.setAttribute("languageMap", languageMap);
@@ -120,8 +120,8 @@ public class IndexServlet extends HttpServlet {
 
 	private int countNumberOfPages() {
 
-		if (dto != null && dto.success) {
-			int numberOfTopics = dto.topics.size();
+		if (_topicsFrontDTO != null && _topicsFrontDTO.success) {
+			int numberOfTopics = _topicsFrontDTO.topics.size();
 			if (numberOfTopics % 10 == 0) {
 				return numberOfTopics / 10;
 			} else {

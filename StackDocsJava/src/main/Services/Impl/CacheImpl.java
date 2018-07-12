@@ -8,62 +8,46 @@ import Services.ICache;
 import javax.inject.Singleton;
 
 @Singleton
-public class CacheImpl<T> implements ICache<T> {
+public class CacheImpl implements ICache {
 
-	private Map<String, T> objects = Collections.synchronizedMap(new HashMap<>());
-	private Map<String, Long> expire = Collections.synchronizedMap(new HashMap<>());
-	private long expireTimeDefault = 100; // 100 seconds;
-
-	private static CacheImpl instance = null;
-
-	public CacheImpl() {
-		instance = this;
-	}
+	private Map<String, Object> _objects = Collections.synchronizedMap(new HashMap<>());
+	private Map<String, Long> _expire = Collections.synchronizedMap(new HashMap<>());
+	private long _expireTimeDefault = 100; // 100 seconds;
 
 	@Override
-	public void put(String key, T data) {
+	public void put(String key, Object data) {
 
-		objects.put(key, data);
-		expire.put(key, System.currentTimeMillis() + expireTimeDefault * 1000);
+		_objects.put(key, data);
+		_expire.put(key, System.currentTimeMillis() + _expireTimeDefault * 1000);
 
 	}
 
-	public void put(String key, T data, long timeExpires) {
+	public void put(String key, Object data, long timeExpires) {
 
-		objects.put(key, data);
-		expire.put(key, System.currentTimeMillis() + timeExpires * 1000);
+		_objects.put(key, data);
+		_expire.put(key, System.currentTimeMillis() + timeExpires * 1000);
 
 	}
 
 	@Override
-	public T get(String key) {
+	public Object get(String key) {
 
-		if (!objects.containsKey(key))
+		if (!_objects.containsKey(key))
 			return null;
 
-		if (System.currentTimeMillis() > expire.get(key)) {
-			objects.remove(key);
-			expire.remove(key);
+		if (System.currentTimeMillis() > _expire.get(key)) {
+			_objects.remove(key);
+			_expire.remove(key);
 			return null;
 		}
-		return objects.get(key);
+		return _objects.get(key);
 	}
 
 	@Override
 	public void remove(String key) {
 
-		objects.remove(key);
+		_objects.remove(key);
 
-	}
-
-	@SuppressWarnings("unchecked")
-	public static <T> CacheImpl<T> getInstance() {
-		//
-		// if(instance == null) {
-		// instance = new CacheImpl<T>();
-		// return instance;
-		// }
-		return instance;
 	}
 
 }
