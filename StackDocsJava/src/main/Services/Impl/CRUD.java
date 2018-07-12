@@ -129,6 +129,11 @@ public class CRUD implements ICrud {
 			ret.setMessage("success");
 			ret.setReadResultSet(retList);
 			cache.put(tableName, ret);
+			
+			// This one is not in Finnaly section, because need to keep open db till job is done. 
+			//If put this one in Finnay, there will be a lot of db cosing and reopen. DO NOT MOVE TO FINNALY for god sake...
+			if (db != null)
+				db.close(); 
 			return ret;
 
 		} catch (InstantiationException | IllegalAccessException | SQLException e) {
@@ -136,9 +141,6 @@ public class CRUD implements ICrud {
 			ret.setSuccess(false);
 			ret.setMessage(e.getMessage());
 			return ret;
-		} finally {
-			if (db != null)
-				db.close();
 		}
 	}
 
