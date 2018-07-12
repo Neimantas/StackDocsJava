@@ -1,14 +1,14 @@
 package Models;
 
 public class Topic {
-	private int _TopicId;
-	private int _LanguageId;
-	private String _LanguageTitle;
-	private String _TopicTitle;
-	private String _IntroductionHtml;
-	private String _SyntaxHtml;
-	private String _ParametersHtml;
-	private String _RemarksHtml;
+	public int _TopicId;
+	public int _LanguageId;
+	public String _LanguageTitle;
+	public String _TopicTitle;
+	public String _IntroductionHtml;
+	public String _SyntaxHtml;
+	public String _ParametersHtml;
+	public String _RemarksHtml;
 
 	public String get_LanguageTitle() {
 		return _LanguageTitle;

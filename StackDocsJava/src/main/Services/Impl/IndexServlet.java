@@ -44,6 +44,8 @@ public class IndexServlet extends HttpServlet {
 		String getParamSearch = request.getParameter("search");
 		String getParamChange = request.getParameter("change");
 		String getParamRemove = request.getParameter("rem");
+		String getParamBack = request.getParameter("back");
+		String getParamUpdate = request.getParameter("update");
 
 		// renkam info dropdown language uzpildymui
 		TopicsFrontDTO dto2 = frontService.getTopicsByLanguageId(0, "");
@@ -57,13 +59,12 @@ public class IndexServlet extends HttpServlet {
 			languageDDMap.put(null, null);
 		}
 
-		
-		if (getParamRemove != null) { // jei triname
-			
-			System.out.println("Bus iskvieciamas delete metodas, i kuri paduodama " + getParamRemove);
-			
+		if (getParamSearch == null && getParamChange == null && getParamRemove == null && getParamBack == null
+				&& getParamUpdate == null) { // jei uzkrauname puslapi is naujo neperkrovus serverio
+			dto = null;
+			topic = null;
+			currentLanguageId = 0;
 		}
-		
 
 		if (getParamSearch != null) { // jei atliekame paieska
 			String getParamLang = request.getParameter("language");
@@ -73,11 +74,20 @@ public class IndexServlet extends HttpServlet {
 			if (topic.equals("0")) {
 				topic = "";
 			}
-			
+
 			if (getParamRemove == null) {
-			pageNumber = 1;
+				pageNumber = 1;
 			}
-			
+
+			dto = frontService.getTopicsByLanguageId(currentLanguageId, topic);
+		}
+
+		if (getParamRemove != null) { // jei triname
+			System.out.println(frontService.deleteTopic(Integer.parseInt(getParamRemove)).getMessage());
+			dto = frontService.getTopicsByLanguageId(currentLanguageId, topic);
+		}
+
+		if (getParamUpdate != null) { // po topic koregavimo
 			dto = frontService.getTopicsByLanguageId(currentLanguageId, topic);
 		}
 
@@ -85,8 +95,6 @@ public class IndexServlet extends HttpServlet {
 			String getParamPageNumber = request.getParameter("page");
 			pageNumber = Integer.parseInt(getParamPageNumber);
 		}
-		
-		
 
 		Map<Integer, String> topicMap = new HashMap<>();
 		Map<Integer, String> languageMap = new HashMap<>();
@@ -125,14 +133,12 @@ public class IndexServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
 	private int countNumberOfPages() {
 
-		// System.out.println(dto.get_Message());
-		if (dto != null) {
+		if (dto != null && dto.is_Succcess()) {
 			int numberOfTopics = dto.get_Topics().size();
 			if (numberOfTopics % 10 == 0) {
 				return numberOfTopics / 10;

@@ -1,2 +1,5 @@
 /.metadata/
 /.recommenders/
+*.db
+StackDocsJava/.classpath
+StackDocsJava/src/main/Services/Impl/DataBaseImpl.java
