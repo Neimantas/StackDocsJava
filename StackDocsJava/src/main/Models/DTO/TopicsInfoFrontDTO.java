@@ -9,7 +9,7 @@ public class TopicsInfoFrontDTO {
 	private String _Message;
 	private List<Topic> _TopicsInfo;
 
-	TopicsInfoFrontDTO() {
+	public TopicsInfoFrontDTO() {
 	}
 
 	public TopicsInfoFrontDTO(boolean sucs, String msg, List<Topic> topicInfo) {

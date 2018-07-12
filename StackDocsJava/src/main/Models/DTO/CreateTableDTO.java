@@ -4,9 +4,12 @@ public class CreateTableDTO {
 	private boolean success;
 	private String message;
 
-	CreateTableDTO(boolean successIn, String msgIn) {
+	public CreateTableDTO(boolean successIn, String msgIn) {
 		success = successIn;
 		message = msgIn;
+	}
+
+	public CreateTableDTO() {
 	}
 
 	public boolean getIsSuccess() {

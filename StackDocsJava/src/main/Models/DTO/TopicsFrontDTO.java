@@ -8,7 +8,7 @@ public class TopicsFrontDTO {
 	private String _Message;
 	private List<Topic> _Topics;
 
-	TopicsFrontDTO() {
+	public TopicsFrontDTO() {
 	}
 
 	public TopicsFrontDTO(boolean sucs, String msg, List<Topic> topic) {

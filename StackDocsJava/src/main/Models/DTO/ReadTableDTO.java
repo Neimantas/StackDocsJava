@@ -7,10 +7,10 @@ public class ReadTableDTO {
 	private List<Object> readResultSet;
 	private String message;
 
-	ReadTableDTO() {
+	public ReadTableDTO() {
 	};
 
-	ReadTableDTO(boolean successIn, List<Object> readResultSetIn, String messageIn) {
+	public ReadTableDTO(boolean successIn, List<Object> readResultSetIn, String messageIn) {
 		success=successIn;
 		readResultSet=readResultSetIn;
 		message=messageIn;

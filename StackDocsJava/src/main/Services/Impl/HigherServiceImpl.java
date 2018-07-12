@@ -354,13 +354,13 @@ public class HigherServiceImpl implements IHigherService {
 		int newTopicId = findFirstEmptyId(tdto);
 
 		dal.topicId = newTopicId;
-		dal.introductionHtml = topic.get_IntroductionHtml();
+		dal.introductionHtml = topic._IntroductionHtml;
 		dal.isHelloWorldTopic = 0;
-		dal.languageId = topic.get_LanguageId();
-		dal.parametersHtml = topic.get_ParametersHtml();
-		dal.remarksHtml = topic.get_RemarksHtml();
-		dal.syntaxHtml = topic.get_SyntaxHtml();
-		dal.title = topic.get_TopicTitle();
+		dal.languageId = topic._TopicId;
+		dal.parametersHtml = topic._ParametersHtml;
+		dal.remarksHtml = topic._RemarksHtml;
+		dal.syntaxHtml = topic._SyntaxHtml;
+		dal.title = topic._TopicTitle;
 
 		return crud.create(dal);
 	}

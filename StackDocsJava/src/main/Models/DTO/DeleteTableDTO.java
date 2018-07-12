@@ -3,8 +3,8 @@ package Models.DTO;
 public class DeleteTableDTO {
 	private boolean success;
 	private String message;
-
-	DeleteTableDTO(boolean successIn, String msgIn) {
+	public DeleteTableDTO(){};
+	public DeleteTableDTO(boolean successIn, String msgIn) {
 		success = successIn;
 		message = msgIn;
 	}

@@ -2,9 +2,7 @@ package Services.Impl;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.inject.Singleton;
-
 import Models.Business.Example;
 import Models.Business.Language;
 import Models.Business.LanguageTag;
@@ -24,6 +22,7 @@ import Models.DTO.TopicsInfoFrontDTO;
 import Models.DTO.UpdateTableDTO;
 import Models.Mapping.ExamplesDALtoExample;
 import Models.Mapping.LanguageTagsDALtoLanguage;
+import Models.Mapping.ParamsToTopic;
 import Models.Mapping.TopicsDALtoTopic;
 import Services.IFrontService;
 import Services.IHigherService;
@@ -58,9 +57,6 @@ public class FrontServiceImp implements IFrontService {
 		return new TopicsInfoFrontDTO(false, tInfoDTO.getMessage(), null);
 	}
 
-	// ------------------------------------------------------------------------------------------------------------------------------------------
-	// ------------------------------------------------------------------------------------------------------------------------------------------
-
 	@Override
 	public TopicsFrontDTO getTopicsByLanguageId(int languageId, String topicWord) {
 
@@ -89,12 +85,6 @@ public class FrontServiceImp implements IFrontService {
 						Topic topic = new Topic();
 						TopicsDALtoTopic topicTag = new TopicsDALtoTopic();
 						topicTag.topicsTagsDaltoTopicTags(topicDal, topic);
-						LanguageTagDTO ldto = hService.getLanguageTagByLanguageId(topicDal.languageId);
-						// sito mebus >>>>>>>>>>>>>>>>>>>>>>>>
-						if (ldto.isSuccess()) {
-							topic.set_LanguageTitle(ldto.getLanguageTag().get(0).title);
-						}
-						// sito mebus >>>>>>>>>>>>>>>>>>>>>>>>
 						topicsFront.add(topic);
 					}
 					return new TopicsFrontDTO(true, "success", topicsFront);
@@ -102,9 +92,7 @@ public class FrontServiceImp implements IFrontService {
 
 			}
 			return new TopicsFrontDTO(false, hService.getAllTopics().getMessage(), null);
-		}
-		// ---------------------------------------------------------------------------------------------------------------
-		else {
+		} else {
 			TopicsDTO tDTO = hService.getTopicsByLanguageId(languageId);
 			String topicWord2 = topicWord.toLowerCase();
 			if (tDTO.isSuccess()) {
@@ -118,7 +106,6 @@ public class FrontServiceImp implements IFrontService {
 							Topic topic = new Topic();
 							TopicsDALtoTopic topicTag = new TopicsDALtoTopic();
 							topicTag.topicsTagsDaltoTopicTags(topicDal, topic);
-							// mapperTopics.map(topicDal, topic);
 							String textCheck = topic._TopicTitle.toLowerCase();
 							if (textCheck.contains(topicWord2)) {
 								topicsFront.add(topic);
@@ -143,9 +130,6 @@ public class FrontServiceImp implements IFrontService {
 
 	}
 
-	// ---------------------------------------------------------------------------------------------------------------------
-	// ---------------------------------------------------------------------------------------------------------------------
-
 	@Override
 	public ExamplesFrontDTO getExamplesByID(int topicId) {
 		ExamplesDTO example = hService.getExamplesByTopicId(topicId);
@@ -163,8 +147,6 @@ public class FrontServiceImp implements IFrontService {
 
 		return new ExamplesFrontDTO(false, "Stringo Front Sevice exmaple dalis", null);
 	}
-	// ---------------------------------------------------------------------------------------------------------------------
-	// ---------------------------------------------------------------------------------------------------------------------
 
 	@Override
 	public LanguageTagFrontDTO languageTagByLanguageId(int languageId) {
@@ -183,11 +165,8 @@ public class FrontServiceImp implements IFrontService {
 		return new LanguageTagFrontDTO(false, "Stringo Front Sevice Language Tag dalis", null);
 	}
 
-	// -------------------------------------------------------------------------------------------------------
-	// ------------------------------Delete-----------------------------------------------------------
 	@Override
 	public DeleteTableDTO deleteLanguage(int languageid) {
-		
 		return hService.delete(languageTagByLanguageId(languageid)._LanguageTag.get(0));
 	}
 
@@ -201,30 +180,9 @@ public class FrontServiceImp implements IFrontService {
 		return hService.delete(getTopicInfoByTopicId(topicID).get_Topics().get(0));
 	}
 
-	
-	// -------------------------------------------------------------------------------------------------------
-	// ------------------------------Create-----------------------------------------------------------
 	@Override
 	public CreateTableDTO createTopic(List<String> params) {
 		Topic ret = new Topic();
-		
-		ret._LanguageId = Integer.parseInt(params.get(0));
-		ret._TopicTitle = params.get(1);
-		ret._IntroductionHtml = params.get(2);
-		ret._SyntaxHtml = params.get(3);
-		ret._ParametersHtml = params.get(4);
-		ret._RemarksHtml = params.get(5);
-		
-		return hService.create(ret);
-	}
-
-	
-	// -------------------------------------------------------------------------------------------------------
-	// ------------------------------Update-----------------------------------------------------------
-	@Override
-	public UpdateTableDTO updateTopic(List<String> params) {
-		Topic ret = new Topic();
-		
 		ret._LanguageId = Integer.parseInt(params.get(0));
 		ret._TopicTitle = params.get(1);
 		ret._TopicId = Integer.parseInt(params.get(2));
@@ -232,10 +190,24 @@ public class FrontServiceImp implements IFrontService {
 		ret._SyntaxHtml = params.get(4);
 		ret._ParametersHtml = params.get(5);
 		ret._RemarksHtml = params.get(6);
-		
+		return hService.create(ret);
+//		Topic topic = new Topic();
+//		ParamsToTopic topicFromParams =new ParamsToTopic();
+//		topic=topicFromParams.paramsToTopic(params, topic);
+//		return hService.create(topic);
+	}
+
+	@Override
+	public UpdateTableDTO updateTopic(List<String> params) {
+		Topic ret = new Topic();
+		ret._LanguageId = Integer.parseInt(params.get(0));
+		ret._TopicTitle = params.get(1);
+		ret._TopicId = Integer.parseInt(params.get(2));
+		ret._IntroductionHtml = params.get(3);
+		ret._SyntaxHtml = params.get(4);
+		ret._ParametersHtml = params.get(5);
+		ret._RemarksHtml = params.get(6);
 		return hService.update(ret);
 	}
-	
-	
 
 }

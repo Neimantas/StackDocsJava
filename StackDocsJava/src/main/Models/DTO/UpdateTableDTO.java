@@ -4,10 +4,10 @@ public class UpdateTableDTO {
 	private boolean success;
 	private String message;
 
-	UpdateTableDTO() {
+	public UpdateTableDTO() {
 	};
 
-	UpdateTableDTO(boolean successIn, String messageIn) {
+	public UpdateTableDTO(boolean successIn, String messageIn) {
 		success = successIn;
 		message = messageIn;
 	};

@@ -3,7 +3,6 @@ package Models.Mapping;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.spi.MappingContext;
-
 import Models.Business.Example;
 import Models.DAL.ExamplesDAL;
 

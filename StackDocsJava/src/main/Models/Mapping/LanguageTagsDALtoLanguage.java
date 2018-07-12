@@ -3,7 +3,6 @@ package Models.Mapping;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.spi.MappingContext;
-
 import Models.Business.Language;
 import Models.DAL.LanguageTagsDAL;
 
@@ -21,7 +20,6 @@ public class LanguageTagsDALtoLanguage {
 			};
 		};
 		mapperLanguageTag.addConverter(languageTagConverter);
-//		LanguageTagsDALtoLanguage mapll=new LanguageTagsDALtoLanguage();
 		mapperLanguageTag.map(languageTagDto, languageTag);
 		return languageTag;
 		
