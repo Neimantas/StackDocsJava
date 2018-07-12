@@ -21,7 +21,10 @@ public class CRUD implements ICrud {
 	private IDataBase db;
 	private Statement statements;
 	private Connection conn;
-
+	private ICache cache;
+	private ResultSet readResultSet;
+	
+	
 	public CRUD(DataBaseImpl databaseImpl, CacheImpl cacheImpl) {
 		db = databaseImpl;
 		cache = cacheImpl;
@@ -61,8 +64,9 @@ public class CRUD implements ICrud {
 			String readQuerry = "INSERT INTO " + tableName + " VALUES (" + fullValuesString + ");";
 			System.out.println(readQuerry);
 
-			statements.executeQuery(readQuerry);
+			statements.executeUpdate(readQuerry);
 			createTableDTO.setSuccess(true);
+			cache.remove(tableName);
 		} catch (SQLException e) {
 
 			createTableDTO.setSuccess(false);
@@ -140,12 +144,14 @@ public class CRUD implements ICrud {
 			String readQuerry = "UPDATE " + params.tableName + " SET " + params.changeValueOfColum + "='"
 					+ params.changeValueTO;
 			if (params.getIsWhereUsed()) {
-				readQuerry += "' WHERE" + params.conditionColumName + "='" + params.conditionChangeWhereValueIsEqual
+				readQuerry += "' WHERE " + params.conditionColumName + "='" + params.conditionChangeWhereValueIsEqual
 						+ "';";
 			}
-			readResultSet = statements.executeQuery(readQuerry);
+			System.out.println(readQuerry);
+			statements.executeUpdate(readQuerry);
 			updateTableDTO.setSuccess(true);
-
+			
+			
 		} catch (SQLException e) {
 			updateTableDTO.setSuccess(false);
 			updateTableDTO.setMessage(e.getMessage());
@@ -153,6 +159,7 @@ public class CRUD implements ICrud {
 		} finally {
 			db.close();
 		}
+		cache.remove(params.tableName);
 		return updateTableDTO;
 	}
 
@@ -161,8 +168,9 @@ public class CRUD implements ICrud {
 		try {
 			setConnection();
 			String readQuerry = "DELETE FROM " + tableName + " WHERE " + conditionColum + "='" + conditionValue + "';";
-			statements.executeQuery(readQuerry);
+			statements.executeUpdate(readQuerry);
 			deleteTableDTO.setSuccess(true);
+			cache.remove(tableName);
 		} catch (SQLException e) {
 			deleteTableDTO.setSuccess(false);
 			deleteTableDTO.setMessage(e.getMessage());
