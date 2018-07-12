@@ -4,7 +4,7 @@ import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.spi.MappingContext;
 
-import Models.Example;
+import Models.Business.Example;
 import Models.DAL.ExamplesDAL;
 
 public class ExamplesDALtoExample {

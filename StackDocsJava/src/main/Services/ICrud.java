@@ -2,7 +2,7 @@ package Services;
 
 import java.sql.ResultSet;
 
-import Models.CrudUpdate;
+import Models.Business.CrudUpdate;
 import Models.DTO.CreateTableDTO;
 import Models.DTO.DeleteTableDTO;
 import Models.DTO.ReadTableDTO;

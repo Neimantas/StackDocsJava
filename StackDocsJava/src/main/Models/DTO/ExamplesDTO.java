@@ -1,23 +1,21 @@
 package Models.DTO;
 
 import java.util.List;
-
 import Models.DAL.ExamplesDAL;
 
-
 public class ExamplesDTO {
-	
+
 	private boolean _Success;
 	private String _Message;
 	private List<ExamplesDAL> _Examples;
-	
-	public ExamplesDTO() { }
-	
+
+	public ExamplesDTO() {
+	}
+
 	public ExamplesDTO(boolean success, List<ExamplesDAL> dal, String message) {
 		_Success = success;
 		_Examples = dal;
 		_Message = message;
-		
 	}
 
 	public boolean isSuccess() {

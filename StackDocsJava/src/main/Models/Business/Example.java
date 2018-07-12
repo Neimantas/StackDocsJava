@@ -1,6 +1,6 @@
-package Models.DAL;
+package Models.Business;
 
-public class ExamplesDAL {
+public class Example {
 	public int exampleId;
 	public int topicId;
 	public String title;

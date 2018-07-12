@@ -1,21 +1,21 @@
 package Models.DTO;
-import java.util.List;
 
-import Models.Topic;
+import java.util.List;
+import Models.Business.Topic;
 import Models.DAL.TopicsDAL;
 
 public class TopicsInfoFrontDTO {
 	private boolean _Succcess;
 	private String _Message;
 	private List<Topic> _TopicsInfo;
-	
+
 	TopicsInfoFrontDTO() {
-		
 	}
-	public TopicsInfoFrontDTO(boolean sucs, String msg, List<Topic> topicInfo){
-		_Succcess=sucs;
-		_Message=msg;
-		_TopicsInfo=topicInfo;
+
+	public TopicsInfoFrontDTO(boolean sucs, String msg, List<Topic> topicInfo) {
+		_Succcess = sucs;
+		_Message = msg;
+		_TopicsInfo = topicInfo;
 	}
 
 	public boolean is_Succcess() {
@@ -41,6 +41,5 @@ public class TopicsInfoFrontDTO {
 	public void set_Topics(List<Topic> topicInfo) {
 		this._TopicsInfo = topicInfo;
 	}
-
 
 }

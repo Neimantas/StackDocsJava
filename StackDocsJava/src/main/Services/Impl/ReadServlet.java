@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Configuration.StartupContainer;
-import Models.Example;
-import Models.Topic;
+import Models.Business.Example;
+import Models.Business.Topic;
 import Models.DTO.ExamplesFrontDTO;
 import Models.DTO.TopicsInfoFrontDTO;
 import Services.IFrontService;

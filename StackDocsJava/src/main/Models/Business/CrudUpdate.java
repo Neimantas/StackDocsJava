@@ -1,4 +1,4 @@
-package Models;
+package Models.Business;
 
 public class CrudUpdate {
 	public String tableName;

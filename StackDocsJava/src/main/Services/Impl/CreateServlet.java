@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Configuration.StartupContainer;
-import Models.Topic;
+import Models.Business.Topic;
 import Models.DTO.CreateTableDTO;
 import Models.DTO.TopicsFrontDTO;
 import Services.IFrontService;

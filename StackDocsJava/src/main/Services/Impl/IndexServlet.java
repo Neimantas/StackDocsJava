@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Configuration.StartupContainer;
+import Models.Business.Topic;
 import Models.DTO.TopicsFrontDTO;
 import Services.IFrontService;
-import Models.Topic;
 
 /**
  * Servlet implementation class IndexServlet

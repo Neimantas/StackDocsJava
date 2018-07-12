@@ -5,6 +5,4 @@ public class LanguageTagsDAL {
 	public String tag;
 	public String title;
 	public int helloWorldTopicId;
-	
-
 }

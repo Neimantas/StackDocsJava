@@ -1,8 +1,7 @@
 package Models.DTO;
 
 import java.util.List;
-
-import Models.Topic;
+import Models.Business.Topic;
 
 public class TopicsFrontDTO {
 	private boolean _Succcess;
@@ -10,12 +9,12 @@ public class TopicsFrontDTO {
 	private List<Topic> _Topics;
 
 	TopicsFrontDTO() {
-		
 	}
-	public TopicsFrontDTO(boolean sucs, String msg, List<Topic> topic){
-		_Succcess=sucs;
-		_Message=msg;
-		_Topics=topic;
+
+	public TopicsFrontDTO(boolean sucs, String msg, List<Topic> topic) {
+		_Succcess = sucs;
+		_Message = msg;
+		_Topics = topic;
 	}
 
 	public boolean is_Succcess() {

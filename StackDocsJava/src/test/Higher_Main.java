@@ -1,6 +1,6 @@
-import Models.Example;
-import Models.Language;
-import Models.Topic;
+import Models.Business.Example;
+import Models.Business.Language;
+import Models.Business.Topic;
 import Models.DAL.TopicsDAL;
 import Models.DTO.DeleteTableDTO;
 import Models.DTO.ReadTableDTO;

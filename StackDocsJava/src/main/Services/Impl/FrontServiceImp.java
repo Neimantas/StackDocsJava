@@ -5,10 +5,10 @@ import java.util.List;
 
 import javax.inject.Singleton;
 
-import Models.Example;
-import Models.Language;
-import Models.LanguageTag;
-import Models.Topic;
+import Models.Business.Example;
+import Models.Business.Language;
+import Models.Business.LanguageTag;
+import Models.Business.Topic;
 import Models.DAL.ExamplesDAL;
 import Models.DAL.LanguageTagsDAL;
 import Models.DAL.TopicsDAL;

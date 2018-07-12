@@ -2,8 +2,8 @@ package Models.DTO;
 
 import java.util.List;
 
-import Models.Language;
-import Models.LanguageTag;
+import Models.Business.Language;
+import Models.Business.LanguageTag;
 
 
 public class LanguageTagFrontDTO {
@@ -11,8 +11,7 @@ public class LanguageTagFrontDTO {
 	public boolean _Success;
 	public String _Message;
 	public List<Language> _LanguageTag;
-	
-	public LanguageTagFrontDTO() { }
+	public LanguageTagFrontDTO() {}
 	
 	public LanguageTagFrontDTO(boolean success, String message,List<Language> tag) {
 		_Success = success;

@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import Models.CrudUpdate;
+import Models.Business.CrudUpdate;
 import Models.DAL.ExamplesDAL;
 import Models.DTO.CreateTableDTO;
 import Models.DTO.DeleteTableDTO;

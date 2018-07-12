@@ -3,7 +3,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import Models.CrudUpdate;
+import Models.Business.CrudUpdate;
 import Models.DAL.ExamplesDAL;
 import Models.DAL.LanguageTagsDAL;
 import Models.DAL.TopicsDAL;
