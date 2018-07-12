@@ -32,107 +32,107 @@ public class HigherServiceImpl implements IHigherService {
 
 	public TopicsDTO getTopicsByLanguageId(int languageId) {
 		ReadTableDTO dto = crud.read(new TopicsDAL());
-		if (dto.isSuccess()) {
-			List<TopicsDAL> list = (List<TopicsDAL>) (Object) dto.getReadResultSet();
+		if (dto.success) {
+			List<TopicsDAL> list = (List<TopicsDAL>) (Object) dto.readResultSet;
 			List<TopicsDAL> ret = list.stream().filter(e -> e.languageId == languageId).collect(Collectors.toList());
 			return new TopicsDTO(true, ret, "success");
 		}
-		return new TopicsDTO(false, null, dto.getMessage());
+		return new TopicsDTO(false, null, dto.message);
 	}
 
 	@Override
 	public ExamplesDTO getExamplesByTopicId(int topicId) {
 		ReadTableDTO examplesDTO = crud.read(new ExamplesDAL());
-		if (examplesDTO.isSuccess()) {
-			List<ExamplesDAL> list = (List<ExamplesDAL>) (Object) examplesDTO.getReadResultSet();
+		if (examplesDTO.success) {
+			List<ExamplesDAL> list = (List<ExamplesDAL>) (Object) examplesDTO.readResultSet;
 			List<ExamplesDAL> ret = list.stream().filter(e -> e.topicId == topicId).collect(Collectors.toList());
 			return new ExamplesDTO(true, ret, "success");
 		}
-		return new ExamplesDTO(false, null, examplesDTO.getMessage());
+		return new ExamplesDTO(false, null, examplesDTO.message);
 	}
 
 	@Override
 	public LanguageTagDTO getAllLanguages() {
 		ReadTableDTO languageTagsDTO = crud.read(new LanguageTagsDAL());
-		if (languageTagsDTO.isSuccess()) {
-			List<LanguageTagsDAL> list = (List<LanguageTagsDAL>) (Object) languageTagsDTO.getReadResultSet();
+		if (languageTagsDTO.success) {
+			List<LanguageTagsDAL> list = (List<LanguageTagsDAL>) (Object) languageTagsDTO.readResultSet;
 			LanguageTagDTO ret = new LanguageTagDTO();
-			ret.setSuccess(true);
-			ret.setLanguageTag(list);
-			ret.setMessage("success");
+			ret.success = true;
+			ret.languageTag = list;
+			ret.message = "success";
 			return ret;
 		}
 		LanguageTagDTO ret = new LanguageTagDTO();
-		ret.setSuccess(false);
-		ret.setMessage(languageTagsDTO.getMessage());
+		ret.success = false;
+		ret.message = languageTagsDTO.message;
 		return ret;
 	}
 
 	@Override
 	public TopicsDTO getAllTopics() {
 		ReadTableDTO topicsDTO = crud.read(new TopicsDAL());
-		if (topicsDTO.isSuccess()) {
-			List<TopicsDAL> list = (List<TopicsDAL>) (Object) topicsDTO.getReadResultSet();
+		if (topicsDTO.success) {
+			List<TopicsDAL> list = (List<TopicsDAL>) (Object) topicsDTO.readResultSet;
 			TopicsDTO ret = new TopicsDTO();
-			ret.setSuccess(true);
-			ret.setMessage("success");
-			ret.setTopics(list);
+			ret.success = true;
+			ret.message = "success";
+			ret.topics = list;
 			return ret;
 		}
 		TopicsDTO ret = new TopicsDTO();
-		ret.setSuccess(false);
-		ret.setMessage(topicsDTO.getMessage());
+		ret.success = false;
+		ret.message = topicsDTO.message;
 		return ret;
 	}
 
 	public ExamplesDTO getAllExamples() {
 		ReadTableDTO examplesDTO = crud.read(new ExamplesDAL());
-		if (examplesDTO.isSuccess()) {
-			List<ExamplesDAL> list = (List<ExamplesDAL>) (Object) examplesDTO.getReadResultSet();
+		if (examplesDTO.success) {
+			List<ExamplesDAL> list = (List<ExamplesDAL>) (Object) examplesDTO.readResultSet;
 			ExamplesDTO ret = new ExamplesDTO();
-			ret.setSuccess(true);
-			ret.setMessage("success");
-			ret.setExamples(list);
+			ret.success = true;
+			ret.message = "success";
+			ret.examples = list;
 			return ret;
 		}
 		ExamplesDTO ret = new ExamplesDTO();
-		ret.setSuccess(false);
-		ret.setMessage(examplesDTO.getMessage());
+		ret.success = false;
+		ret.message = examplesDTO.message;
 		return ret;
 	}
 
 	@Override
 	public TopicsDTO getTopicInfoByTopicId(int topicId) {
 		ReadTableDTO topicsDTO = crud.read(new TopicsDAL());
-		if (topicsDTO.isSuccess()) {
-			List<TopicsDAL> list = (List<TopicsDAL>) (Object) topicsDTO.getReadResultSet();
+		if (topicsDTO.success) {
+			List<TopicsDAL> list = (List<TopicsDAL>) (Object) topicsDTO.readResultSet;
 			List<TopicsDAL> ret = list.stream().filter(e -> e.topicId == topicId).collect(Collectors.toList());
 			return new TopicsDTO(true, ret, "success");
 		}
-		return new TopicsDTO(false, null, topicsDTO.getMessage());
+		return new TopicsDTO(false, null, topicsDTO.message);
 	}
 
 	@Override
 	public ExamplesDTO getExampleByExampleId(int exampleId) {
 		ReadTableDTO examplesDTO = crud.read(new ExamplesDAL());
-		if (examplesDTO.isSuccess()) {
-			List<ExamplesDAL> list = (List<ExamplesDAL>) (Object) examplesDTO.getReadResultSet();
+		if (examplesDTO.success) {
+			List<ExamplesDAL> list = (List<ExamplesDAL>) (Object) examplesDTO.readResultSet;
 			List<ExamplesDAL> ret = list.stream().filter(e -> e.exampleId == exampleId).collect(Collectors.toList());
 			return new ExamplesDTO(true, ret, "success");
 		}
-		return new ExamplesDTO(false, null, examplesDTO.getMessage());
+		return new ExamplesDTO(false, null, examplesDTO.message);
 	}
 
 	@Override
 	public LanguageTagDTO getLanguageTagByLanguageId(int languageId) {
 		ReadTableDTO languageTagsDTO = crud.read(new LanguageTagsDAL());
-		if (languageTagsDTO.isSuccess()) {
-			List<LanguageTagsDAL> list = (List<LanguageTagsDAL>) (Object) languageTagsDTO.getReadResultSet();
+		if (languageTagsDTO.success) {
+			List<LanguageTagsDAL> list = (List<LanguageTagsDAL>) (Object) languageTagsDTO.readResultSet;
 			List<LanguageTagsDAL> ret = list.stream().filter(e -> e.languageId == languageId)
 					.collect(Collectors.toList());
 			return new LanguageTagDTO(true, ret, "success");
 		}
-		return new LanguageTagDTO(false, null, languageTagsDTO.getMessage());
+		return new LanguageTagDTO(false, null, languageTagsDTO.message);
 	}
 
 	@Override
@@ -145,8 +145,8 @@ public class HigherServiceImpl implements IHigherService {
 			return createLanguage((Language) insertRecord);
 		}
 		CreateTableDTO ret = new CreateTableDTO();
-		ret.setSuccess(false);
-		ret.setMessage(Errors.createError.getMessage());
+		ret.success = false;
+		ret.message = Errors.createError.getMessage();
 		return ret;
 	}
 
@@ -154,20 +154,20 @@ public class HigherServiceImpl implements IHigherService {
 		TopicsDAL dal = new TopicsDAL();
 		CreateTableDTO ret = new CreateTableDTO();
 		TopicsDTO tdto = getAllTopics();
-		if (!tdto.isSuccess()) {
-			ret.setSuccess(false);
-			ret.setMessage(tdto.getMessage());
+		if (!tdto.success) {
+			ret.success = false;
+			ret.message = tdto.message;
 			return ret;
 		}
 		int newTopicId = findFirstEmptyId(tdto);
 		dal.topicId = newTopicId;
-		dal.introductionHtml = topic.get_IntroductionHtml();
+		dal.introductionHtml = topic.introductionHtml;
 		dal.isHelloWorldTopic = 0;
-		dal.languageId = topic.get_LanguageId();
-		dal.parametersHtml = topic.get_ParametersHtml();
-		dal.remarksHtml = topic.get_RemarksHtml();
-		dal.syntaxHtml = topic.get_SyntaxHtml();
-		dal.title = topic.get_TopicTitle();
+		dal.languageId = topic.languageId;
+		dal.parametersHtml = topic.parametersHtml;
+		dal.remarksHtml = topic.remarksHtml;
+		dal.syntaxHtml = topic.syntaxHtml;
+		dal.title = topic.topicTitle;
 		return crud.create(dal);
 	}
 
@@ -175,12 +175,12 @@ public class HigherServiceImpl implements IHigherService {
 		ExamplesDAL dal = new ExamplesDAL();
 		CreateTableDTO ret = new CreateTableDTO();
 		ExamplesDTO edto = getAllExamples();
-		if (!edto.isSuccess()) {
-			ret.setSuccess(false);
-			ret.setMessage(edto.getMessage());
+		if (!edto.success) {
+			ret.success = false;
+			ret.message = edto.message;
 			return ret;
 		}
-		int newExampleId = edto.getExamples().size() + Settings.defaultNumberForExamplesIds;
+		int newExampleId = edto.examples.size() + Settings.defaultNumberForExamplesIds;
 		dal.exampleId = newExampleId;
 		dal.bodyHtml = example.bodyHtml;
 		dal.title = example.title;
@@ -192,12 +192,12 @@ public class HigherServiceImpl implements IHigherService {
 		LanguageTagsDAL dal = new LanguageTagsDAL();
 		CreateTableDTO ret = new CreateTableDTO();
 		LanguageTagDTO ldto = getAllLanguages();
-		if (!ldto.isSuccess()) {
-			ret.setSuccess(false);
-			ret.setMessage(ldto.getMessage());
+		if (!ldto.success) {
+			ret.success = false;
+			ret.message = ldto.message;
 			return ret;
 		}
-		int newLanguageId = ldto.getLanguageTag().size() + Settings.defaultNumberForLanguageIds;
+		int newLanguageId = ldto.languageTag.size() + Settings.defaultNumberForLanguageIds;
 		dal.languageId = newLanguageId;
 		dal.helloWorldTopicId = -1; // not used field
 		dal.tag = language.tag;
@@ -215,29 +215,29 @@ public class HigherServiceImpl implements IHigherService {
 			return updateLanguages((Language) updataRecord);
 		}
 		UpdateTableDTO updateTableTDO = new UpdateTableDTO();
-		updateTableTDO.setSuccess(false);
-		updateTableTDO.setMessage(Errors.updateError.getMessage());
+		updateTableTDO.success = false;
+		updateTableTDO.message = Errors.updateError.getMessage();
 		return updateTableTDO;
 	}
 
 	private UpdateTableDTO updateLanguages(Language language) {
 		CrudUpdate params = new CrudUpdate();
 		UpdateTableDTO crudCheck;
-		params.setWhereUsed(true);
-		params.setTableName("LanguageTags");
-		params.setConditionColumName("LanguageID");
-		params.setConditionChangeWhereValueIsEqual(Integer.toString(language.id));
-		params.setChangeValueOfColum("Title");
-		params.setChangeValueTO(language.title);
+		params.whereUsed = true;
+		params.tableName = "LanguageTags";
+		params.conditionColumName = "LanguageID";
+		params.conditionChangeWhereValueIsEqual = Integer.toString(language.id);
+		params.changeValueOfColum = "Title";
+		params.changeValueTO = language.title;
 		crudCheck = crud.update(params);
 		UpdateTableDTO updateTableTDO = new UpdateTableDTO();
-		if (crudCheck.isSuccess()) {
-			updateTableTDO.setSuccess(true);
-			updateTableTDO.setMessage(crudCheck.getMessage());
+		if (crudCheck.success) {
+			updateTableTDO.success = true;
+			updateTableTDO.message = crudCheck.message;
 			return updateTableTDO;
 		} else {
-			updateTableTDO.setSuccess(false);
-			updateTableTDO.setMessage(crudCheck.getMessage());
+			updateTableTDO.success = false;
+			updateTableTDO.message = crudCheck.message;
 			return updateTableTDO;
 		}
 	}
@@ -245,30 +245,30 @@ public class HigherServiceImpl implements IHigherService {
 	private UpdateTableDTO updateExamples(Example example) {
 		CrudUpdate params = new CrudUpdate();
 		UpdateTableDTO crudCheck;
-		params.setWhereUsed(true);
-		params.setTableName("Examples");
-		params.setConditionColumName("ExampleId");
-		params.setConditionChangeWhereValueIsEqual(Integer.toString(example.exampleId));
-		params.setChangeValueOfColum("topicId");
-		params.setChangeValueTO(Integer.toString(example.topicId));
+		params.whereUsed = true;
+		params.tableName = "Examples";
+		params.conditionColumName = "ExampleId";
+		params.conditionChangeWhereValueIsEqual = Integer.toString(example.exampleId);
+		params.changeValueOfColum = "topicId";
+		params.changeValueTO = Integer.toString(example.topicId);
 		crudCheck = crud.update(params);
 
-		params.setChangeValueOfColum("title");
-		params.setChangeValueTO(example.title);
+		params.changeValueOfColum = "title";
+		params.changeValueTO = example.title;
 		crudCheck = crud.update(params);
 
-		params.setChangeValueOfColum("bodyHtml");
-		params.setChangeValueTO(example.bodyHtml);
+		params.changeValueOfColum = "bodyHtml";
+		params.changeValueTO = example.bodyHtml;
 		crudCheck = crud.update(params);
 
 		UpdateTableDTO updateTableTDO = new UpdateTableDTO();
-		if (crudCheck.isSuccess()) {
-			updateTableTDO.setSuccess(true);
-			updateTableTDO.setMessage(crudCheck.getMessage());
+		if (crudCheck.success) {
+			updateTableTDO.success = true;
+			updateTableTDO.message = crudCheck.message;
 			return updateTableTDO;
 		} else {
-			updateTableTDO.setSuccess(false);
-			updateTableTDO.setMessage(crudCheck.getMessage());
+			updateTableTDO.success = false;
+			updateTableTDO.message = crudCheck.message;
 			return updateTableTDO;
 		}
 	}
@@ -276,41 +276,41 @@ public class HigherServiceImpl implements IHigherService {
 	private UpdateTableDTO updateTopic(Topic topic) {
 		CrudUpdate params = new CrudUpdate();
 		UpdateTableDTO crudCheck;
-		params.setWhereUsed(true);
-		params.setTableName("Topics");
-		params.setConditionColumName("TopicId");
-		params.setConditionChangeWhereValueIsEqual(Integer.toString(topic._TopicId));
+		params.whereUsed = true;
+		params.tableName = "Topics";
+		params.conditionColumName = "TopicId";
+		params.conditionChangeWhereValueIsEqual = Integer.toString(topic.topicId);
 
-		params.setChangeValueOfColum("Title");
-		params.setChangeValueTO(topic._TopicTitle);
+		params.changeValueOfColum = "Title";
+		params.changeValueTO = topic.topicTitle;
 		crudCheck = crud.update(params);
 
-		params.setChangeValueOfColum("IntroductionHtml");
-		params.setChangeValueTO(topic._IntroductionHtml);
+		params.changeValueOfColum = "IntroductionHtml";
+		params.changeValueTO = topic.introductionHtml;
 		crudCheck = crud.update(params);
 
-		params.setChangeValueOfColum("SyntaxHtml");
-		params.setChangeValueTO(topic._SyntaxHtml);
+		params.changeValueOfColum = "SyntaxHtml";
+		params.changeValueTO = topic.syntaxHtml;
 		crudCheck = crud.update(params);
 
-		params.setChangeValueOfColum("ParametersHtml");
-		params.setChangeValueTO(topic._ParametersHtml);
+		params.changeValueOfColum = "ParametersHtml";
+		params.changeValueTO = topic.parametersHtml;
 		crudCheck = crud.update(params);
 
-		params.setChangeValueOfColum("RemarksHtml");
-		params.setChangeValueTO(topic._RemarksHtml);
+		params.changeValueOfColum = "RemarksHtml";
+		params.changeValueTO = topic.remarksHtml;
 		crudCheck = crud.update(params);
 
 		UpdateTableDTO updateTableTDO = new UpdateTableDTO();
-		if (crudCheck.isSuccess()) {
+		if (crudCheck.success) {
 
-			updateTableTDO.setSuccess(true);
-			updateTableTDO.setMessage(crudCheck.getMessage());
+			updateTableTDO.success = true;
+			updateTableTDO.message = crudCheck.message;
 			return updateTableTDO;
 		} else {
 
-			updateTableTDO.setSuccess(false);
-			updateTableTDO.setMessage(crudCheck.getMessage());
+			updateTableTDO.success = false;
+			updateTableTDO.message = crudCheck.message;
 			return updateTableTDO;
 		}
 	}
@@ -325,8 +325,8 @@ public class HigherServiceImpl implements IHigherService {
 			return deleteLanguage((Language) deleteRecord);
 		}
 		DeleteTableDTO ret = new DeleteTableDTO();
-		ret.setSuccess(false);
-		ret.setMessage(Errors.deleteError.getMessage());
+		ret.success = false;
+		ret.message = Errors.deleteError.getMessage();
 		return ret;
 	}
 
@@ -339,15 +339,15 @@ public class HigherServiceImpl implements IHigherService {
 	}
 
 	private DeleteTableDTO deleteTopic(Topic deleteRecord) {
-		return crud.delete("Topics", "topicid", Integer.toString(deleteRecord._TopicId));
+		return crud.delete("Topics", "topicid", Integer.toString(deleteRecord.topicId));
 	}
 
 	private int findFirstEmptyId(TopicsDTO tdto) {
 		int emptyId = Settings.defaultFirstEmptyId;
-		for (int i = 0; i < tdto.getTopics().size(); i++) {
-			if (tdto.getTopics().get(i).topicId == emptyId) {
+		for (int i = 0; i < tdto.topics.size(); i++) {
+			if (tdto.topics.get(i).topicId == emptyId) {
 				emptyId++;
-			} else if (tdto.getTopics().get(i).topicId > emptyId) {
+			} else if (tdto.topics.get(i).topicId > emptyId) {
 				break;
 			}
 		}

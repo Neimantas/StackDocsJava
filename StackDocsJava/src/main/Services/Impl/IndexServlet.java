@@ -38,10 +38,10 @@ public class IndexServlet extends HttpServlet {
 		// renkam info dropdown language uzpildymui
 		TopicsFrontDTO dto2 = frontService.getTopicsByLanguageId(0, "");
 		Map<Integer, String> languageDDMap = new HashMap<>();
-		if (dto2.is_Succcess()) {
-			List<Topic> topics = dto2.get_Topics();
+		if (dto2.success) {
+			List<Topic> topics = dto2.topics;
 			for (Topic t : topics) {
-				languageDDMap.put(t._LanguageId, t._LanguageTitle);
+				languageDDMap.put(t.languageId, t.languageTitle);
 			}
 		} else {
 			languageDDMap.put(null, null);
@@ -71,7 +71,7 @@ public class IndexServlet extends HttpServlet {
 		}
 
 		if (getParamRemove != null) { // jei triname
-			System.out.println(frontService.deleteTopic(Integer.parseInt(getParamRemove)).getMessage());
+			System.out.println(frontService.deleteTopic(Integer.parseInt(getParamRemove)).message);
 			dto = frontService.getTopicsByLanguageId(currentLanguageId, topic);
 		}
 
@@ -87,18 +87,18 @@ public class IndexServlet extends HttpServlet {
 		Map<Integer, String> topicMap = new HashMap<>();
 		Map<Integer, String> languageMap = new HashMap<>();
 		if (dto != null) {
-			if (dto.is_Succcess()) {
+			if (dto.success) {
 
-				List<Topic> topics = dto.get_Topics();
+				List<Topic> topics = dto.topics;
 				// Atvaizduojame reikiamo puslapio temas
 				for (int i = (pageNumber - 1) * 10; i < pageNumber * 10 && i < topics.size(); i++) {
-					topicMap.put(topics.get(i)._TopicId, topics.get(i)._TopicTitle);
-					languageMap.put(topics.get(i)._TopicId,
-							topics.get(i)._LanguageTitle != null ? topics.get(i)._LanguageTitle + " | " : "");
+					topicMap.put(topics.get(i).topicId, topics.get(i).topicTitle);
+					languageMap.put(topics.get(i).topicId,
+							topics.get(i).languageTitle != null ? topics.get(i).languageTitle + " | " : "");
 				}
 
 			} else {
-				topicMap.put(null, dto.get_Message());
+				topicMap.put(null, dto.message);
 				languageMap.put(null, null);
 			}
 		}
@@ -120,8 +120,8 @@ public class IndexServlet extends HttpServlet {
 
 	private int countNumberOfPages() {
 
-		if (dto != null && dto.is_Succcess()) {
-			int numberOfTopics = dto.get_Topics().size();
+		if (dto != null && dto.success) {
+			int numberOfTopics = dto.topics.size();
 			if (numberOfTopics % 10 == 0) {
 				return numberOfTopics / 10;
 			} else {

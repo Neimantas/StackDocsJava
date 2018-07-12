@@ -3,7 +3,7 @@ import Services.Impl.FrontServiceImp;
 public class TestFrontService {
 
 	public static void main(String[] args) {
-		//FrontServiceImp test = new FrontServiceImp();
+		// FrontServiceImp test = new FrontServiceImp();
 		// test.getTopicsByLanguageId(1, "");
 		// System.out.println(test.getTopicsByLanguageId(1, "").is_Succcess());
 		// System.out.println(test.getTopicsByLanguageId(1,
@@ -36,7 +36,8 @@ public class TestFrontService {
 		// "+test.getTopicInfoByTopicId(18).get_Topics().get(0).get_IntroductionHtml());
 		// System.out.println("a >>>>>>> "+test.getTopicsByLanguageId(0,
 		// "").get_Topics().size());
-		//System.out.println("a >>>>>>> " + test.getTopicsByLanguageId(0, "").get_Topics().get(2).get_LanguageTitle());
+		// System.out.println("a >>>>>>> " + test.getTopicsByLanguageId(0,
+		// "").get_Topics().get(2).get_LanguageTitle());
 		//
 	}
 

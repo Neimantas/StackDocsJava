@@ -1,6 +1,7 @@
 package Models.DAL;
 
 public class TopicsDAL {
+
 	public int topicId;
 	public int languageId;
 	public String title;

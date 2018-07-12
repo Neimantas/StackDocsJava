@@ -14,32 +14,32 @@ public class TopicsDALtoTopic {
 			public Topic convert(MappingContext<TopicsDAL, Topic> context) {
 				Topic topic = context.getDestination();
 				TopicsDAL topicDal = context.getSource();
-				topic._TopicId = topicDal.topicId;
-				topic._LanguageId = topicDal.languageId;
-				topic._TopicTitle = topicDal.title;
+				topic.topicId = topicDal.topicId;
+				topic.languageId = topicDal.languageId;
+				topic.topicTitle = topicDal.title;
 				if (!topicDal.introductionHtml.equals("") || !topicDal.introductionHtml.equals(null)) {
-					topic._IntroductionHtml = topicDal.introductionHtml;
+					topic.introductionHtml = topicDal.introductionHtml;
 				}
 				if (topicDal.introductionHtml.equals("") || topicDal.introductionHtml.equals(null)) {
-					topic._IntroductionHtml = "<p>No Introduction info</p>";
+					topic.introductionHtml = "<p>No Introduction info</p>";
 				}
 				if (!topicDal.syntaxHtml.equals("") || !topicDal.syntaxHtml.equals(null)) {
-					topic._SyntaxHtml = topicDal.syntaxHtml;
+					topic.syntaxHtml = topicDal.syntaxHtml;
 				}
 				if (topicDal.syntaxHtml.equals("") || topicDal.syntaxHtml.equals(null)) {
-					topic._SyntaxHtml = "<p>No Syntax info</p>";
+					topic.syntaxHtml = "<p>No Syntax info</p>";
 				}
 				if (!topicDal.parametersHtml.equals("") || !topicDal.parametersHtml.equals(null)) {
-					topic._ParametersHtml = topicDal.parametersHtml;
+					topic.parametersHtml = topicDal.parametersHtml;
 				}
 				if (topicDal.parametersHtml.equals("") || topicDal.parametersHtml.equals(null)) {
-					topic._ParametersHtml = "<p>No Parameters info</p>";
+					topic.parametersHtml = "<p>No Parameters info</p>";
 				}
 				if (!topicDal.remarksHtml.equals("") || !topicDal.remarksHtml.equals(null)) {
-					topic._RemarksHtml = topicDal.remarksHtml;
+					topic.remarksHtml = topicDal.remarksHtml;
 				}
 				if (topicDal.remarksHtml.equals("") || topicDal.remarksHtml.equals(null)) {
-					topic._RemarksHtml = "<p>No Remarks info</p>";
+					topic.remarksHtml = "<p>No Remarks info</p>";
 				}
 				return topic;
 			}
@@ -57,9 +57,9 @@ public class TopicsDALtoTopic {
 			public Topic convert(MappingContext<TopicsDAL, Topic> context) {
 				Topic topic = context.getDestination();
 				TopicsDAL topicDal = context.getSource();
-				topic._TopicId = topicDal.topicId;
-				topic._LanguageId = topicDal.languageId;
-				topic._TopicTitle = topicDal.title;
+				topic.topicId = topicDal.topicId;
+				topic.languageId = topicDal.languageId;
+				topic.topicTitle = topicDal.title;
 				return topic;
 			};
 

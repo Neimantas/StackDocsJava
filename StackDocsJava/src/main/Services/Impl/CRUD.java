@@ -64,12 +64,12 @@ public class CRUD implements ICrud {
 			System.out.println(readQuerry);
 
 			statements.executeUpdate(readQuerry);
-			createTableDTO.setSuccess(true);
+			createTableDTO.success = true;
 			cache.remove(tableName);
 		} catch (SQLException e) {
 
-			createTableDTO.setSuccess(false);
-			createTableDTO.setMessage(e.getMessage());
+			createTableDTO.success = false;
+			createTableDTO.message = e.getMessage();
 			return createTableDTO;
 		} finally {
 			if (db != null)
@@ -117,9 +117,9 @@ public class CRUD implements ICrud {
 				retList.add(retDAL);
 			}
 
-			ret.setSuccess(true);
-			ret.setMessage("success");
-			ret.setReadResultSet(retList);
+			ret.success = true;
+			ret.message = "success";
+			ret.readResultSet = retList;
 			cache.put(tableName, ret);
 
 			// This one is not in Finnaly section, because need to keep open db till job is
@@ -132,8 +132,8 @@ public class CRUD implements ICrud {
 
 		} catch (InstantiationException | IllegalAccessException | SQLException e) {
 			ReadTableDTO ret = new ReadTableDTO();
-			ret.setSuccess(false);
-			ret.setMessage(e.getMessage());
+			ret.success = false;
+			ret.message = e.getMessage();
 			return ret;
 		}
 	}
@@ -150,11 +150,11 @@ public class CRUD implements ICrud {
 			}
 			System.out.println(readQuerry);
 			statements.executeUpdate(readQuerry);
-			updateTableDTO.setSuccess(true);
+			updateTableDTO.success = true;
 
 		} catch (SQLException e) {
-			updateTableDTO.setSuccess(false);
-			updateTableDTO.setMessage(e.getMessage());
+			updateTableDTO.success = false;
+			updateTableDTO.message = e.getMessage();
 			return updateTableDTO;
 		} finally {
 			db.close();
@@ -169,11 +169,11 @@ public class CRUD implements ICrud {
 			setConnection();
 			String readQuerry = "DELETE FROM " + tableName + " WHERE " + conditionColum + "='" + conditionValue + "';";
 			statements.executeUpdate(readQuerry);
-			deleteTableDTO.setSuccess(true);
+			deleteTableDTO.success = true;
 			cache.remove(tableName);
 		} catch (SQLException e) {
-			deleteTableDTO.setSuccess(false);
-			deleteTableDTO.setMessage(e.getMessage());
+			deleteTableDTO.success = false;
+			deleteTableDTO.message = e.getMessage();
 			return deleteTableDTO;
 		} finally {
 			db.close();

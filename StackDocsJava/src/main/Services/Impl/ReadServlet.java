@@ -51,20 +51,20 @@ public class ReadServlet extends HttpServlet {
 
 		List<String> content = new ArrayList<String>();
 
-		if (dto.is_Succcess()) {
+		if (dto.succcess) {
 
-			List<Topic> topics = dto.get_Topics();
+			List<Topic> topics = dto.topicsInfo;
 			for (Topic t : topics) {
 
-				topic = t._TopicTitle;
-				introduction = t._IntroductionHtml;
-				syntax = t._SyntaxHtml;
-				parameters = t._ParametersHtml;
-				remarks = t._RemarksHtml;
+				topic = t.topicTitle;
+				introduction = t.introductionHtml;
+				syntax = t.syntaxHtml;
+				parameters = t.parametersHtml;
+				remarks = t.remarksHtml;
 			}
 
 		} else {
-			content.add(dto.get_Message());
+			content.add(dto.message);
 		}
 
 		if (open != null) {
@@ -73,9 +73,9 @@ public class ReadServlet extends HttpServlet {
 
 		List<String> contExamples = new ArrayList<String>();
 
-		if (dtoE.is_Succcess()) {
+		if (dtoE.success) {
 
-			List<Example> examples = dtoE.get_Examples();
+			List<Example> examples = dtoE.examples;
 			for (Example e : examples) {
 
 				contExamples.add(e.bodyHtml);
@@ -83,7 +83,7 @@ public class ReadServlet extends HttpServlet {
 			}
 
 		} else {
-			contExamples.add(dtoE.get_Message());
+			contExamples.add(dtoE.message);
 		}
 
 		request.setAttribute("topicId", topicId);

@@ -39,21 +39,21 @@ public class UpdateServlet extends HttpServlet {
 
 		List<String> content = new ArrayList<String>();
 
-		if (dto.is_Succcess()) {
+		if (dto.succcess) {
 
-			List<Topic> topics = dto.get_Topics();
+			List<Topic> topics = dto.topicsInfo;
 			for (Topic t : topics) {
-				languageId = t._LanguageId;
-				language = t._LanguageTitle;
-				topic = t._TopicTitle;
-				introduction = t._IntroductionHtml;
-				syntax = t._SyntaxHtml;
-				parameters = t._ParametersHtml;
-				remarks = t._RemarksHtml;
+				languageId = t.languageId;
+				language = t.languageTitle;
+				topic = t.topicTitle;
+				introduction = t.introductionHtml;
+				syntax = t.syntaxHtml;
+				parameters = t.parametersHtml;
+				remarks = t.remarksHtml;
 			}
 
 		} else {
-			content.add(dto.get_Message());
+			content.add(dto.message);
 		}
 
 		request.setAttribute("language", language);

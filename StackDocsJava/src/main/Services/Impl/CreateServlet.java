@@ -33,10 +33,10 @@ public class CreateServlet extends HttpServlet {
 		// renkam info dropdown language uzpildymui
 		TopicsFrontDTO dto = frontService.getTopicsByLanguageId(0, "");
 		Map<Integer, String> languageDDMap = new HashMap<>();
-		if (dto.is_Succcess()) {
-			List<Topic> topics = dto.get_Topics();
+		if (dto.success) {
+			List<Topic> topics = dto.topics;
 			for (Topic t : topics) {
-				languageDDMap.put(t._LanguageId, t._LanguageTitle);
+				languageDDMap.put(t.languageId, t.languageTitle);
 			}
 		} else {
 			languageDDMap.put(null, null);
@@ -60,7 +60,7 @@ public class CreateServlet extends HttpServlet {
 		list.add(request.getParameter("remarks"));
 
 		CreateTableDTO dto = frontService.createTopic(list);
-		System.out.println(dto.getMessage());
+		System.out.println(dto.message);
 		response.sendRedirect("/StackDocsJava/main?search=true&language=" + list.get(0) + "&topic=" + list.get(1));
 	}
 
