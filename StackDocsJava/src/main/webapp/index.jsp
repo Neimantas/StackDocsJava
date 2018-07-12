@@ -1,6 +1,6 @@
 <%@page import="org.omg.CORBA.Request"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -8,9 +8,8 @@
 <head>
 <title>Stack Docs Java</title>
 
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="resources/css/bootstrap-4.1.1.min.css">
 <link rel="stylesheet" href="resources/css/bootstrap-select.css">
@@ -138,7 +137,6 @@
 			</div>
 		</div>
 	</div>
-
 
 	<!-- Modal -->
 	<div class="modal fade" id="selectTopic" tabindex="-1" role="dialog"

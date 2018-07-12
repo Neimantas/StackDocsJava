@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import Models.CrudUpdate;
+import Models.Business.CrudUpdate;
 import Models.DTO.CreateTableDTO;
 import Models.DTO.DeleteTableDTO;
 import Models.DTO.ReadTableDTO;
@@ -23,8 +23,7 @@ public class CRUD implements ICrud {
 	private Connection conn;
 	private ICache cache;
 	private ResultSet readResultSet;
-	
-	
+
 	public CRUD(DataBaseImpl databaseImpl, CacheImpl cacheImpl) {
 		db = databaseImpl;
 		cache = cacheImpl;
@@ -122,11 +121,13 @@ public class CRUD implements ICrud {
 			ret.setMessage("success");
 			ret.setReadResultSet(retList);
 			cache.put(tableName, ret);
-			
-			// This one is not in Finnaly section, because need to keep open db till job is done. 
-			//If put this one in Finnay, there will be a lot of db cosing and reopen. DO NOT MOVE TO FINNALY for god sake...
+
+			// This one is not in Finnaly section, because need to keep open db till job is
+			// done.
+			// If put this one in Finnay, there will be a lot of db cosing and reopen. DO
+			// NOT MOVE TO FINNALY for god sake...
 			if (db != null)
-				db.close(); 
+				db.close();
 			return ret;
 
 		} catch (InstantiationException | IllegalAccessException | SQLException e) {
@@ -150,8 +151,7 @@ public class CRUD implements ICrud {
 			System.out.println(readQuerry);
 			statements.executeUpdate(readQuerry);
 			updateTableDTO.setSuccess(true);
-			
-			
+
 		} catch (SQLException e) {
 			updateTableDTO.setSuccess(false);
 			updateTableDTO.setMessage(e.getMessage());

@@ -2,24 +2,23 @@ package Models.DTO;
 
 import java.util.List;
 
-import Models.Language;
-import Models.LanguageTag;
-
+import Models.Business.Language;
 
 public class LanguageTagFrontDTO {
-	
+
 	public boolean _Success;
 	public String _Message;
 	public List<Language> _LanguageTag;
-	
-	public LanguageTagFrontDTO() { }
-	
-	public LanguageTagFrontDTO(boolean success, String message,List<Language> tag) {
+
+	public LanguageTagFrontDTO() {
+	}
+
+	public LanguageTagFrontDTO(boolean success, String message, List<Language> tag) {
 		_Success = success;
 		_LanguageTag = tag;
 		_Message = message;
 	}
-	
+
 	public boolean isSuccess() {
 		return _Success;
 	}
@@ -43,7 +42,5 @@ public class LanguageTagFrontDTO {
 	public void setLanguageTag(List<Language> languageTag) {
 		_LanguageTag = languageTag;
 	}
-
-	
 
 }

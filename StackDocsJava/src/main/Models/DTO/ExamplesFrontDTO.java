@@ -2,7 +2,7 @@ package Models.DTO;
 
 import java.util.List;
 
-import Models.Example;
+import Models.Business.Example;
 
 public class ExamplesFrontDTO {
 	private boolean _Succcess;

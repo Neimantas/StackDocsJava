@@ -1,17 +1,12 @@
 package Services.Impl;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.eclipse.jdt.internal.compiler.classfmt.MethodInfoWithAnnotations;
-
-import Models.CrudUpdate;
-import Models.Example;
-import Models.Language;
-import Models.Topic;
+import Models.Business.CrudUpdate;
+import Models.Business.Example;
+import Models.Business.Language;
+import Models.Business.Topic;
 import Models.Const.Errors;
 import Models.Const.Settings;
 import Models.DAL.ExamplesDAL;
@@ -24,7 +19,6 @@ import Models.DTO.LanguageTagDTO;
 import Models.DTO.ReadTableDTO;
 import Models.DTO.TopicsDTO;
 import Models.DTO.UpdateTableDTO;
-import Services.ICache;
 import Services.ICrud;
 import Services.IHigherService;
 
@@ -40,8 +34,7 @@ public class HigherServiceImpl implements IHigherService {
 		ReadTableDTO dto = crud.read(new TopicsDAL());
 		if (dto.isSuccess()) {
 			List<TopicsDAL> list = (List<TopicsDAL>) (Object) dto.getReadResultSet();
-			List<TopicsDAL> ret = list.stream().filter(e -> e.languageId == languageId)
-					.collect(Collectors.toList());
+			List<TopicsDAL> ret = list.stream().filter(e -> e.languageId == languageId).collect(Collectors.toList());
 			return new TopicsDTO(true, ret, "success");
 		}
 		return new TopicsDTO(false, null, dto.getMessage());
@@ -113,8 +106,7 @@ public class HigherServiceImpl implements IHigherService {
 		ReadTableDTO topicsDTO = crud.read(new TopicsDAL());
 		if (topicsDTO.isSuccess()) {
 			List<TopicsDAL> list = (List<TopicsDAL>) (Object) topicsDTO.getReadResultSet();
-			List<TopicsDAL> ret = list.stream().filter(e -> e.topicId == topicId)
-					.collect(Collectors.toList());
+			List<TopicsDAL> ret = list.stream().filter(e -> e.topicId == topicId).collect(Collectors.toList());
 			return new TopicsDTO(true, ret, "success");
 		}
 		return new TopicsDTO(false, null, topicsDTO.getMessage());
@@ -125,8 +117,7 @@ public class HigherServiceImpl implements IHigherService {
 		ReadTableDTO examplesDTO = crud.read(new ExamplesDAL());
 		if (examplesDTO.isSuccess()) {
 			List<ExamplesDAL> list = (List<ExamplesDAL>) (Object) examplesDTO.getReadResultSet();
-			List<ExamplesDAL> ret = list.stream().filter(e -> e.exampleId == exampleId)
-					.collect(Collectors.toList());
+			List<ExamplesDAL> ret = list.stream().filter(e -> e.exampleId == exampleId).collect(Collectors.toList());
 			return new ExamplesDTO(true, ret, "success");
 		}
 		return new ExamplesDTO(false, null, examplesDTO.getMessage());
@@ -208,7 +199,7 @@ public class HigherServiceImpl implements IHigherService {
 		}
 		int newLanguageId = ldto.getLanguageTag().size() + Settings.defaultNumberForLanguageIds;
 		dal.languageId = newLanguageId;
-		dal.helloWorldTopicId = -1; //not used field
+		dal.helloWorldTopicId = -1; // not used field
 		dal.tag = language.tag;
 		dal.title = language.title;
 		return crud.create(dal);
@@ -233,10 +224,10 @@ public class HigherServiceImpl implements IHigherService {
 		CrudUpdate params = new CrudUpdate();
 		UpdateTableDTO crudCheck;
 		params.setWhereUsed(true);
-		params.setTableName("LanguageTags"); 
-		params.setConditionColumName("LanguageID"); 
-		params.setConditionChangeWhereValueIsEqual(Integer.toString(language.id)); 
-		params.setChangeValueOfColum("Title"); 
+		params.setTableName("LanguageTags");
+		params.setConditionColumName("LanguageID");
+		params.setConditionChangeWhereValueIsEqual(Integer.toString(language.id));
+		params.setChangeValueOfColum("Title");
 		params.setChangeValueTO(language.title);
 		crudCheck = crud.update(params);
 		UpdateTableDTO updateTableTDO = new UpdateTableDTO();
@@ -255,19 +246,19 @@ public class HigherServiceImpl implements IHigherService {
 		CrudUpdate params = new CrudUpdate();
 		UpdateTableDTO crudCheck;
 		params.setWhereUsed(true);
-		params.setTableName("Examples"); 
-		params.setConditionColumName("ExampleId"); 
-		params.setConditionChangeWhereValueIsEqual(Integer.toString(example.exampleId)); 
-		params.setChangeValueOfColum("topicId"); 
-		params.setChangeValueTO(Integer.toString(example.topicId)); 
+		params.setTableName("Examples");
+		params.setConditionColumName("ExampleId");
+		params.setConditionChangeWhereValueIsEqual(Integer.toString(example.exampleId));
+		params.setChangeValueOfColum("topicId");
+		params.setChangeValueTO(Integer.toString(example.topicId));
 		crudCheck = crud.update(params);
 
-		params.setChangeValueOfColum("title"); 
+		params.setChangeValueOfColum("title");
 		params.setChangeValueTO(example.title);
 		crudCheck = crud.update(params);
 
-		params.setChangeValueOfColum("bodyHtml"); 
-		params.setChangeValueTO(example.bodyHtml); 
+		params.setChangeValueOfColum("bodyHtml");
+		params.setChangeValueTO(example.bodyHtml);
 		crudCheck = crud.update(params);
 
 		UpdateTableDTO updateTableTDO = new UpdateTableDTO();
@@ -286,28 +277,28 @@ public class HigherServiceImpl implements IHigherService {
 		CrudUpdate params = new CrudUpdate();
 		UpdateTableDTO crudCheck;
 		params.setWhereUsed(true);
-		params.setTableName("Topics"); 
-		params.setConditionColumName("TopicId"); 
-		params.setConditionChangeWhereValueIsEqual(Integer.toString(topic._TopicId)); 
+		params.setTableName("Topics");
+		params.setConditionColumName("TopicId");
+		params.setConditionChangeWhereValueIsEqual(Integer.toString(topic._TopicId));
 
-		params.setChangeValueOfColum("Title"); 
-		params.setChangeValueTO(topic._TopicTitle); 
+		params.setChangeValueOfColum("Title");
+		params.setChangeValueTO(topic._TopicTitle);
 		crudCheck = crud.update(params);
 
-		params.setChangeValueOfColum("IntroductionHtml"); 
-		params.setChangeValueTO(topic._IntroductionHtml); 
+		params.setChangeValueOfColum("IntroductionHtml");
+		params.setChangeValueTO(topic._IntroductionHtml);
 		crudCheck = crud.update(params);
 
-		params.setChangeValueOfColum("SyntaxHtml"); 
-		params.setChangeValueTO(topic._SyntaxHtml); 
+		params.setChangeValueOfColum("SyntaxHtml");
+		params.setChangeValueTO(topic._SyntaxHtml);
 		crudCheck = crud.update(params);
 
-		params.setChangeValueOfColum("ParametersHtml"); 
-		params.setChangeValueTO(topic._ParametersHtml); 
+		params.setChangeValueOfColum("ParametersHtml");
+		params.setChangeValueTO(topic._ParametersHtml);
 		crudCheck = crud.update(params);
 
-		params.setChangeValueOfColum("RemarksHtml"); 
-		params.setChangeValueTO(topic._RemarksHtml); 
+		params.setChangeValueOfColum("RemarksHtml");
+		params.setChangeValueTO(topic._RemarksHtml);
 		crudCheck = crud.update(params);
 
 		UpdateTableDTO updateTableTDO = new UpdateTableDTO();

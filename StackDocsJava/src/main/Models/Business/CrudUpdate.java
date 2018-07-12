@@ -1,4 +1,4 @@
-package Models;
+package Models.Business;
 
 public class CrudUpdate {
 	public String tableName;
@@ -7,7 +7,7 @@ public class CrudUpdate {
 	public String conditionColumName;
 	public String conditionChangeWhereValueIsEqual;
 	public boolean whereUsed;
-	
+
 	public String getTableName() {
 		return tableName;
 	}
@@ -49,20 +49,18 @@ public class CrudUpdate {
 	}
 
 	public boolean getIsWhereUsed() {
-		
-		 if(conditionColumName == null || conditionColumName.isEmpty()) {
-		 return false;
-		 }
-		 else {
-		 return true;
-		 }
-		
+
+		if (conditionColumName == null || conditionColumName.isEmpty()) {
+			return false;
+		} else {
+			return true;
+		}
+
 	}
 
 	public void setWhereUsed(boolean whereUsed) {
 		this.whereUsed = whereUsed;
-	
-	}
 
+	}
 
 }

@@ -4,7 +4,7 @@ import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.spi.MappingContext;
 
-import Models.Topic;
+import Models.Business.Topic;
 import Models.DAL.TopicsDAL;
 
 public class TopicsDALtoTopic {
@@ -46,11 +46,11 @@ public class TopicsDALtoTopic {
 		};
 		mapperTopicsInfo.addConverter(topicsInfoConverter);
 		mapperTopicsInfo.map(topicDal, topic);
-		
+
 		return topic;
-		
+
 	}
-	
+
 	public Topic topicsTagsDaltoTopicTags(TopicsDAL topicDal, Topic topic) {
 		ModelMapper mapperTopics = new ModelMapper();
 		Converter<TopicsDAL, Topic> topicsListConverter = new Converter<TopicsDAL, Topic>() {
@@ -67,7 +67,7 @@ public class TopicsDALtoTopic {
 		mapperTopics.addConverter(topicsListConverter);
 		mapperTopics.map(topicDal, topic);
 		return topic;
-		
+
 	}
 
 }

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Configuration.StartupContainer;
-import Models.Topic;
+import Models.Business.Topic;
 import Models.DTO.CreateTableDTO;
 import Models.DTO.TopicsFrontDTO;
 import Services.IFrontService;
@@ -36,7 +36,7 @@ public class CreateServlet extends HttpServlet {
 		if (dto.is_Succcess()) {
 			List<Topic> topics = dto.get_Topics();
 			for (Topic t : topics) {
-				languageDDMap.put(t.get_LanguageId(), t.get_LanguageTitle());
+				languageDDMap.put(t._LanguageId, t._LanguageTitle);
 			}
 		} else {
 			languageDDMap.put(null, null);
@@ -49,17 +49,6 @@ public class CreateServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		// suvestos info perdavimas i CRUD'a
-
-		// Map<String, String> map = new HashMap<String, String>();
-		//
-		// map.put("languageId", request.getParameter("language"));
-		// map.put("topic", request.getParameter("topic"));
-		// map.put("introduction", request.getParameter("introduction"));
-		// map.put("syntax", request.getParameter("syntax"));
-		// map.put("parameters", request.getParameter("parameters"));
-		// map.put("remarks", request.getParameter("remarks"));
 
 		List<String> list = new ArrayList<String>();
 

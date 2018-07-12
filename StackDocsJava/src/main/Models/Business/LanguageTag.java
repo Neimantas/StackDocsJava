@@ -1,4 +1,4 @@
-package Models;
+package Models.Business;
 
 public class LanguageTag {
 	public int languageId;

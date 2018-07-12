@@ -11,7 +11,6 @@ import Models.DTO.TopicsInfoFrontDTO;
 import Models.DTO.UpdateTableDTO;
 
 public interface IFrontService {
-	
 	TopicsFrontDTO getTopicsByLanguageId(int languageId, String topicWord);
 	TopicsInfoFrontDTO getTopicInfoByTopicId(int topicId);
 	ExamplesFrontDTO getExamplesByID(int exmpleId);
@@ -23,6 +22,4 @@ public interface IFrontService {
 	DeleteTableDTO deleteLanguage(int languageId);
 	DeleteTableDTO deleteTopic(int topicId);
 	DeleteTableDTO deleteExample(int exampleId);
-	
-	
 }

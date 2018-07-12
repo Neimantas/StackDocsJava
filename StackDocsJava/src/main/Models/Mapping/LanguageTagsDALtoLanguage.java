@@ -4,11 +4,11 @@ import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.spi.MappingContext;
 
-import Models.Language;
+import Models.Business.Language;
 import Models.DAL.LanguageTagsDAL;
 
 public class LanguageTagsDALtoLanguage {
-	public Language languageDaltoLanguage (LanguageTagsDAL languageTagDto, Language languageTag) {
+	public Language languageDaltoLanguage(LanguageTagsDAL languageTagDto, Language languageTag) {
 		ModelMapper mapperLanguageTag = new ModelMapper();
 		Converter<LanguageTagsDAL, Language> languageTagConverter = new Converter<LanguageTagsDAL, Language>() {
 			public Language convert(MappingContext<LanguageTagsDAL, Language> context) {
@@ -21,10 +21,10 @@ public class LanguageTagsDALtoLanguage {
 			};
 		};
 		mapperLanguageTag.addConverter(languageTagConverter);
-//		LanguageTagsDALtoLanguage mapll=new LanguageTagsDALtoLanguage();
+		// LanguageTagsDALtoLanguage mapll=new LanguageTagsDALtoLanguage();
 		mapperLanguageTag.map(languageTagDto, languageTag);
 		return languageTag;
-		
+
 	}
 
 }

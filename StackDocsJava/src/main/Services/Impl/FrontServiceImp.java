@@ -5,10 +5,9 @@ import java.util.List;
 
 import javax.inject.Singleton;
 
-import Models.Example;
-import Models.Language;
-import Models.LanguageTag;
-import Models.Topic;
+import Models.Business.Example;
+import Models.Business.Language;
+import Models.Business.Topic;
 import Models.DAL.ExamplesDAL;
 import Models.DAL.LanguageTagsDAL;
 import Models.DAL.TopicsDAL;
@@ -187,7 +186,7 @@ public class FrontServiceImp implements IFrontService {
 	// ------------------------------Delete-----------------------------------------------------------
 	@Override
 	public DeleteTableDTO deleteLanguage(int languageid) {
-		
+
 		return hService.delete(languageTagByLanguageId(languageid)._LanguageTag.get(0));
 	}
 
@@ -201,30 +200,28 @@ public class FrontServiceImp implements IFrontService {
 		return hService.delete(getTopicInfoByTopicId(topicID).get_Topics().get(0));
 	}
 
-	
 	// -------------------------------------------------------------------------------------------------------
 	// ------------------------------Create-----------------------------------------------------------
 	@Override
 	public CreateTableDTO createTopic(List<String> params) {
 		Topic ret = new Topic();
-		
+
 		ret._LanguageId = Integer.parseInt(params.get(0));
 		ret._TopicTitle = params.get(1);
 		ret._IntroductionHtml = params.get(2);
 		ret._SyntaxHtml = params.get(3);
 		ret._ParametersHtml = params.get(4);
 		ret._RemarksHtml = params.get(5);
-		
+
 		return hService.create(ret);
 	}
 
-	
 	// -------------------------------------------------------------------------------------------------------
 	// ------------------------------Update-----------------------------------------------------------
 	@Override
 	public UpdateTableDTO updateTopic(List<String> params) {
 		Topic ret = new Topic();
-		
+
 		ret._LanguageId = Integer.parseInt(params.get(0));
 		ret._TopicTitle = params.get(1);
 		ret._TopicId = Integer.parseInt(params.get(2));
@@ -232,10 +229,8 @@ public class FrontServiceImp implements IFrontService {
 		ret._SyntaxHtml = params.get(4);
 		ret._ParametersHtml = params.get(5);
 		ret._RemarksHtml = params.get(6);
-		
+
 		return hService.update(ret);
 	}
-	
-	
 
 }

@@ -10,8 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Configuration.StartupContainer;
-import Models.Topic;
-import Models.DTO.TopicsFrontDTO;
+import Models.Business.Topic;
 import Models.DTO.TopicsInfoFrontDTO;
 import Services.IFrontService;
 
@@ -44,13 +43,13 @@ public class UpdateServlet extends HttpServlet {
 
 			List<Topic> topics = dto.get_Topics();
 			for (Topic t : topics) {
-				languageId = t.get_LanguageId();
-				language = t.get_LanguageTitle();
-				topic = t.get_TopicTitle();
-				introduction = t.get_IntroductionHtml();
-				syntax = t.get_SyntaxHtml();
-				parameters = t.get_ParametersHtml();
-				remarks = t.get_RemarksHtml();
+				languageId = t._LanguageId;
+				language = t._LanguageTitle;
+				topic = t._TopicTitle;
+				introduction = t._IntroductionHtml;
+				syntax = t._SyntaxHtml;
+				parameters = t._ParametersHtml;
+				remarks = t._RemarksHtml;
 			}
 
 		} else {
@@ -71,18 +70,18 @@ public class UpdateServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		// surenkama info ir siunciama i update CRUD'a
 		List<String> list = new ArrayList<String>();
 
-		list.add(languageId+"");
+		list.add(languageId + "");
 		list.add(request.getParameter("topic"));
 		list.add(topicId);
 		list.add(request.getParameter("introduction"));
 		list.add(request.getParameter("syntax"));
 		list.add(request.getParameter("parameters"));
 		list.add(request.getParameter("remarks"));
-		
+
 		frontService.updateTopic(list);
 
 		request.setAttribute("topic", topicId);

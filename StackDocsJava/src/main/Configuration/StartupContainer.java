@@ -7,7 +7,7 @@ import eu.lestard.easydi.EasyDI;
 public class StartupContainer implements javax.servlet.ServletContextListener {
 
 	public static EasyDI easyDI;
-	
+
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		easyDI = new EasyDI();
@@ -16,9 +16,7 @@ public class StartupContainer implements javax.servlet.ServletContextListener {
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
-	
-	
+
 }

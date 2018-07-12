@@ -10,21 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Configuration.StartupContainer;
+import Models.Business.Topic;
 import Models.DTO.TopicsFrontDTO;
 import Services.IFrontService;
-import Models.Topic;
 
-/**
- * Servlet implementation class IndexServlet
- */
-
-// @WebServlet(urlPatterns = "/main") //yra ivesta i web.xml rankiniu budu
 public class IndexServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	private IFrontService frontService;
 	private TopicsFrontDTO dto;
 	private String topic;
@@ -35,10 +27,6 @@ public class IndexServlet extends HttpServlet {
 		frontService = StartupContainer.easyDI.getInstance(FrontServiceImp.class);
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String getParamSearch = request.getParameter("search");
@@ -53,7 +41,7 @@ public class IndexServlet extends HttpServlet {
 		if (dto2.is_Succcess()) {
 			List<Topic> topics = dto2.get_Topics();
 			for (Topic t : topics) {
-				languageDDMap.put(t.get_LanguageId(), t.get_LanguageTitle());
+				languageDDMap.put(t._LanguageId, t._LanguageTitle);
 			}
 		} else {
 			languageDDMap.put(null, null);
@@ -104,16 +92,14 @@ public class IndexServlet extends HttpServlet {
 				List<Topic> topics = dto.get_Topics();
 				// Atvaizduojame reikiamo puslapio temas
 				for (int i = (pageNumber - 1) * 10; i < pageNumber * 10 && i < topics.size(); i++) {
-					topicMap.put(topics.get(i).get_TopicId(), topics.get(i).get_TopicTitle());
-					languageMap.put(topics.get(i).get_TopicId(),
-							topics.get(i).get_LanguageTitle() != null ? topics.get(i).get_LanguageTitle() + " | " : "");
+					topicMap.put(topics.get(i)._TopicId, topics.get(i)._TopicTitle);
+					languageMap.put(topics.get(i)._TopicId,
+							topics.get(i)._LanguageTitle != null ? topics.get(i)._LanguageTitle + " | " : "");
 				}
 
 			} else {
-
 				topicMap.put(null, dto.get_Message());
 				languageMap.put(null, null);
-
 			}
 		}
 		request.setAttribute("topic", topic);
@@ -127,10 +113,6 @@ public class IndexServlet extends HttpServlet {
 
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
