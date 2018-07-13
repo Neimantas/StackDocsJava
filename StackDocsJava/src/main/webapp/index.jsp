@@ -28,7 +28,7 @@
 						data-live-search="true" title="Choose language...">
 						<option value="0" ${languageId==0?'selected':''}>All
 							languages</option>
-						<c:forEach items="${languageDD}" var="language">
+						<c:forEach items="${languageMap}" var="language">
 							<option value="${language.key}"
 								${languageId==language.key?'selected':''}>${language.value}</option>
 						</c:forEach>
@@ -54,7 +54,7 @@
 				<div class="col">
 					<select class="custom-select border-secondary" size="10" id="title">
 						<c:forEach items="${topicMap}" var="topic">
-							<option value="${topic.key}">${languageMap.get(topic.key)}${topic.value}</option>
+							<option value="${topic.key}">${topic.value}</option>
 						</c:forEach>
 					</select>
 				</div>

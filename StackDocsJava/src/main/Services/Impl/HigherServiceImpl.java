@@ -36,7 +36,7 @@ public class HigherServiceImpl implements IHigherService {
 		if (dto.success) {
 			List<TopicsDAL> list = (List<TopicsDAL>) (Object) dto.readResultSet;
 			List<TopicsDAL> ret = list.stream().filter(e -> e.languageId == languageId).collect(Collectors.toList());
-			return new TopicsDTO(true, ret, OperationStatus.success.getMessage());
+			return new TopicsDTO(true, ret, OperationStatus.SUCCESS.getMessage());
 		}
 		return new TopicsDTO(false, null, dto.message);
 	}
@@ -47,7 +47,7 @@ public class HigherServiceImpl implements IHigherService {
 		if (examplesDTO.success) {
 			List<ExamplesDAL> list = (List<ExamplesDAL>) (Object) examplesDTO.readResultSet;
 			List<ExamplesDAL> ret = list.stream().filter(e -> e.topicId == topicId).collect(Collectors.toList());
-			return new ExamplesDTO(true, ret, OperationStatus.success.getMessage());
+			return new ExamplesDTO(true, ret, OperationStatus.SUCCESS.getMessage());
 		}
 		return new ExamplesDTO(false, null, examplesDTO.message);
 	}
@@ -57,7 +57,7 @@ public class HigherServiceImpl implements IHigherService {
 		ReadTableDTO languageTagsDTO = _crud.read(new LanguageTagsDAL());
 		if (languageTagsDTO.success) {
 			List<LanguageTagsDAL> list = (List<LanguageTagsDAL>) (Object) languageTagsDTO.readResultSet;
-			return new LanguageTagDTO(true, list, OperationStatus.success.getMessage());
+			return new LanguageTagDTO(true, list, OperationStatus.SUCCESS.getMessage());
 		}
 		return new LanguageTagDTO(false, null, languageTagsDTO.message);
 	}
@@ -67,7 +67,7 @@ public class HigherServiceImpl implements IHigherService {
 		ReadTableDTO topicsDTO = _crud.read(new TopicsDAL());
 		if (topicsDTO.success) {
 			List<TopicsDAL> list = (List<TopicsDAL>) (Object) topicsDTO.readResultSet;
-			return new TopicsDTO(true, list, OperationStatus.success.getMessage());
+			return new TopicsDTO(true, list, OperationStatus.SUCCESS.getMessage());
 		}
 		return new TopicsDTO(false, null, topicsDTO.message);
 	}
@@ -76,7 +76,7 @@ public class HigherServiceImpl implements IHigherService {
 		ReadTableDTO examplesDTO = _crud.read(new ExamplesDAL());
 		if (examplesDTO.success) {
 			List<ExamplesDAL> list = (List<ExamplesDAL>) (Object) examplesDTO.readResultSet;
-			return new ExamplesDTO(true, list, OperationStatus.success.getMessage());
+			return new ExamplesDTO(true, list, OperationStatus.SUCCESS.getMessage());
 		}
 		return new ExamplesDTO(false, null, examplesDTO.message);
 	}
@@ -87,7 +87,7 @@ public class HigherServiceImpl implements IHigherService {
 		if (topicsDTO.success) {
 			List<TopicsDAL> list = (List<TopicsDAL>) (Object) topicsDTO.readResultSet;
 			List<TopicsDAL> ret = list.stream().filter(e -> e.topicId == topicId).collect(Collectors.toList());
-			return new TopicsDTO(true, ret, OperationStatus.success.getMessage());
+			return new TopicsDTO(true, ret, OperationStatus.SUCCESS.getMessage());
 		}
 		return new TopicsDTO(false, null, topicsDTO.message);
 	}
@@ -98,7 +98,7 @@ public class HigherServiceImpl implements IHigherService {
 		if (examplesDTO.success) {
 			List<ExamplesDAL> list = (List<ExamplesDAL>) (Object) examplesDTO.readResultSet;
 			List<ExamplesDAL> ret = list.stream().filter(e -> e.exampleId == exampleId).collect(Collectors.toList());
-			return new ExamplesDTO(true, ret, OperationStatus.success.getMessage());
+			return new ExamplesDTO(true, ret, OperationStatus.SUCCESS.getMessage());
 		}
 		return new ExamplesDTO(false, null, examplesDTO.message);
 	}
@@ -110,7 +110,7 @@ public class HigherServiceImpl implements IHigherService {
 			List<LanguageTagsDAL> list = (List<LanguageTagsDAL>) (Object) languageTagsDTO.readResultSet;
 			List<LanguageTagsDAL> ret = list.stream().filter(e -> e.languageId == languageId)
 					.collect(Collectors.toList());
-			return new LanguageTagDTO(true, ret, OperationStatus.success.getMessage());
+			return new LanguageTagDTO(true, ret, OperationStatus.SUCCESS.getMessage());
 		}
 		return new LanguageTagDTO(false, null, languageTagsDTO.message);
 	}
@@ -151,7 +151,7 @@ public class HigherServiceImpl implements IHigherService {
 		if (!edto.success) {
 			return new CreateTableDTO(false, edto.message);
 		}
-		int newExampleId = edto.examples.size() + Settings.defaultNumberForExamplesIds;
+		int newExampleId = edto.examples.size() + Settings.DEFAULT_NUMBER_FOR_EXAMPLES_IDS;
 		dal.exampleId = newExampleId;
 		dal.bodyHtml = example.bodyHtml;
 		dal.title = example.title;
@@ -165,7 +165,7 @@ public class HigherServiceImpl implements IHigherService {
 		if (!ldto.success) {
 			return new CreateTableDTO(false, ldto.message);
 		}
-		int newLanguageId = ldto.languageTag.size() + Settings.defaultNumberForLanguageIds;
+		int newLanguageId = ldto.languageTag.size() + Settings.DEFAULT_NUMBER_FOR_LANGUAGE_IDS;
 		dal.languageId = newLanguageId;
 		dal.helloWorldTopicId = -1; // this db field is not used 
 		dal.tag = language.tag;
@@ -288,7 +288,7 @@ public class HigherServiceImpl implements IHigherService {
 	}
 
 	private int findFirstEmptyId(TopicsDTO tdto) {
-		int emptyId = Settings.defaultFirstEmptyId;
+		int emptyId = Settings.FIRST_ID_IN_A_DATABASE_TABLE;
 		for (int i = 0; i < tdto.topics.size(); i++) {
 			if (tdto.topics.get(i).topicId == emptyId) {
 				emptyId++;

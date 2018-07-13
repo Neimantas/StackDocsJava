@@ -26,7 +26,7 @@
 						class="selectpicker form-control" data-size="6"
 						data-style="border-secondary bg-white" id="language"
 						name="language" data-live-search="true" title="Choose language...">
-						<c:forEach items="${languageDD}" var="language">
+						<c:forEach items="${languageMap}" var="language">
 							<option value="${language.key}">${language.value}</option>
 						</c:forEach>
 					</select>

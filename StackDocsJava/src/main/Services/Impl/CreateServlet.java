@@ -31,18 +31,16 @@ public class CreateServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		// renkam info dropdown language uzpildymui
-		TopicsFrontDTO dto = _frontService.getTopicsByLanguageId(0, "");
-		Map<Integer, String> languageDDMap = new HashMap<>();
-		if (dto.success) {
-			List<Topic> topics = dto.topics;
+		TopicsFrontDTO languageDTO = _frontService.getTopicsByLanguageId(0, "");
+		Map<Integer, String> languageMap = new HashMap<>();
+		if (languageDTO.success) {
+			List<Topic> topics = languageDTO.topics;
 			for (Topic t : topics) {
-				languageDDMap.put(t.languageId, t.languageTitle);
+				languageMap.put(t.languageId, t.languageTitle);
 			}
-		} else {
-			languageDDMap.put(null, null);
 		}
 
-		request.setAttribute("languageDD", languageDDMap);
+		request.setAttribute("languageMap", languageMap);
 		request.getRequestDispatcher("create.jsp").forward(request, response);
 	}
 

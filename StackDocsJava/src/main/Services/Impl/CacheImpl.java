@@ -7,21 +7,23 @@ import java.util.Map;
 import Services.ICache;
 import javax.inject.Singleton;
 
+import Models.Const.Settings;
+
 @Singleton
 public class CacheImpl implements ICache {
 
 	private Map<String, Object> _objects = Collections.synchronizedMap(new HashMap<>());
 	private Map<String, Long> _expire = Collections.synchronizedMap(new HashMap<>());
-	private long _expireTimeDefault = 100; // 100 seconds;
 
 	@Override
 	public void put(String key, Object data) {
 
 		_objects.put(key, data);
-		_expire.put(key, System.currentTimeMillis() + _expireTimeDefault * 1000);
+		_expire.put(key, System.currentTimeMillis() + Settings.CACHE_DATA_DEFAULT_EXPIRE_TIME * 1000);
 
 	}
-
+	
+											//time in seconds
 	public void put(String key, Object data, long timeExpires) {
 
 		_objects.put(key, data);

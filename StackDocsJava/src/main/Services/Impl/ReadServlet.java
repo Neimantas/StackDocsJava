@@ -101,7 +101,7 @@ public class ReadServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (_update != null) {
-			response.sendRedirect("/StackDocsJava/main?update=true");
+			response.sendRedirect("/StackDocsJava/main?update=true&topic=" + _topic);
 		} else {
 			response.sendRedirect("/StackDocsJava/main?back=true");
 		}

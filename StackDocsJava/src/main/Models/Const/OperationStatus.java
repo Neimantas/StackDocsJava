@@ -2,7 +2,7 @@ package Models.Const;
 
 public enum OperationStatus {
 	
-	success("success");
+	SUCCESS("success");
 	
 	private String _message;
 	

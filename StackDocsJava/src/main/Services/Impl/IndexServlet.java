@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Configuration.StartupContainer;
+import Models.Business.IndexServletParameters;
 import Models.Business.Topic;
+import Models.Const.Settings;
 import Models.DTO.TopicsFrontDTO;
 import Services.IFrontService;
 
@@ -29,95 +31,23 @@ public class IndexServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String getParamSearch = request.getParameter("search");
-		String getParamChange = request.getParameter("change");
-		String getParamRemove = request.getParameter("rem");
-		String getParamBack = request.getParameter("back");
-		String getParamUpdate = request.getParameter("update");
-		
-		boolean isPostBack = checkPostBack(getParamSearch, getParamChange, getParamRemove, getParamBack, getParamUpdate);
 
-		// renkam info dropdown language uzpildymui
-		TopicsFrontDTO dto2 = _frontService.getTopicsByLanguageId(0, "");
-		Map<Integer, String> languageDDMap = new HashMap<>();
-		if (dto2.success) {
-			List<Topic> topics = dto2.topics;
-			for (Topic t : topics) {
-				languageDDMap.put(t.languageId, t.languageTitle);
-			}
-		} else {
-			languageDDMap.put(null, null);
-		}
+		IndexServletParameters inputParameters = new IndexServletParameters(request);
 
-		if (isPostBack) { // jei uzkrauname puslapi is naujo neperkrovus serverio
-			_topicsFrontDTO = null;
-			_topic = null;
-			_currentLanguageId = 0;
-		}
+		clearServletParametersIfPostBackExecuted(inputParameters);
 
-		if (getParamSearch != null) { // jei atliekame paieska
-			String getParamLang = request.getParameter("language");
-			_topic = request.getParameter("topic");
-			_currentLanguageId = Integer.parseInt(getParamLang);
+		getOutputDataIfSearchButtonClicked(inputParameters);
 
-			if (_topic.equals("0")) {
-				_topic = "";
-			}
+		updateTopicListIfUpdateExecuted(inputParameters);
 
-			if (getParamRemove == null) {
-				_pageNumber = 1;
-			}
+		updateTopicListIfDeleteExecuted(inputParameters);
 
-			_topicsFrontDTO = _frontService.getTopicsByLanguageId(_currentLanguageId, _topic);
-		}
+		setPageNumberIfPageButtonClicked(inputParameters);
 
-		if (getParamRemove != null) { // jei triname
-			System.out.println(_frontService.deleteTopic(Integer.parseInt(getParamRemove)).message);
-			_topicsFrontDTO = _frontService.getTopicsByLanguageId(_currentLanguageId, _topic);
-		}
+		setRequestParams(request);
 
-		if (getParamUpdate != null) { // po topic koregavimo
-			_topicsFrontDTO = _frontService.getTopicsByLanguageId(_currentLanguageId, _topic);
-		}
-
-		if (getParamChange != null) { // jei keiciame puslapi
-			String getParamPageNumber = request.getParameter("page");
-			_pageNumber = Integer.parseInt(getParamPageNumber);
-		}
-
-		Map<Integer, String> topicMap = new HashMap<>();
-		Map<Integer, String> languageMap = new HashMap<>();
-		if (_topicsFrontDTO != null) {
-			if (_topicsFrontDTO.success) {
-
-				List<Topic> topics = _topicsFrontDTO.topics;
-				// Atvaizduojame reikiamo puslapio temas
-				for (int i = (_pageNumber - 1) * 10; i < _pageNumber * 10 && i < topics.size(); i++) {
-					topicMap.put(topics.get(i).topicId, topics.get(i).topicTitle);
-					languageMap.put(topics.get(i).topicId,
-							topics.get(i).languageTitle != null ? topics.get(i).languageTitle + " | " : "");
-				}
-
-			} else {
-				topicMap.put(null, _topicsFrontDTO.message);
-				languageMap.put(null, null);
-			}
-		}
-		
-		RequestParamSetter(request, languageDDMap, topicMap, languageMap);
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 
-	}
-
-	private void RequestParamSetter(HttpServletRequest request, Map<Integer, String> languageDDMap,
-			Map<Integer, String> topicMap, Map<Integer, String> languageMap) {
-		request.setAttribute("topic", _topic);
-		request.setAttribute("languageId", _currentLanguageId);
-		request.setAttribute("pageNumber", _pageNumber);
-		request.setAttribute("numberOfPages", countNumberOfPages());
-		request.setAttribute("topicMap", topicMap);
-		request.setAttribute("languageMap", languageMap);
-		request.setAttribute("languageDD", languageDDMap);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -125,26 +55,109 @@ public class IndexServlet extends HttpServlet {
 		doGet(request, response);
 	}
 
-	private int countNumberOfPages() {
+	private void clearServletParametersIfPostBackExecuted(IndexServletParameters indexServletParameters) {
+		if (indexServletParameters.search == null 
+				&& indexServletParameters.udate == null
+				&& indexServletParameters.remove == null 
+				&& indexServletParameters.changePage == null
+				&& indexServletParameters.back == null) {
+			_topicsFrontDTO = null;
+			_topic = null;
+			_currentLanguageId = 0;
+		}
+	}
 
+	private void getOutputDataIfSearchButtonClicked(IndexServletParameters inputParameters) {
+		if (inputParameters.search != null) {
+			_topic = inputParameters.topic;
+			_currentLanguageId = Integer.parseInt(inputParameters.language);
+
+			if (_topic.equals("0")) {
+				_topic = "";
+			}
+
+			if (inputParameters.remove == null) {
+				_pageNumber = 1;
+			}
+
+			_topicsFrontDTO = _frontService.getTopicsByLanguageId(_currentLanguageId, _topic);
+		}
+	}
+
+	private void updateTopicListIfUpdateExecuted(IndexServletParameters inputParameters) {
+		if (inputParameters.udate != null) {
+			_topic = inputParameters.topic;
+			_topicsFrontDTO = _frontService.getTopicsByLanguageId(_currentLanguageId, _topic);
+		}
+	}
+
+	private void updateTopicListIfDeleteExecuted(IndexServletParameters inputParameters) {
+		if (inputParameters.remove != null) {
+			System.out.println(_frontService.deleteTopic(Integer.parseInt(inputParameters.remove)).message);
+			_topicsFrontDTO = _frontService.getTopicsByLanguageId(_currentLanguageId, _topic);
+
+		}
+	}
+
+	private void setPageNumberIfPageButtonClicked(IndexServletParameters inputParameters) {
+		if (inputParameters.changePage != null) {
+			_pageNumber = Integer.parseInt(inputParameters.changePage);
+		}
+	}
+
+	private void setRequestParams(HttpServletRequest request) {
+		request.setAttribute("topic", _topic);
+		request.setAttribute("languageId", _currentLanguageId);
+		request.setAttribute("pageNumber", _pageNumber);
+		request.setAttribute("numberOfPages", countNumberOfPages());
+		request.setAttribute("topicMap", createTopicMap());
+		request.setAttribute("languageMap", createLanguageMap());
+	}
+
+	private int countNumberOfPages() {
 		if (_topicsFrontDTO != null && _topicsFrontDTO.success) {
 			int numberOfTopics = _topicsFrontDTO.topics.size();
-			if (numberOfTopics % 10 == 0) {
-				return numberOfTopics / 10;
+			if (numberOfTopics % Settings.NUMBER_OF_TOPICS_PER_PAGE == 0) {
+				return numberOfTopics / Settings.NUMBER_OF_TOPICS_PER_PAGE;
 			} else {
-				return numberOfTopics / 10 + 1;
+				return numberOfTopics / Settings.NUMBER_OF_TOPICS_PER_PAGE + 1;
 			}
 		}
 		return 0;
 	}
 
-	private boolean checkPostBack(String getParamSearch, String getParamChange, String getParamRemove, String getParamBack,
-			String getParamUpdate) {
-		if (getParamSearch == null && getParamChange == null && getParamRemove == null && getParamBack == null
-				&& getParamUpdate == null) {
-			return true;
+	private Map<Integer, String> createTopicMap() {
+		Map<Integer, String> topicMap = new HashMap<>();
+		if (_topicsFrontDTO != null) {
+			if (_topicsFrontDTO.success) {
+
+				List<Topic> topics = _topicsFrontDTO.topics;
+				// puts only the topics for one page
+				for (int i = (_pageNumber - 1) * Settings.NUMBER_OF_TOPICS_PER_PAGE; 
+						i < _pageNumber	* Settings.NUMBER_OF_TOPICS_PER_PAGE && i < topics.size(); i++) {
+					topicMap.put(topics.get(i).topicId,
+							topics.get(i).languageTitle != null
+									? topics.get(i).languageTitle + " | " + topics.get(i).topicTitle
+									: topics.get(i).topicTitle);
+				}
+
+			} else {
+				topicMap.put(null, _topicsFrontDTO.message);
+			}
 		}
-		return false;
+		return topicMap;
+	}
+
+	private Map<Integer, String> createLanguageMap() {
+		Map<Integer, String> languageMap = new HashMap<>();
+		TopicsFrontDTO languageDTO = _frontService.getTopicsByLanguageId(0, "");
+		if (languageDTO.success) {
+			List<Topic> topics = languageDTO.topics;
+			for (Topic t : topics) {
+				languageMap.put(t.languageId, t.languageTitle);
+			}
+		}
+		return languageMap;
 	}
 
 }
