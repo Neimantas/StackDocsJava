@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Models.Business.CrudUpdate;
+import Models.Const.OperationStatus;
 import Models.DTO.CreateTableDTO;
 import Models.DTO.DeleteTableDTO;
 import Models.DTO.ReadTableDTO;
@@ -31,7 +32,6 @@ public class CRUD implements ICrud {
 	}
 
 	public CreateTableDTO create(Object dal) {
-		CreateTableDTO createTableDTO = new CreateTableDTO();
 		try {
 			setConnection();
 
@@ -65,18 +65,14 @@ public class CRUD implements ICrud {
 			System.out.println(readQuerry);
 
 			_statement.executeUpdate(readQuerry);
-			createTableDTO.success = true;
 			_cache.remove(tableName);
 		} catch (SQLException e) {
-
-			createTableDTO.success = false;
-			createTableDTO.message = e.getMessage();
-			return createTableDTO;
+			return new CreateTableDTO(false, e.getMessage());
 		} finally {
 			if (_database != null)
 				_database.close();
 		}
-		return createTableDTO;
+		return new CreateTableDTO(true, OperationStatus.success.getMessage());
 	}
 
 	public ReadTableDTO read(Object dal) {
@@ -140,7 +136,6 @@ public class CRUD implements ICrud {
 	}
 
 	public UpdateTableDTO update(CrudUpdate params) {
-		UpdateTableDTO updateTableDTO = new UpdateTableDTO();
 		try {
 			setConnection();
 			String readQuerry = "UPDATE " + params.tableName + " SET " + params.changeValueOfColum + "='"
@@ -149,37 +144,29 @@ public class CRUD implements ICrud {
 				readQuerry += "' WHERE " + params.conditionColumName + "='" + params.conditionChangeWhereValueIsEqual
 						+ "';";
 			}
-			System.out.println(readQuerry);
 			_statement.executeUpdate(readQuerry);
-			updateTableDTO.success = true;
 
 		} catch (SQLException e) {
-			updateTableDTO.success = false;
-			updateTableDTO.message = e.getMessage();
-			return updateTableDTO;
+			return new UpdateTableDTO(false, e.getMessage());
 		} finally {
 			_database.close();
 		}
 		_cache.remove(params.tableName);
-		return updateTableDTO;
+		return new UpdateTableDTO(true, OperationStatus.success.getMessage());
 	}
 
 	public DeleteTableDTO delete(String tableName, String conditionColum, String conditionValue) {
-		DeleteTableDTO deleteTableDTO = new DeleteTableDTO();
 		try {
 			setConnection();
 			String readQuerry = "DELETE FROM " + tableName + " WHERE " + conditionColum + "='" + conditionValue + "';";
 			_statement.executeUpdate(readQuerry);
-			deleteTableDTO.success = true;
 			_cache.remove(tableName);
 		} catch (SQLException e) {
-			deleteTableDTO.success = false;
-			deleteTableDTO.message = e.getMessage();
-			return deleteTableDTO;
+			return new DeleteTableDTO(false, e.getMessage());
 		} finally {
 			_database.close();
 		}
-		return deleteTableDTO;
+		return new DeleteTableDTO(true, OperationStatus.success.getMessage());
 	}
 
 	private void setConnection() {
@@ -187,7 +174,6 @@ public class CRUD implements ICrud {
 			_connection = _database.connect();
 			_statement = _connection.createStatement();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
