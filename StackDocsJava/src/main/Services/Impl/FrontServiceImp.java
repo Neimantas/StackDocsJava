@@ -166,7 +166,7 @@ public class FrontServiceImp implements IFrontService {
 	// ---------------------------------------------------------------------------------------------------------------------
 
 	@Override
-	public LanguageTagFrontDTO languageTagByLanguageId(int languageId) {
+	public LanguageTagFrontDTO getLanguageTagByLanguageId(int languageId) {
 		LanguageTagDTO ldto = _higherService.getLanguageTagByLanguageId(languageId);
 		if (ldto.success) {
 			List<Language> languageTagFront = new ArrayList<Language>();
@@ -187,7 +187,7 @@ public class FrontServiceImp implements IFrontService {
 	@Override
 	public DeleteTableDTO deleteLanguage(int languageid) {
 
-		return _higherService.delete(languageTagByLanguageId(languageid).languageTag.get(0));
+		return _higherService.delete(getLanguageTagByLanguageId(languageid).languageTag.get(0));
 	}
 
 	@Override

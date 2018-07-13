@@ -13,6 +13,7 @@ import Configuration.StartupContainer;
 import Models.Business.IndexServletParameters;
 import Models.Business.Topic;
 import Models.Const.Settings;
+import Models.DTO.LanguageTagFrontDTO;
 import Models.DTO.TopicsFrontDTO;
 import Services.IFrontService;
 
@@ -95,13 +96,12 @@ public class IndexServlet extends HttpServlet {
 		if (inputParameters.remove != null) {
 			System.out.println(_frontService.deleteTopic(Integer.parseInt(inputParameters.remove)).message);
 			_topicsFrontDTO = _frontService.getTopicsByLanguageId(_currentLanguageId, _topic);
-
 		}
 	}
 
 	private void setPageNumberIfPageButtonClicked(IndexServletParameters inputParameters) {
 		if (inputParameters.changePage != null) {
-			_pageNumber = Integer.parseInt(inputParameters.changePage);
+			_pageNumber = Integer.parseInt(inputParameters.page);
 		}
 	}
 
@@ -134,11 +134,9 @@ public class IndexServlet extends HttpServlet {
 				List<Topic> topics = _topicsFrontDTO.topics;
 				// puts only the topics for one page
 				for (int i = (_pageNumber - 1) * Settings.NUMBER_OF_TOPICS_PER_PAGE; 
-						i < _pageNumber	* Settings.NUMBER_OF_TOPICS_PER_PAGE && i < topics.size(); i++) {
-					topicMap.put(topics.get(i).topicId,
-							topics.get(i).languageTitle != null
-									? topics.get(i).languageTitle + " | " + topics.get(i).topicTitle
-									: topics.get(i).topicTitle);
+						i < _pageNumber * Settings.NUMBER_OF_TOPICS_PER_PAGE && i < topics.size(); i++) {
+
+					topicMap.put(topics.get(i).topicId, getLanguageTittle(topics, i) + topics.get(i).topicTitle);
 				}
 
 			} else {
@@ -146,6 +144,19 @@ public class IndexServlet extends HttpServlet {
 			}
 		}
 		return topicMap;
+	}
+
+	private String getLanguageTittle(List<Topic> topics, int i) {
+		String languageTittle = "";
+		if (_currentLanguageId == 0 && !_topic.equals("")) {
+			LanguageTagFrontDTO languageTagDTO = _frontService.getLanguageTagByLanguageId(topics.get(i).languageId);
+			if (languageTagDTO.success) {
+				languageTittle = languageTagDTO.languageTag.get(0).title + " | ";
+			}
+		} else if (_currentLanguageId == 0) {
+			languageTittle = topics.get(i).languageTitle + " | ";
+		}
+		return languageTittle;
 	}
 
 	private Map<Integer, String> createLanguageMap() {

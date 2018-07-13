@@ -14,7 +14,7 @@ public interface IFrontService {
 	TopicsFrontDTO getTopicsByLanguageId(int languageId, String topicWord);
 	TopicsInfoFrontDTO getTopicInfoByTopicId(int topicId);
 	ExamplesFrontDTO getExamplesByID(int exmpleId);
-	LanguageTagFrontDTO languageTagByLanguageId(int languageId);
+	LanguageTagFrontDTO getLanguageTagByLanguageId(int languageId);
 	CreateTableDTO createTopic(List<String> params);
 	UpdateTableDTO updateTopic(List<String> params);
 	DeleteTableDTO deleteLanguage(int languageId);
