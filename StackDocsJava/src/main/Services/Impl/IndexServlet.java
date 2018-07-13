@@ -34,6 +34,8 @@ public class IndexServlet extends HttpServlet {
 		String getParamRemove = request.getParameter("rem");
 		String getParamBack = request.getParameter("back");
 		String getParamUpdate = request.getParameter("update");
+		
+		boolean isPostBack = checkPostBack(getParamSearch, getParamChange, getParamRemove, getParamBack, getParamUpdate);
 
 		// renkam info dropdown language uzpildymui
 		TopicsFrontDTO dto2 = _frontService.getTopicsByLanguageId(0, "");
@@ -47,8 +49,7 @@ public class IndexServlet extends HttpServlet {
 			languageDDMap.put(null, null);
 		}
 
-		if (getParamSearch == null && getParamChange == null && getParamRemove == null && getParamBack == null
-				&& getParamUpdate == null) { // jei uzkrauname puslapi is naujo neperkrovus serverio
+		if (isPostBack) { // jei uzkrauname puslapi is naujo neperkrovus serverio
 			_topicsFrontDTO = null;
 			_topic = null;
 			_currentLanguageId = 0;
@@ -102,6 +103,14 @@ public class IndexServlet extends HttpServlet {
 				languageMap.put(null, null);
 			}
 		}
+		
+		RequestParamSetter(request, languageDDMap, topicMap, languageMap);
+		request.getRequestDispatcher("index.jsp").forward(request, response);
+
+	}
+
+	private void RequestParamSetter(HttpServletRequest request, Map<Integer, String> languageDDMap,
+			Map<Integer, String> topicMap, Map<Integer, String> languageMap) {
 		request.setAttribute("topic", _topic);
 		request.setAttribute("languageId", _currentLanguageId);
 		request.setAttribute("pageNumber", _pageNumber);
@@ -109,8 +118,6 @@ public class IndexServlet extends HttpServlet {
 		request.setAttribute("topicMap", topicMap);
 		request.setAttribute("languageMap", languageMap);
 		request.setAttribute("languageDD", languageDDMap);
-		request.getRequestDispatcher("index.jsp").forward(request, response);
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -129,6 +136,15 @@ public class IndexServlet extends HttpServlet {
 			}
 		}
 		return 0;
+	}
+
+	private boolean checkPostBack(String getParamSearch, String getParamChange, String getParamRemove, String getParamBack,
+			String getParamUpdate) {
+		if (getParamSearch == null && getParamChange == null && getParamRemove == null && getParamBack == null
+				&& getParamUpdate == null) {
+			return true;
+		}
+		return false;
 	}
 
 }
