@@ -13,6 +13,7 @@ import Configuration.StartupContainer;
 import Models.Business.IndexServletParameters;
 import Models.Business.Topic;
 import Models.Const.Settings;
+import Models.DTO.DeleteTableDTO;
 import Models.DTO.LanguageTagFrontDTO;
 import Models.DTO.TopicsFrontDTO;
 import Services.IFrontService;
@@ -41,7 +42,7 @@ public class IndexServlet extends HttpServlet {
 
 		updateTopicListIfUpdateExecuted(inputParameters);
 
-		updateTopicListIfDeleteExecuted(inputParameters);
+		deleteTopicAndUpdateTopicListIfDeleteExecuted(inputParameters);
 
 		setPageNumberIfPageButtonClicked(inputParameters);
 
@@ -87,14 +88,14 @@ public class IndexServlet extends HttpServlet {
 
 	private void updateTopicListIfUpdateExecuted(IndexServletParameters inputParameters) {
 		if (inputParameters.udate != null) {
-			_topic = inputParameters.topic;
 			_topicsFrontDTO = _frontService.getTopicsByLanguageId(_currentLanguageId, _topic);
 		}
 	}
 
-	private void updateTopicListIfDeleteExecuted(IndexServletParameters inputParameters) {
+	private void deleteTopicAndUpdateTopicListIfDeleteExecuted(IndexServletParameters inputParameters) {
 		if (inputParameters.remove != null) {
-			System.out.println(_frontService.deleteTopic(Integer.parseInt(inputParameters.remove)).message);
+			DeleteTableDTO deleteTableDTO = _frontService.deleteTopic(Integer.parseInt(inputParameters.remove));
+			System.out.println(deleteTableDTO.message);
 			_topicsFrontDTO = _frontService.getTopicsByLanguageId(_currentLanguageId, _topic);
 		}
 	}
