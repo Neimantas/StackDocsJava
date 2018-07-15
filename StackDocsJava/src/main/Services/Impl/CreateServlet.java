@@ -30,7 +30,21 @@ public class CreateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// renkam info dropdown language uzpildymui
+		request.setAttribute("languageMap", createLanguageMap());
+
+		request.getRequestDispatcher("create.jsp").forward(request, response);
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		List<String> list = createNewTopic(request);
+		
+		response.sendRedirect("/StackDocsJava/main?search=true&language=" + list.get(0) + "&topic=" + list.get(1));
+	}
+
+	private Map<Integer, String> createLanguageMap() {
 		TopicsFrontDTO languageDTO = _frontService.getTopicsByLanguageId(0, "");
 		Map<Integer, String> languageMap = new HashMap<>();
 		if (languageDTO.success) {
@@ -39,15 +53,10 @@ public class CreateServlet extends HttpServlet {
 				languageMap.put(t.languageId, t.languageTitle);
 			}
 		}
-
-		request.setAttribute("languageMap", languageMap);
-		request.getRequestDispatcher("create.jsp").forward(request, response);
+		return languageMap;
 	}
-
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
+	
+	private List<String> createNewTopic(HttpServletRequest request) {
 		List<String> list = new ArrayList<String>();
 
 		list.add(request.getParameter("language"));
@@ -58,8 +67,7 @@ public class CreateServlet extends HttpServlet {
 		list.add(request.getParameter("remarks"));
 
 		CreateTableDTO dto = _frontService.createTopic(list);
-		System.out.println(dto.message);
-		response.sendRedirect("/StackDocsJava/main?search=true&language=" + list.get(0) + "&topic=" + list.get(1));
+		return list;
 	}
 
 }

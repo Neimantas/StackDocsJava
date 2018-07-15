@@ -19,13 +19,7 @@ public class UpdateServlet extends HttpServlet {
 
 	private IFrontService _frontService;
 	private String _topicId;
-	private String _language;
-	private int _languageId;
-	private String _topic;
-	private String _introduction;
-	private String _syntax;
-	private String _parameters;
-	private String _remarks;
+	private Topic topic;
 
 	public UpdateServlet() {
 		_frontService = StartupContainer.easyDI.getInstance(FrontServiceImp.class);
@@ -33,37 +27,12 @@ public class UpdateServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		_topicId = request.getParameter("topic");
 
-		TopicsInfoFrontDTO dto = _frontService.getTopicInfoByTopicId(Integer.parseInt(_topicId));
+		getTopicInfo();
 
-		List<String> content = new ArrayList<String>();
-
-		if (dto.succcess) {
-
-			List<Topic> topics = dto.topicsInfo;
-			for (Topic t : topics) {
-				_languageId = t.languageId;
-				_language = t.languageTitle;
-				_topic = t.topicTitle;
-				_introduction = t.introductionHtml;
-				_syntax = t.syntaxHtml;
-				_parameters = t.parametersHtml;
-				_remarks = t.remarksHtml;
-			}
-
-		} else {
-			content.add(dto.message);
-		}
-
-		request.setAttribute("language", _language);
-		request.setAttribute("languageId", _languageId);
-		request.setAttribute("topicId", _topicId);
-		request.setAttribute("topic", _topic);
-		request.setAttribute("introduction", _introduction);
-		request.setAttribute("syntax", _syntax);
-		request.setAttribute("parameters", _parameters);
-		request.setAttribute("remarks", _remarks);
+		setRequestParams(request);
 
 		request.getRequestDispatcher("update.jsp").forward(request, response);
 	}
@@ -71,10 +40,17 @@ public class UpdateServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// surenkama info ir siunciama i update CRUD'a
+		postUpdateInfo(request);
+
+		request.setAttribute("topic", _topicId);
+
+		response.sendRedirect("/StackDocsJava/read?update=true");
+	}
+
+	private void postUpdateInfo(HttpServletRequest request) {
 		List<String> list = new ArrayList<String>();
 
-		list.add(_languageId + "");
+		list.add(Integer.toString(topic.languageId));
 		list.add(request.getParameter("topic"));
 		list.add(_topicId);
 		list.add(request.getParameter("introduction"));
@@ -83,9 +59,35 @@ public class UpdateServlet extends HttpServlet {
 		list.add(request.getParameter("remarks"));
 
 		_frontService.updateTopic(list);
+	}
 
-		request.setAttribute("topic", _topicId);
-		response.sendRedirect("/StackDocsJava/read?update=true");
+	private void getTopicInfo() {
+		TopicsInfoFrontDTO dto = _frontService.getTopicInfoByTopicId(Integer.parseInt(_topicId));
+		if (dto.succcess) {
+			List<Topic> topics = dto.topicsInfo;
+			for (Topic t : topics) {
+				topic = new Topic();
+
+				topic.languageId = t.languageId;
+				topic.languageTitle = t.languageTitle;
+				topic.topicTitle = t.topicTitle;
+				topic.introductionHtml = t.introductionHtml;
+				topic.syntaxHtml = t.syntaxHtml;
+				topic.parametersHtml = t.parametersHtml;
+				topic.remarksHtml = t.remarksHtml;
+			}
+		}
+	}
+
+	private void setRequestParams(HttpServletRequest request) {
+		request.setAttribute("language", topic.languageTitle);
+		request.setAttribute("languageId", topic.languageId);
+		request.setAttribute("topicId", _topicId);
+		request.setAttribute("topic", topic.topicTitle);
+		request.setAttribute("introduction", topic.introductionHtml);
+		request.setAttribute("syntax", topic.syntaxHtml);
+		request.setAttribute("parameters", topic.parametersHtml);
+		request.setAttribute("remarks", topic.remarksHtml);
 	}
 
 }
