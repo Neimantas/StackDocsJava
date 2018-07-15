@@ -17,23 +17,18 @@ public class CacheImpl implements ICache {
 
 	@Override
 	public void put(String key, Object data) {
-
 		_objects.put(key, data);
-		_expire.put(key, System.currentTimeMillis() + Settings.CACHE_DATA_DEFAULT_EXPIRE_TIME * 1000);
-
+		_expire.put(key, System.currentTimeMillis() + Settings.CACHE_DATA_DEFAULT_EXPIRE_TIME * Settings.ONE_SECOND);
 	}
 	
 											//time in seconds
 	public void put(String key, Object data, long timeExpires) {
-
 		_objects.put(key, data);
-		_expire.put(key, System.currentTimeMillis() + timeExpires * 1000);
-
+		_expire.put(key, System.currentTimeMillis() + timeExpires * Settings.ONE_SECOND);
 	}
 
 	@Override
 	public Object get(String key) {
-
 		if (!_objects.containsKey(key))
 			return null;
 
@@ -47,9 +42,6 @@ public class CacheImpl implements ICache {
 
 	@Override
 	public void remove(String key) {
-
 		_objects.remove(key);
-
 	}
-
 }
