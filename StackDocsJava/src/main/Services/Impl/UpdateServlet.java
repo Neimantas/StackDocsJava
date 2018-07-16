@@ -18,17 +18,17 @@ public class UpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private IFrontService _frontService;
-	private String _topicId;
-	private Topic topic;
+	private Topic _topic;
 
 	public UpdateServlet() {
 		_frontService = StartupContainer.easyDI.getInstance(FrontServiceImp.class);
+		_topic = new Topic();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		_topicId = request.getParameter("topic");
+		_topic.topicId = Integer.parseInt(request.getParameter("topic"));
 
 		getTopicInfo();
 
@@ -42,7 +42,7 @@ public class UpdateServlet extends HttpServlet {
 
 		postUpdateInfo(request);
 
-		request.setAttribute("topic", _topicId);
+		request.setAttribute("topic", _topic.topicId);
 
 		response.sendRedirect("/StackDocsJava/read?update=true");
 	}
@@ -50,9 +50,9 @@ public class UpdateServlet extends HttpServlet {
 	private void postUpdateInfo(HttpServletRequest request) {
 		List<String> list = new ArrayList<String>();
 
-		list.add(Integer.toString(topic.languageId));
+		list.add(Integer.toString(_topic.languageId));
 		list.add(request.getParameter("topic"));
-		list.add(_topicId);
+		list.add(Integer.toString(_topic.topicId));
 		list.add(request.getParameter("introduction"));
 		list.add(request.getParameter("syntax"));
 		list.add(request.getParameter("parameters"));
@@ -62,32 +62,24 @@ public class UpdateServlet extends HttpServlet {
 	}
 
 	private void getTopicInfo() {
-		TopicsInfoFrontDTO dto = _frontService.getTopicInfoByTopicId(Integer.parseInt(_topicId));
-		if (dto.succcess) {
-			List<Topic> topics = dto.topicsInfo;
-			for (Topic t : topics) {
-				topic = new Topic();
+		TopicsInfoFrontDTO dto = _frontService.getTopicInfoByTopicId(_topic.topicId);
+		if (dto.succcess && !dto.topicsInfo.isEmpty()) {
 
-				topic.languageId = t.languageId;
-				topic.languageTitle = t.languageTitle;
-				topic.topicTitle = t.topicTitle;
-				topic.introductionHtml = t.introductionHtml;
-				topic.syntaxHtml = t.syntaxHtml;
-				topic.parametersHtml = t.parametersHtml;
-				topic.remarksHtml = t.remarksHtml;
-			}
+			_topic = dto.topicsInfo.get(0);
+
+		} else {
+			_topic.topicTitle = dto.message;
 		}
 	}
 
 	private void setRequestParams(HttpServletRequest request) {
-		request.setAttribute("language", topic.languageTitle);
-		request.setAttribute("languageId", topic.languageId);
-		request.setAttribute("topicId", _topicId);
-		request.setAttribute("topic", topic.topicTitle);
-		request.setAttribute("introduction", topic.introductionHtml);
-		request.setAttribute("syntax", topic.syntaxHtml);
-		request.setAttribute("parameters", topic.parametersHtml);
-		request.setAttribute("remarks", topic.remarksHtml);
+		request.setAttribute("language", _topic.languageTitle);
+		request.setAttribute("languageId", _topic.languageId);
+		request.setAttribute("topicId", _topic.topicId);
+		request.setAttribute("topic", _topic.topicTitle);
+		request.setAttribute("introduction", _topic.introductionHtml);
+		request.setAttribute("syntax", _topic.syntaxHtml);
+		request.setAttribute("parameters", _topic.parametersHtml);
+		request.setAttribute("remarks", _topic.remarksHtml);
 	}
-
 }
