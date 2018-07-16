@@ -83,13 +83,15 @@ public class IndexServlet extends HttpServlet {
 				_pageNumber = 1;
 			}
 
-			_topicsFrontDTO = _frontService.getTopicsByLanguageId(_currentLanguageId, _topic);
+			_topicsFrontDTO = _currentLanguageId == 0 ? _frontService.getTopicsFromAllLanguage(_topic)
+					: _frontService.getTopicsByLanguageId(_currentLanguageId, _topic);
 		}
 	}
 
 	private void updateTopicListIfUpdateExecuted(IndexServletParameters inputParameters) {
 		if (inputParameters.udate != null) {
-			_topicsFrontDTO = _frontService.getTopicsByLanguageId(_currentLanguageId, _topic);
+			_topicsFrontDTO = _currentLanguageId == 0 ? _frontService.getTopicsFromAllLanguage(_topic)
+					: _frontService.getTopicsByLanguageId(_currentLanguageId, _topic);
 		}
 	}
 
@@ -97,7 +99,8 @@ public class IndexServlet extends HttpServlet {
 		if (inputParameters.remove != null) {
 			DeleteTableDTO deleteTableDTO = _frontService.deleteTopic(Integer.parseInt(inputParameters.remove));
 			System.out.println(deleteTableDTO.message);
-			_topicsFrontDTO = _frontService.getTopicsByLanguageId(_currentLanguageId, _topic);
+			_topicsFrontDTO = _currentLanguageId == 0 ? _frontService.getTopicsFromAllLanguage(_topic)
+					: _frontService.getTopicsByLanguageId(_currentLanguageId, _topic);
 		}
 	}
 

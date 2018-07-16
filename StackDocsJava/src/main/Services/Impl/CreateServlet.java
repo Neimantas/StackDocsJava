@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Configuration.StartupContainer;
+import Models.Business.Language;
 import Models.Business.Topic;
 import Models.DTO.CreateTableDTO;
+import Models.DTO.LanguageTagFrontDTO;
 import Models.DTO.TopicsFrontDTO;
 import Services.IFrontService;
 
@@ -45,12 +47,12 @@ public class CreateServlet extends HttpServlet {
 	}
 
 	private Map<Integer, String> createLanguageMap() {
-		TopicsFrontDTO languageDTO = _frontService.getTopicsByLanguageId(0, "");
 		Map<Integer, String> languageMap = new HashMap<>();
+		LanguageTagFrontDTO languageDTO = _frontService.getAllLanguageTag();
 		if (languageDTO.success) {
-			List<Topic> topics = languageDTO.topics;
-			for (Topic t : topics) {
-				languageMap.put(t.languageId, t.languageTitle);
+			List<Language> topics = languageDTO.languageTag;
+			for (Language t : topics) {
+				languageMap.put(t.id, t.title);
 			}
 		}
 		return languageMap;
