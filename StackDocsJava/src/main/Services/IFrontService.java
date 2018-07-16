@@ -12,9 +12,11 @@ import Models.DTO.UpdateTableDTO;
 
 public interface IFrontService {
 	TopicsFrontDTO getTopicsByLanguageId(int languageId, String topicWord);
+	TopicsFrontDTO getTopicsFromAllLanguage(String topicWord);
 	TopicsInfoFrontDTO getTopicInfoByTopicId(int topicId);
 	ExamplesFrontDTO getExamplesByID(int exmpleId);
 	LanguageTagFrontDTO getLanguageTagByLanguageId(int languageId);
+	LanguageTagFrontDTO getAllLanguageTag();
 	CreateTableDTO createTopic(List<String> params);
 	UpdateTableDTO updateTopic(List<String> params);
 	DeleteTableDTO deleteLanguage(int languageId);

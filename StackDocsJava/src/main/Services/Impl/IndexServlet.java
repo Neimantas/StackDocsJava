@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import Configuration.StartupContainer;
 import Models.Business.IndexServletParameters;
+import Models.Business.Language;
 import Models.Business.Topic;
 import Models.Const.Settings;
 import Models.DTO.DeleteTableDTO;
@@ -162,11 +163,11 @@ public class IndexServlet extends HttpServlet {
 
 	private Map<Integer, String> createLanguageMap() {
 		Map<Integer, String> languageMap = new HashMap<>();
-		TopicsFrontDTO languageDTO = _frontService.getTopicsByLanguageId(0, "");
+		LanguageTagFrontDTO languageDTO = _frontService.getAllLanguageTag();
 		if (languageDTO.success) {
-			List<Topic> topics = languageDTO.topics;
-			for (Topic t : topics) {
-				languageMap.put(t.languageId, t.languageTitle);
+			List<Language> topics = languageDTO.languageTag;
+			for (Language t : topics) {
+				languageMap.put(t.id, t.title);
 			}
 		}
 		return languageMap;
