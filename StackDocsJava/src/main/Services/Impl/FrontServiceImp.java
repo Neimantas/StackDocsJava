@@ -57,53 +57,50 @@ public class FrontServiceImp implements IFrontService {
 		return new TopicsInfoFrontDTO(false, tInfoDTO.message, null);
 	}
 
-	// ------------------------------------------------------------------------------------------------------------------------------------------
-	// ------------------------------------------------------------------------------------------------------------------------------------------
-
 	@Override
-	public TopicsFrontDTO getTopicsByLanguageId(int languageId, String topicWord) {
-
-		if (languageId == 0) {
-			TopicsDTO allTitleDTO = _higherService.getAllTopics();
-			String topicWord2 = topicWord.toLowerCase();
-			if (allTitleDTO.success) {
-				if (topicWord2 != "") {
-					List<Topic> topicsFront = new ArrayList<Topic>();
-					List<TopicsDAL> topicsListas = allTitleDTO.topics;
-					for (TopicsDAL topicDal : topicsListas) {
-						String textCheck = topicDal.title.toLowerCase();
-						if (textCheck.contains(topicWord2)) {
-							Topic topic = new Topic();
-							TopicsDALtoTopic topicTag = new TopicsDALtoTopic();
-							topicTag.topicsTagsDaltoTopicTags(topicDal, topic);
-							topicsFront.add(topic);
-						}
-					}
-					return new TopicsFrontDTO(true, "success", topicsFront);
-				} else {
-					List<Topic> topicsFront = new ArrayList<Topic>();
-					List<TopicsDAL> topicsListas = allTitleDTO.topics;
-					for (TopicsDAL topicDal : topicsListas) {
-						String textCheck = topicDal.title.toLowerCase();
+	public TopicsFrontDTO getTopicsFromAllLanguage(String topicWord) {
+		TopicsDTO allTitleDTO = _higherService.getAllTopics();
+		String topicWord2 = topicWord.toLowerCase();
+		if (allTitleDTO.success) {
+			if (topicWord2 != "") {
+				List<Topic> topicsFront = new ArrayList<Topic>();
+				List<TopicsDAL> topicsListas = allTitleDTO.topics;
+				for (TopicsDAL topicDal : topicsListas) {
+					String textCheck = topicDal.title.toLowerCase();
+					if (textCheck.contains(topicWord2)) {
 						Topic topic = new Topic();
 						TopicsDALtoTopic topicTag = new TopicsDALtoTopic();
 						topicTag.topicsTagsDaltoTopicTags(topicDal, topic);
-						LanguageTagDTO ldto = _higherService.getLanguageTagByLanguageId(topicDal.languageId);
-						// sito mebus >>>>>>>>>>>>>>>>>>>>>>>>
-						if (ldto.success) {
-							topic.languageTitle = ldto.languageTag.get(0).title;
-						}
-						// sito mebus >>>>>>>>>>>>>>>>>>>>>>>>
 						topicsFront.add(topic);
 					}
-					return new TopicsFrontDTO(true, "success", topicsFront);
 				}
-
+				return new TopicsFrontDTO(true, "success", topicsFront);
+			} else {
+				List<Topic> topicsFront = new ArrayList<Topic>();
+				List<TopicsDAL> topicsListas = allTitleDTO.topics;
+				for (TopicsDAL topicDal : topicsListas) {
+					String textCheck = topicDal.title.toLowerCase();
+					Topic topic = new Topic();
+					TopicsDALtoTopic topicTag = new TopicsDALtoTopic();
+					topicTag.topicsTagsDaltoTopicTags(topicDal, topic);
+					LanguageTagDTO ldto = _higherService.getLanguageTagByLanguageId(topicDal.languageId);
+					// sito mebus >>>>>>>>>>>>>>>>>>>>>>>>
+					if (ldto.success) {
+						topic.languageTitle = ldto.languageTag.get(0).title;
+					}
+					// sito mebus >>>>>>>>>>>>>>>>>>>>>>>>
+					topicsFront.add(topic);
+				}
+				return new TopicsFrontDTO(true, "success", topicsFront);
 			}
-			return new TopicsFrontDTO(false, _higherService.getAllTopics().message, null);
+
 		}
-		// ---------------------------------------------------------------------------------------------------------------
-		else {
+		return new TopicsFrontDTO(false, _higherService.getAllTopics().message, null);
+	}
+	@Override
+	public TopicsFrontDTO getTopicsByLanguageId(int languageId, String topicWord) {
+
+		
 			TopicsDTO tDTO = _higherService.getTopicsByLanguageId(languageId);
 			String topicWord2 = topicWord.toLowerCase();
 			if (tDTO.success) {
@@ -138,13 +135,9 @@ public class FrontServiceImp implements IFrontService {
 				}
 			}
 			return new TopicsFrontDTO(false, tDTO.message, null);
-		}
-
 	}
 
-	// ---------------------------------------------------------------------------------------------------------------------
-	// ---------------------------------------------------------------------------------------------------------------------
-
+	
 	@Override
 	public ExamplesFrontDTO getExamplesByID(int topicId) {
 		ExamplesDTO example = _higherService.getExamplesByTopicId(topicId);
@@ -162,12 +155,26 @@ public class FrontServiceImp implements IFrontService {
 
 		return new ExamplesFrontDTO(false, "Stringo Front Sevice exmaple dalis", null);
 	}
-	// ---------------------------------------------------------------------------------------------------------------------
-	// ---------------------------------------------------------------------------------------------------------------------
+	@Override
+	public LanguageTagFrontDTO getAllLanguageTag() {
+		LanguageTagDTO alllanguagedto = _higherService.getAllLanguages();
+		if (alllanguagedto.success) {
+			List<Language> languageTagFront = new ArrayList<Language>();
+			for (LanguageTagsDAL languageTagDto : alllanguagedto.languageTag) {
+				Language languageTag = new Language();
+				LanguageTagsDALtoLanguage mapll = new LanguageTagsDALtoLanguage();
+				mapll.languageDaltoLanguage(languageTagDto, languageTag);
+				languageTagFront.add(languageTag);
+			}
+			return new LanguageTagFrontDTO(true, "success", languageTagFront);
+		}
 
+		return new LanguageTagFrontDTO(false, "Stringo Front Sevice Language Tag dalis", null);
+	}
 	@Override
 	public LanguageTagFrontDTO getLanguageTagByLanguageId(int languageId) {
 		LanguageTagDTO ldto = _higherService.getLanguageTagByLanguageId(languageId);
+		
 		if (ldto.success) {
 			List<Language> languageTagFront = new ArrayList<Language>();
 			for (LanguageTagsDAL languageTagDto : ldto.languageTag) {
@@ -182,8 +189,6 @@ public class FrontServiceImp implements IFrontService {
 		return new LanguageTagFrontDTO(false, "Stringo Front Sevice Language Tag dalis", null);
 	}
 
-	// -------------------------------------------------------------------------------------------------------
-	// ------------------------------Delete-----------------------------------------------------------
 	@Override
 	public DeleteTableDTO deleteLanguage(int languageid) {
 
@@ -200,8 +205,7 @@ public class FrontServiceImp implements IFrontService {
 		return _higherService.delete(getTopicInfoByTopicId(topicID).topicsInfo.get(0));
 	}
 
-	// -------------------------------------------------------------------------------------------------------
-	// ------------------------------Create-----------------------------------------------------------
+
 	@Override
 	public CreateTableDTO createTopic(List<String> params) {
 		Topic ret = new Topic();
@@ -216,8 +220,7 @@ public class FrontServiceImp implements IFrontService {
 		return _higherService.create(ret);
 	}
 
-	// -------------------------------------------------------------------------------------------------------
-	// ------------------------------Update-----------------------------------------------------------
+
 	@Override
 	public UpdateTableDTO updateTopic(List<String> params) {
 		Topic ret = new Topic();
@@ -232,5 +235,9 @@ public class FrontServiceImp implements IFrontService {
 
 		return _higherService.update(ret);
 	}
+
+	
+
+	
 
 }
