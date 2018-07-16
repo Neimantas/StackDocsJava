@@ -46,7 +46,7 @@ public class IndexServlet extends HttpServlet {
 
 		setPageNumberIfPageButtonClicked(inputParameters);
 
-		setRequestParams(request);
+		setRequestParameters(request);
 
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 
@@ -106,7 +106,7 @@ public class IndexServlet extends HttpServlet {
 		}
 	}
 
-	private void setRequestParams(HttpServletRequest request) {
+	private void setRequestParameters(HttpServletRequest request) {
 		request.setAttribute("topic", _topic);
 		request.setAttribute("languageId", _currentLanguageId);
 		request.setAttribute("pageNumber", _pageNumber);

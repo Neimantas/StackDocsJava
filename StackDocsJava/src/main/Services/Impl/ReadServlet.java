@@ -22,55 +22,89 @@ public class ReadServlet extends HttpServlet {
 	private IFrontService _frontService;
 	private TopicsInfoFrontDTO _topicsInfoFrontDTO;
 	private ExamplesFrontDTO _examplesFrontDTO;
-	private String _topicId;
-	private String _topic;
-	private String _introduction;
-	private String _syntax;
-	private String _parameters;
-	private String _remarks;
+	private Topic _topic;
 	private String _update;
+	private String _open;
 
 	public ReadServlet() {
 		_frontService = StartupContainer.easyDI.getInstance(FrontServiceImp.class);
+		_topic = new Topic();
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String open = request.getParameter("open");
-		_update = request.getParameter("update");
 
+		getRequestParameters(request);
+
+		getTopicInfoIfUpdateExecuted();
+
+		getTopicInfoOnOpen(request);
+
+		getExampleInfoOnOpen();
+
+		updateTopicObject();
+
+		setRequestParameters(request);
+
+		request.getRequestDispatcher("read.jsp").forward(request, response);
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		if (_update != null) {
-			_topicsInfoFrontDTO = _frontService.getTopicInfoByTopicId(Integer.parseInt(_topicId));
+			response.sendRedirect("/StackDocsJava/main?update=true");
+		} else {
+			response.sendRedirect("/StackDocsJava/main?back=true");
 		}
+	}
 
-		if (open != null) {
-			_topicId = request.getParameter("topic");
-			_topicsInfoFrontDTO = _frontService.getTopicInfoByTopicId(Integer.parseInt(_topicId));
+	private void getRequestParameters(HttpServletRequest request) {
+		_open = request.getParameter("open");
+		_update = request.getParameter("update");
+	}
+
+	private void getTopicInfoIfUpdateExecuted() {
+		if (_update != null) {
+			_topicsInfoFrontDTO = _frontService.getTopicInfoByTopicId(_topic.topicId);
 		}
+	}
 
-		List<String> content = new ArrayList<String>();
+	private void getTopicInfoOnOpen(HttpServletRequest request) {
+		if (_open != null) {
+			_topic.topicId = Integer.parseInt(request.getParameter("topic"));
+			_topicsInfoFrontDTO = _frontService.getTopicInfoByTopicId(_topic.topicId);
+		}
+	}
 
-		if (_topicsInfoFrontDTO.succcess) {
+	private void getExampleInfoOnOpen() {
+		if (_open != null) {
+			_examplesFrontDTO = _frontService.getExamplesByID(_topic.topicId);
+		}
+	}
 
-			List<Topic> topics = _topicsInfoFrontDTO.topicsInfo;
-			for (Topic t : topics) {
+	private void updateTopicObject() {
+		if (_topicsInfoFrontDTO.succcess && !_topicsInfoFrontDTO.topicsInfo.isEmpty()) {
 
-				_topic = t.topicTitle;
-				_introduction = t.introductionHtml;
-				_syntax = t.syntaxHtml;
-				_parameters = t.parametersHtml;
-				_remarks = t.remarksHtml;
-			}
+			_topic = _topicsInfoFrontDTO.topicsInfo.get(0);
 
 		} else {
-			content.add(_topicsInfoFrontDTO.message);
+			_topic.topicTitle = _topicsInfoFrontDTO.message;
 		}
+	}
 
-		if (open != null) {
-			_examplesFrontDTO = _frontService.getExamplesByID(Integer.parseInt(_topicId));
-		}
+	private void setRequestParameters(HttpServletRequest request) {
+		request.setAttribute("topic", _topic.topicTitle);
+		request.setAttribute("topicId", _topic.topicId);
+		request.setAttribute("introduction", _topic.introductionHtml);
+		request.setAttribute("syntax", _topic.syntaxHtml);
+		request.setAttribute("parameters", _topic.parametersHtml);
+		request.setAttribute("remarks", _topic.remarksHtml);
+		request.setAttribute("example", createExampleInfoList());
+	}
 
+	private List<String> createExampleInfoList() {
 		List<String> contExamples = new ArrayList<String>();
 
 		if (_examplesFrontDTO.success) {
@@ -85,26 +119,7 @@ public class ReadServlet extends HttpServlet {
 		} else {
 			contExamples.add(_examplesFrontDTO.message);
 		}
-
-		request.setAttribute("topicId", _topicId);
-		request.setAttribute("topic", _topic);
-		request.setAttribute("introduction", _introduction);
-		request.setAttribute("syntax", _syntax);
-		request.setAttribute("parameters", _parameters);
-		request.setAttribute("remarks", _remarks);
-		request.setAttribute("example", contExamples);
-
-		request.getRequestDispatcher("read.jsp").forward(request, response);
-	}
-
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		if (_update != null) {
-			response.sendRedirect("/StackDocsJava/main?update=true");
-		} else {
-			response.sendRedirect("/StackDocsJava/main?back=true");
-		}
+		return contExamples;
 	}
 
 }
